@@ -5,7 +5,8 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Breadcrumb, Button, Layout, Menu, theme } from "antd";
+import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { Routes, Route } from "react-router-dom";
 import AntdContentsTable from "./AntdContentsTable";
 
 const { Header, Content, Sider } = Layout;
@@ -37,7 +38,7 @@ const items2: MenuProps["items"] = [
   };
 });
 
-const App: React.FC = () => {
+const CloudMain: React.FC = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -81,11 +82,15 @@ const App: React.FC = () => {
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
             }}
-          ></Content>
+          >
+            <Routes>
+              <Route path="/tree" element={<AntdContentsTable />}></Route>
+            </Routes>
+          </Content>
         </Layout>
       </Layout>
     </Layout>
   );
 };
 
-export default App;
+export default CloudMain;

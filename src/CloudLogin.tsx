@@ -1,6 +1,8 @@
 import React from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import type { FormProps } from "antd";
 import { Row, Col, Form, Input, Button, Card, Checkbox } from "antd";
+import { useNavigate } from "react-router-dom";
 
 type FieldType = {
   username?: string;
@@ -9,12 +11,30 @@ type FieldType = {
 };
 
 const CloudLogin: React.FC = () => {
+  const navigate = useNavigate();
+
+  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
+    console.log("Success: ", values);
+    navigate(`/dashboard`);
+  };
+
+  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
+    errorInfo
+  ) => {
+    console.log("Failed:", errorInfo);
+  };
+
   return (
     <>
       <Row justify="center" align="middle" style={{ minHeight: "100vh" }}>
         <Col span={6}>
           <Card title="LOGIN" bordered={true}>
-            <Form name="login" layout="vertical">
+            <Form
+              name="login"
+              layout="vertical"
+              onFinish={onFinish}
+              onFinishFailed={onFinishFailed}
+            >
               <Form.Item<FieldType>
                 name="username"
                 rules={[

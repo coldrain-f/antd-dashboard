@@ -114,7 +114,7 @@ const rowSelection: TableRowSelection<DataType> = {
   },
 };
 
-const App: React.FC = () => {
+const AntdContentsTable: React.FC = () => {
   const [checkStrictly, setCheckStrictly] = useState(false);
 
   return (
@@ -132,4 +132,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default AntdContentsTable;
