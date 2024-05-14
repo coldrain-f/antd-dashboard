@@ -1,29 +1,29 @@
 import React from "react";
-import {
-  LaptopOutlined,
-  NotificationOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import type { MenuProps } from "antd";
-import { Layout, theme } from "antd";
-import CloudLogin from "./CloudLogin";
+import { ConfigProvider } from "antd";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import CloudMain from "./CloudMain";
-
-const { Header, Content, Sider } = Layout;
+import CloudLogin from "./CloudLogin";
+import CloudSignUp from "./CloudSignUp";
 
 const App: React.FC = () => {
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
-
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<CloudLogin />}></Route>
-        <Route path="/dashboard/*" element={<CloudMain />}></Route>
-      </Routes>
-    </BrowserRouter>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: "#00B96B",
+          fontFamily: "Noto Sans KR",
+        },
+        // algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
+      }}
+    >
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<CloudLogin />}></Route>
+          <Route path="/join" element={<CloudSignUp />}></Route>
+          <Route path="/dashboard/*" element={<CloudMain />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </ConfigProvider>
   );
 };
 
