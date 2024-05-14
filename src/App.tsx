@@ -12,6 +12,7 @@ const App: React.FC = () => {
         token: {
           colorPrimary: "#00B96B",
           fontFamily: "Noto Sans KR",
+          fontSize: 14, // default
         },
         // algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
       }}

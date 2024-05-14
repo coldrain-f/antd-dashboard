@@ -37,9 +37,15 @@ const CloudLogin: React.FC = () => {
 
   return (
     <>
-      <Row justify="center" align="middle" style={{ minHeight: "100vh" }}>
+      <Row
+        justify="center"
+        align="middle"
+        style={{
+          minHeight: "100vh",
+        }}
+      >
         <Col span={6}>
-          <Card title="LOGIN" bordered={true}>
+          <Card title="로그인" bordered={true}>
             <Form
               name="login"
               layout="vertical"
@@ -50,12 +56,12 @@ const CloudLogin: React.FC = () => {
             >
               <Form.Item<FieldType>
                 name="username"
-                rules={[{ required: true, message: "아이디를 입력해 주세요!" }]}
+                rules={[
+                  { required: true, message: "아이디를 입력해 주세요!" },
+                  { type: "email", message: "올바른 이메일 형식이 아닙니다!" },
+                ]}
               >
-                <Input
-                  prefix={<UserOutlined className="site-form-item-icon" />}
-                  placeholder="아이디"
-                />
+                <Input prefix={<UserOutlined />} placeholder="아이디(Email)" />
               </Form.Item>
               <Form.Item<FieldType>
                 name="password"
@@ -64,7 +70,7 @@ const CloudLogin: React.FC = () => {
                 ]}
               >
                 <Input
-                  prefix={<LockOutlined className="site-form-item-icon" />}
+                  prefix={<LockOutlined />}
                   type="password"
                   placeholder="비밀번호"
                 />
