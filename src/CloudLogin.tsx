@@ -10,6 +10,7 @@ import {
   Card,
   Checkbox,
   Typography,
+  Divider,
 } from "antd";
 import { useNavigate } from "react-router-dom";
 
@@ -23,6 +24,8 @@ const { Link } = Typography;
 
 const CloudLogin: React.FC = () => {
   const navigate = useNavigate();
+
+  const [passwordVisible, setPasswordVisible] = React.useState(false);
 
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
     console.log("Success: ", values);
@@ -57,21 +60,22 @@ const CloudLogin: React.FC = () => {
               <Form.Item<FieldType>
                 name="username"
                 rules={[
-                  { required: true, message: "아이디를 입력해 주세요!" },
-                  { type: "email", message: "올바른 이메일 형식이 아닙니다!" },
+                  { required: true, message: "아이디를 입력해 주세요." },
+                  { type: "email", message: "올바른 이메일 형식이 아닙니다." },
                 ]}
+                hasFeedback
               >
                 <Input prefix={<UserOutlined />} placeholder="아이디(Email)" />
               </Form.Item>
               <Form.Item<FieldType>
                 name="password"
                 rules={[
-                  { required: true, message: "비밀번호를 입력해 주세요!" },
+                  { required: true, message: "비밀번호를 입력해 주세요." },
                 ]}
+                hasFeedback
               >
-                <Input
+                <Input.Password
                   prefix={<LockOutlined />}
-                  type="password"
                   placeholder="비밀번호"
                 />
               </Form.Item>
@@ -85,11 +89,20 @@ const CloudLogin: React.FC = () => {
                   로그인
                 </Button>
               </Form.Item>
-
-              <Form.Item>
-                <Link href="/join">회원가입</Link>
-              </Form.Item>
             </Form>
+            <Row justify="start">
+              <Col>
+                <Link href="/">아이디 찾기</Link>
+                <Divider type="vertical" />
+              </Col>
+              <Col>
+                <Link href="/">비밀번호 찾기</Link>
+                <Divider type="vertical" />
+              </Col>
+              <Col>
+                <Link href="/join">회원가입</Link>
+              </Col>
+            </Row>
           </Card>
         </Col>
       </Row>
