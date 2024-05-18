@@ -5,16 +5,16 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { Breadcrumb, Input, Layout, Menu, Tabs, theme } from "antd";
 import { Routes, Route } from "react-router-dom";
 import AntdContentsTable from "./AntdContentsTable";
 
 const { Header, Content, Sider } = Layout;
 
-const items1: MenuProps["items"] = ["1", "2", "3"].map((key) => ({
-  key,
-  label: `nav ${key}`,
-}));
+const items1: MenuProps["items"] = [
+  { key: 1, label: "Home" },
+  { key: 2, label: "Dashboard" },
+];
 
 const items2: MenuProps["items"] = [
   UserOutlined,
@@ -37,6 +37,11 @@ const items2: MenuProps["items"] = [
     }),
   };
 });
+
+const tabItems = [
+  { label: "Tab 1", key: "1", children: <AntdContentsTable /> },
+  { label: "Tab 2", key: "2", children: "Hello world! - 2" },
+];
 
 const CloudMain: React.FC = () => {
   const {
@@ -83,6 +88,8 @@ const CloudMain: React.FC = () => {
               borderRadius: borderRadiusLG,
             }}
           >
+            {/* hideAdd */}
+            <Tabs type="editable-card" items={tabItems} accessKey="1"></Tabs>
             <Routes>
               <Route path="/tree" element={<AntdContentsTable />}></Route>
             </Routes>
