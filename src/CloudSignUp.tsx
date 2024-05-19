@@ -6,7 +6,17 @@ import {
   FieldNumberOutlined,
   NumberOutlined,
 } from "@ant-design/icons";
-import { Button, Row, Col, Card, Form, Input, Typography, Space } from "antd";
+import {
+  Button,
+  Row,
+  Col,
+  Card,
+  Form,
+  Input,
+  Typography,
+  Space,
+  Divider,
+} from "antd";
 
 type FieldType = {
   username?: string;
@@ -99,11 +109,9 @@ const CloudSignUp: React.FC = () => {
                 </Button>
               </Form.Item>
             </Form>
-            <Row justify="start">
-              <Col>
-                <Link href="/">돌아가기</Link>
-              </Col>
-            </Row>
+            <Space split={<Divider type="vertical" />}>
+              <Link href="/">돌아가기</Link>
+            </Space>
           </Card>
         </Col>
       </Row>

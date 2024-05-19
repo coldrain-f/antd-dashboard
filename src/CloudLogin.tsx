@@ -11,6 +11,7 @@ import {
   Checkbox,
   Typography,
   Divider,
+  Space,
 } from "antd";
 import { useNavigate } from "react-router-dom";
 
@@ -24,8 +25,6 @@ const { Link } = Typography;
 
 const CloudLogin: React.FC = () => {
   const navigate = useNavigate();
-
-  const [passwordVisible, setPasswordVisible] = React.useState(false);
 
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
     console.log("Success: ", values);
@@ -55,7 +54,11 @@ const CloudLogin: React.FC = () => {
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
               autoComplete="off"
-              initialValues={{ remember: false }}
+              initialValues={{
+                remember: true,
+                username: "admin@gmail.com",
+                password: "admin@gmail.com",
+              }}
             >
               <Form.Item<FieldType>
                 name="username"
@@ -90,19 +93,11 @@ const CloudLogin: React.FC = () => {
                 </Button>
               </Form.Item>
             </Form>
-            <Row justify="start">
-              <Col>
-                <Link href="/">아이디 찾기</Link>
-                <Divider type="vertical" />
-              </Col>
-              <Col>
-                <Link href="/">비밀번호 찾기</Link>
-                <Divider type="vertical" />
-              </Col>
-              <Col>
-                <Link href="/join">회원가입</Link>
-              </Col>
-            </Row>
+            <Space split={<Divider type="vertical" />}>
+              <Link href="/">아이디 찾기</Link>
+              <Link href="/">비밀번호 찾기</Link>
+              <Link href="/join">회원가입</Link>
+            </Space>
           </Card>
         </Col>
       </Row>

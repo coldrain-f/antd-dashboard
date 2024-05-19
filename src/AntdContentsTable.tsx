@@ -119,10 +119,7 @@ const AntdContentsTable: React.FC = () => {
 
   return (
     <>
-      <Space align="center" style={{ marginBottom: 16 }}>
-        CheckStrictly:{" "}
-        <Switch checked={checkStrictly} onChange={setCheckStrictly} />
-      </Space>
+      <Space align="center" style={{ marginBottom: 16 }}></Space>
       <Table
         columns={columns}
         rowSelection={{ ...rowSelection, checkStrictly }}

@@ -1,13 +1,31 @@
 import React from "react";
 import {
+  BellOutlined,
   LaptopOutlined,
+  MoonOutlined,
   NotificationOutlined,
+  SearchOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Breadcrumb, Input, Layout, Menu, Tabs, theme } from "antd";
+import {
+  Avatar,
+  Badge,
+  Breadcrumb,
+  Button,
+  Col,
+  Input,
+  Layout,
+  Menu,
+  Popover,
+  Row,
+  Space,
+  Tabs,
+  theme,
+} from "antd";
 import { Routes, Route } from "react-router-dom";
 import AntdContentsTable from "./AntdContentsTable";
+import CloudLogin from "./CloudLogin";
 
 const { Header, Content, Sider } = Layout;
 
@@ -50,15 +68,51 @@ const CloudMain: React.FC = () => {
 
   return (
     <Layout>
-      <Header style={{ display: "flex", alignItems: "center" }}>
+      <Header>
         <div className="demo-logo" />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={["2"]}
-          items={items1}
-          style={{ flex: 1, minWidth: 0 }}
-        />
+        <Row>
+          <Col span={22}>
+            <Menu
+              theme="dark"
+              mode="horizontal"
+              defaultSelectedKeys={["2"]}
+              items={items1}
+              style={{ flex: 1, minWidth: 0 }}
+            />
+          </Col>
+          <Col
+            span={2}
+            style={{
+              display: "flex",
+              justifyContent: "end",
+              alignItems: "center",
+            }}
+          >
+            <Space>
+              <a href="#">
+                <Avatar icon={<MoonOutlined />} />
+              </a>
+              <a>
+                <Avatar icon={<BellOutlined />} />
+              </a>
+              <Popover
+                placement="bottomRight"
+                title={"Profile"}
+                content={"Content"}
+                trigger={"click"}
+              >
+                <Avatar
+                  style={{
+                    backgroundColor: "#87d068",
+                    cursor: "pointer",
+                    marginLeft: "12px",
+                  }}
+                  icon={<UserOutlined />}
+                />
+              </Popover>
+            </Space>
+          </Col>
+        </Row>
       </Header>
       <Layout>
         <Sider width={200} style={{ background: colorBgContainer }}>
