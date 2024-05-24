@@ -4,28 +4,22 @@ import {
   LaptopOutlined,
   MoonOutlined,
   NotificationOutlined,
-  SearchOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import {
   Avatar,
-  Badge,
   Breadcrumb,
-  Button,
   Col,
-  Input,
   Layout,
   Menu,
   Popover,
   Row,
   Space,
-  Tabs,
   theme,
 } from "antd";
-import { Routes, Route } from "react-router-dom";
-import AntdContentsTable from "./AntdContentsTable";
-import CloudLogin from "./CloudLogin";
+
+import CloudTabs from "./CloudTabs";
 
 const { Header, Content, Sider } = Layout;
 
@@ -55,11 +49,6 @@ const items2: MenuProps["items"] = [
     }),
   };
 });
-
-const tabItems = [
-  { label: "Tab 1", key: "1", children: <AntdContentsTable /> },
-  { label: "Tab 2", key: "2", children: "Hello world! - 2" },
-];
 
 const CloudMain: React.FC = () => {
   const {
@@ -142,11 +131,7 @@ const CloudMain: React.FC = () => {
               borderRadius: borderRadiusLG,
             }}
           >
-            {/* hideAdd */}
-            <Tabs type="editable-card" items={tabItems} accessKey="1"></Tabs>
-            <Routes>
-              <Route path="/tree" element={<AntdContentsTable />}></Route>
-            </Routes>
+            <CloudTabs />
           </Content>
         </Layout>
       </Layout>

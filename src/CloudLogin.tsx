@@ -56,8 +56,6 @@ const CloudLogin: React.FC = () => {
               autoComplete="off"
               initialValues={{
                 remember: true,
-                username: "admin@gmail.com",
-                password: "admin@gmail.com",
               }}
             >
               <Form.Item<FieldType>
