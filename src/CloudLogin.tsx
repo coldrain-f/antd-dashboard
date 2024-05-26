@@ -13,15 +13,13 @@ import {
   Divider,
   Space,
 } from "antd";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type FieldType = {
   username?: string;
   password?: string;
   remember?: string;
 };
-
-const { Link } = Typography;
 
 const CloudLogin: React.FC = () => {
   const navigate = useNavigate();
@@ -92,9 +90,9 @@ const CloudLogin: React.FC = () => {
               </Form.Item>
             </Form>
             <Space split={<Divider type="vertical" />}>
-              <Link href="/">아이디 찾기</Link>
-              <Link href="/">비밀번호 찾기</Link>
-              <Link href="/join">회원가입</Link>
+              <Link to="/">아이디 찾기</Link>
+              <Link to="/">비밀번호 찾기</Link>
+              <Link to="/join">회원가입</Link>
             </Space>
           </Card>
         </Col>
