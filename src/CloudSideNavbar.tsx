@@ -2,21 +2,21 @@ import React from "react";
 import { Menu, MenuProps } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
-const items: MenuProps["items"] = [
-  {
-    key: "USER_ADMIN_001",
-    icon: React.createElement(UserOutlined),
-    label: "사용자 관리",
-    children: [
-      {
-        key: "USER_ADMIN_001_1",
-        label: "사용자 관리",
-      },
-    ],
-  },
-];
-
 const CloudSideNavbar: React.FC = () => {
+  const items: MenuProps["items"] = [
+    {
+      key: "USER_ADMIN_001",
+      icon: React.createElement(UserOutlined),
+      label: "회원 관리",
+      children: [
+        {
+          key: "USER_ADMIN_001_1",
+          label: "회원 관리",
+        },
+      ],
+    },
+  ];
+
   return (
     <Menu
       mode="inline"

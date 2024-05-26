@@ -1,6 +1,56 @@
-import { BellOutlined, MoonOutlined, UserOutlined } from "@ant-design/icons";
-import { Avatar, Col, Menu, MenuProps, Popover, Row, Space } from "antd";
+import {
+  BellOutlined,
+  DashboardOutlined,
+  LoginOutlined,
+  MoonOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import {
+  Avatar,
+  Button,
+  Col,
+  Divider,
+  Menu,
+  MenuProps,
+  Popover,
+  Row,
+  Space,
+} from "antd";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
+const CloudProfileContent: React.FC = () => {
+  const navigate = useNavigate();
+
+  const onLogout = () => {
+    navigate("/");
+  };
+
+  return (
+    <>
+      <Button
+        block
+        type="text"
+        style={{ textAlign: "start" }}
+        icon={<UserOutlined />}
+      >
+        내 정보
+      </Button>
+      <Button
+        block
+        type="text"
+        style={{ textAlign: "start" }}
+        icon={<DashboardOutlined />}
+      >
+        대시보드
+      </Button>
+      <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+      <Button block icon={<LoginOutlined />} onClick={onLogout}>
+        로그아웃
+      </Button>
+    </>
+  );
+};
 
 const CloudNavbar: React.FC = () => {
   const items: MenuProps["items"] = [
@@ -36,9 +86,10 @@ const CloudNavbar: React.FC = () => {
           </a>
           <Popover
             placement="bottomRight"
-            title={"Profile"}
-            content={"Content"}
+            title={"프로필"}
+            content={<CloudProfileContent />}
             trigger={"click"}
+            overlayStyle={{ width: "12vw" }}
           >
             <Avatar
               style={{

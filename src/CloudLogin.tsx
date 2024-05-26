@@ -55,7 +55,7 @@ const CloudLogin: React.FC = () => {
               onFinishFailed={onFinishFailed}
               autoComplete="off"
               initialValues={{
-                remember: true,
+                remember: false,
               }}
             >
               <Form.Item<FieldType>

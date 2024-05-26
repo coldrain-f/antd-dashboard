@@ -33,8 +33,8 @@ const CloudMain: React.FC = () => {
         <Layout style={{ padding: "0 24px 24px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>Admin</Breadcrumb.Item>
-            <Breadcrumb.Item>사용자 관리</Breadcrumb.Item>
-            <Breadcrumb.Item>Tab 1</Breadcrumb.Item>
+            <Breadcrumb.Item>회원 관리</Breadcrumb.Item>
+            <Breadcrumb.Item>회원 관리</Breadcrumb.Item>
           </Breadcrumb>
           <Content
             style={{

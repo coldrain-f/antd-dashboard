@@ -38,8 +38,8 @@ const DraggableTabNode = ({ className, ...props }: DraggableTabPaneProps) => {
 
 const CloudTabs: React.FC = () => {
   const [tabItems, setTabItems] = useState([
-    { label: "Tab 1", key: "1", children: <AntdContentsTable /> },
-    { label: "Tab 2", key: "2", children: "Hello world! - 2" },
+    { label: "사용자 관리", key: "1", children: <AntdContentsTable /> },
+    { label: "Tab 1", key: "2", children: "Hello world!" },
   ]);
 
   const sensor = useSensor(PointerSensor, {

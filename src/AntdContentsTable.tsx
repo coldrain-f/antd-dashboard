@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Space, Switch, Table } from "antd";
+import { Button, Card, Form, Input, Space, Table, Typography } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
+import { ClearOutlined, SearchOutlined } from "@ant-design/icons";
 
 type TableRowSelection<T> = TableProps<T>["rowSelection"];
 
@@ -14,18 +15,18 @@ interface DataType {
 
 const columns: TableColumnsType<DataType> = [
   {
-    title: "Name",
+    title: "이름",
     dataIndex: "name",
     key: "name",
   },
   {
-    title: "Age",
+    title: "나이",
     dataIndex: "age",
     key: "age",
     width: "12%",
   },
   {
-    title: "Address",
+    title: "주소",
     dataIndex: "address",
     width: "30%",
     key: "address",
@@ -114,12 +115,40 @@ const rowSelection: TableRowSelection<DataType> = {
   },
 };
 
+const { Title } = Typography;
+
 const AntdContentsTable: React.FC = () => {
   const [checkStrictly, setCheckStrictly] = useState(false);
 
   return (
     <>
-      <Space align="center" style={{ marginBottom: 16 }}></Space>
+      <Card
+        style={{ marginBottom: 20 }}
+        title="검색 조건"
+        extra={
+          <Space>
+            <Button type="primary" icon={<SearchOutlined />}>
+              검색
+            </Button>
+            <Button icon={<ClearOutlined />}>초기화</Button>
+          </Space>
+        }
+      >
+        <Form name="horizontal_login" layout="inline" autoComplete="off">
+          <Form.Item label="이름" name="name">
+            <Input />
+          </Form.Item>
+
+          <Form.Item label="나이" name="age">
+            <Input />
+          </Form.Item>
+
+          <Form.Item label="주소" name="address">
+            <Input />
+          </Form.Item>
+        </Form>
+      </Card>
+      <Title level={5}>데이터 목록</Title>
       <Table
         columns={columns}
         rowSelection={{ ...rowSelection, checkStrictly }}
