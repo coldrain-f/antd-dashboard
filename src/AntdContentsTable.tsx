@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { Button, Card, Form, Input, Space, Table, Typography } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
-import { ClearOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  ClearOutlined,
+  DatabaseOutlined,
+  FileSearchOutlined,
+  InfoOutlined,
+  SearchOutlined,
+  TabletOutlined,
+  UnorderedListOutlined,
+} from "@ant-design/icons";
 
 type TableRowSelection<T> = TableProps<T>["rowSelection"];
 
@@ -124,7 +132,14 @@ const AntdContentsTable: React.FC = () => {
     <>
       <Card
         style={{ marginBottom: 20 }}
-        title="검색 조건"
+        title={
+          <>
+            <Space>
+              <FileSearchOutlined />
+              {"검색 조건"}
+            </Space>
+          </>
+        }
         extra={
           <Space>
             <Button type="primary" icon={<SearchOutlined />}>
@@ -134,7 +149,12 @@ const AntdContentsTable: React.FC = () => {
           </Space>
         }
       >
-        <Form name="horizontal_login" layout="inline" autoComplete="off">
+        <Form
+          name="horizontal_login"
+          layout="inline"
+          autoComplete="off"
+          size="small"
+        >
           <Form.Item label="이름" name="name">
             <Input />
           </Form.Item>
@@ -148,7 +168,14 @@ const AntdContentsTable: React.FC = () => {
           </Form.Item>
         </Form>
       </Card>
-      <Title level={5}>데이터 목록</Title>
+
+      <Title level={5}>
+        <Space>
+          <UnorderedListOutlined />
+          {"데이터 목록"}
+        </Space>
+      </Title>
+
       <Table
         columns={columns}
         rowSelection={{ ...rowSelection, checkStrictly }}
