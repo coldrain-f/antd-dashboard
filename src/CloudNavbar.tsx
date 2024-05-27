@@ -3,6 +3,7 @@ import {
   DashboardOutlined,
   LoginOutlined,
   MoonOutlined,
+  SunOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import {
@@ -15,9 +16,12 @@ import {
   Popover,
   Row,
   Space,
+  theme,
 } from "antd";
-import React from "react";
 import { useNavigate } from "react-router-dom";
+
+import { antdRecoilState } from "./recoil/antdRecoilState";
+import { useRecoilState } from "recoil";
 
 const CloudProfileContent: React.FC = () => {
   const navigate = useNavigate();
@@ -58,6 +62,16 @@ const CloudNavbar: React.FC = () => {
     { key: 2, label: "Admin" },
   ];
 
+  const [antdState, setAntdState] = useRecoilState(antdRecoilState);
+
+  const toggleDarkMode = () => {
+    if (antdState.isDarkMode) {
+      setAntdState({ algorithm: [theme.defaultAlgorithm], isDarkMode: false });
+    } else {
+      setAntdState({ algorithm: [theme.darkAlgorithm], isDarkMode: true });
+    }
+  };
+
   return (
     <Row>
       <Col span={22}>
@@ -79,7 +93,10 @@ const CloudNavbar: React.FC = () => {
       >
         <Space>
           <a href="#">
-            <Avatar icon={<MoonOutlined />} />
+            <Avatar
+              icon={antdState.isDarkMode ? <SunOutlined /> : <MoonOutlined />}
+              onClick={toggleDarkMode}
+            />
           </a>
           <a>
             <Avatar icon={<BellOutlined />} />

@@ -5,7 +5,12 @@ import CloudMain from "./CloudMain";
 import CloudLogin from "./CloudLogin";
 import CloudSignUp from "./CloudSignUp";
 
+import { antdRecoilState } from "./recoil/antdRecoilState";
+import { useRecoilState } from "recoil";
+
 const App: React.FC = () => {
+  const [antdState] = useRecoilState(antdRecoilState);
+
   return (
     <ConfigProvider
       theme={{
@@ -14,7 +19,7 @@ const App: React.FC = () => {
           fontFamily: "Noto Sans KR",
           fontSize: 14, // default
         },
-        // algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
+        algorithm: antdState.algorithm,
       }}
     >
       <BrowserRouter>
