@@ -16,10 +16,12 @@ import {
   Divider,
   Menu,
   MenuProps,
+  NotificationArgsProps,
   Popover,
   Row,
   Space,
   Typography,
+  notification,
   theme,
 } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -61,6 +63,8 @@ const CloudProfileContent: React.FC = () => {
     </>
   );
 };
+
+type NotificationPlacement = NotificationArgsProps["placement"];
 
 const CloudNavbar: React.FC = () => {
   const items: MenuProps["items"] = [
@@ -106,60 +110,89 @@ const CloudNavbar: React.FC = () => {
     }
   };
 
+  const [api, contextHolder] = notification.useNotification();
+
+  const openNotification = (
+    placement: NotificationPlacement,
+    title: string,
+    content: string
+  ) => {
+    api.info({
+      message: title,
+      description: content,
+      placement,
+      duration: 2.5,
+    });
+  };
+
   return (
-    <Row>
-      <Col span={21}>
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={["2"]}
-          items={items}
-          style={{ flex: 1, minWidth: 0 }}
-        />
-      </Col>
-      <Col
-        span={3}
-        style={{
-          display: "flex",
-          justifyContent: "end",
-          alignItems: "center",
-        }}
-      >
-        <Space>
-          <a href="#">
-            <Avatar
-              icon={antdState.isDarkMode ? <SunOutlined /> : <MoonOutlined />}
-              onClick={toggleDarkMode}
-            />
-          </a>
-          <a href="#">
-            <Avatar icon={<CompressOutlined />} onClick={toggleCompactMode} />
-          </a>
-          <a href="#">
-            <Avatar icon={<SettingOutlined />} />
-          </a>
-          <a href="#">
-            <Avatar icon={<BellOutlined />} />
-          </a>
-          <Popover
-            placement="bottomRight"
-            title={"프로필"}
-            content={<CloudProfileContent />}
-            trigger={"click"}
-            overlayStyle={{ width: "12vw" }}
-          >
-            <Avatar
-              style={{
-                backgroundColor: "#87d068",
-                cursor: "pointer",
-                marginLeft: "12px",
-              }}
-              icon={<UserOutlined />}
-            />
-          </Popover>
-        </Space>
-      </Col>
-    </Row>
+    <>
+      {contextHolder}
+      <Row>
+        <Col span={21}>
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            defaultSelectedKeys={["2"]}
+            items={items}
+            style={{ flex: 1, minWidth: 0 }}
+          />
+        </Col>
+        <Col
+          span={3}
+          style={{
+            display: "flex",
+            justifyContent: "end",
+            alignItems: "center",
+          }}
+        >
+          <Space>
+            <a href="#">
+              <Avatar
+                icon={antdState.isDarkMode ? <SunOutlined /> : <MoonOutlined />}
+                onClick={toggleDarkMode}
+              />
+            </a>
+            <a href="#">
+              <Avatar icon={<CompressOutlined />} onClick={toggleCompactMode} />
+            </a>
+            <a href="#">
+              <Avatar
+                icon={<SettingOutlined />}
+                onClick={() =>
+                  openNotification("top", "정보", "개발중인 기능입니다.")
+                }
+              />
+            </a>
+            <a href="#">
+              <Avatar
+                icon={<BellOutlined />}
+                onClick={() =>
+                  openNotification("top", "정보", "개발중인 기능입니다.")
+                }
+              />
+            </a>
+            <Popover
+              placement="bottomRight"
+              title={"프로필"}
+              content={<CloudProfileContent />}
+              trigger={"click"}
+              overlayStyle={{ width: "12vw" }}
+            >
+              <Avatar
+                style={{
+                  backgroundColor: "#87d068",
+                  cursor: "pointer",
+                  marginLeft: "12px",
+                }}
+                src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png"
+                icon={<UserOutlined />}
+              />
+            </Popover>
+          </Space>
+        </Col>
+      </Row>
+    </>
   );
 };
 
