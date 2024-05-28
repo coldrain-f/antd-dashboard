@@ -1,8 +1,11 @@
 import {
   BellOutlined,
+  CompressOutlined,
   DashboardOutlined,
+  LinkOutlined,
   LoginOutlined,
   MoonOutlined,
+  SettingOutlined,
   SunOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -16,12 +19,15 @@ import {
   Popover,
   Row,
   Space,
+  Typography,
   theme,
 } from "antd";
 import { useNavigate } from "react-router-dom";
 
 import { antdRecoilState } from "./recoil/antdRecoilState";
 import { useRecoilState } from "recoil";
+
+const { Title } = Typography;
 
 const CloudProfileContent: React.FC = () => {
   const navigate = useNavigate();
@@ -66,15 +72,43 @@ const CloudNavbar: React.FC = () => {
 
   const toggleDarkMode = () => {
     if (antdState.isDarkMode) {
-      setAntdState({ algorithm: [theme.defaultAlgorithm], isDarkMode: false });
+      setAntdState((prevState) => ({
+        ...prevState,
+        algorithm: antdState.isCompactMode ? [theme.compactAlgorithm] : [],
+        isDarkMode: false,
+      }));
     } else {
-      setAntdState({ algorithm: [theme.darkAlgorithm], isDarkMode: true });
+      setAntdState((prevState) => ({
+        ...prevState,
+        algorithm: antdState.isCompactMode
+          ? [theme.compactAlgorithm, theme.darkAlgorithm]
+          : [theme.darkAlgorithm],
+        isDarkMode: true,
+      }));
+    }
+  };
+
+  const toggleCompactMode = () => {
+    if (antdState.isCompactMode) {
+      setAntdState((prevState) => ({
+        ...prevState,
+        algorithm: antdState.isDarkMode ? [theme.darkAlgorithm] : [],
+        isCompactMode: false,
+      }));
+    } else {
+      setAntdState((prevState) => ({
+        ...prevState,
+        algorithm: antdState.isDarkMode
+          ? [theme.darkAlgorithm, theme.compactAlgorithm]
+          : [theme.compactAlgorithm],
+        isCompactMode: true,
+      }));
     }
   };
 
   return (
     <Row>
-      <Col span={22}>
+      <Col span={21}>
         <Menu
           theme="dark"
           mode="horizontal"
@@ -84,7 +118,7 @@ const CloudNavbar: React.FC = () => {
         />
       </Col>
       <Col
-        span={2}
+        span={3}
         style={{
           display: "flex",
           justifyContent: "end",
@@ -98,7 +132,13 @@ const CloudNavbar: React.FC = () => {
               onClick={toggleDarkMode}
             />
           </a>
-          <a>
+          <a href="#">
+            <Avatar icon={<CompressOutlined />} onClick={toggleCompactMode} />
+          </a>
+          <a href="#">
+            <Avatar icon={<SettingOutlined />} />
+          </a>
+          <a href="#">
             <Avatar icon={<BellOutlined />} />
           </a>
           <Popover

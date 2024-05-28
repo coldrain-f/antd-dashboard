@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { Breadcrumb, Layout, theme } from "antd";
+import { Breadcrumb, FloatButton, Layout, theme } from "antd";
 
 import CloudTabs from "./CloudTabs";
 import CloudNavbar from "./CloudNavbar";
 import CloudSideNavbar from "./CloudSideNavbar";
+import {
+  CommentOutlined,
+  CustomerServiceOutlined,
+  MoreOutlined,
+  ToolOutlined,
+} from "@ant-design/icons";
 
 const { Header, Content, Sider } = Layout;
 
@@ -49,6 +55,18 @@ const CloudMain: React.FC = () => {
           </Content>
         </Layout>
       </Layout>
+      <FloatButton.Group
+        trigger="hover"
+        type="primary"
+        style={{ right: 42 }}
+        icon={<ToolOutlined />}
+      >
+        <FloatButton icon={<CommentOutlined />} tooltip={<div>채팅창</div>} />
+        <FloatButton.BackTop
+          visibilityHeight={0}
+          tooltip={<div>맨 위로</div>}
+        />
+      </FloatButton.Group>
     </Layout>
   );
 };
