@@ -2,9 +2,7 @@ import React from "react";
 import {
   LockOutlined,
   UserOutlined,
-  MailOutlined,
   FieldNumberOutlined,
-  NumberOutlined,
 } from "@ant-design/icons";
 import {
   Button,
@@ -13,10 +11,11 @@ import {
   Card,
   Form,
   Input,
-  Typography,
   Space,
   Divider,
+  Layout,
 } from "antd";
+import { Link } from "react-router-dom";
 
 type FieldType = {
   username?: string;
@@ -25,15 +24,15 @@ type FieldType = {
   email?: string;
 };
 
+const { Content } = Layout;
+
 // Todo: - 인증번호 전송 버튼 추가
 //       - 아이디 사용할 수 없는 아이디입니다.(중복체크 기능)
 //       - 인증번호 validation 체크
 
-const { Link } = Typography;
-
 const CloudSignUp: React.FC = () => {
   return (
-    <>
+    <Layout>
       <Row
         justify="center"
         align="middle"
@@ -110,12 +109,12 @@ const CloudSignUp: React.FC = () => {
               </Form.Item>
             </Form>
             <Space split={<Divider type="vertical" />}>
-              <Link href="/">돌아가기</Link>
+              <Link to="/">돌아가기</Link>
             </Space>
           </Card>
         </Col>
       </Row>
-    </>
+    </Layout>
   );
 };
 

@@ -11,6 +11,7 @@ import {
 } from "@ant-design/icons";
 import {
   Avatar,
+  Badge,
   Button,
   Col,
   Divider,
@@ -20,6 +21,7 @@ import {
   Popover,
   Row,
   Space,
+  Tooltip,
   Typography,
   notification,
   theme,
@@ -29,7 +31,7 @@ import { useNavigate } from "react-router-dom";
 import { antdRecoilState } from "./recoil/antdRecoilState";
 import { useRecoilState } from "recoil";
 
-const { Title } = Typography;
+const { Title, Link } = Typography;
 
 const CloudProfileContent: React.FC = () => {
   const navigate = useNavigate();
@@ -148,29 +150,51 @@ const CloudNavbar: React.FC = () => {
         >
           <Space>
             <a href="#">
-              <Avatar
-                icon={antdState.isDarkMode ? <SunOutlined /> : <MoonOutlined />}
-                onClick={toggleDarkMode}
-              />
+              <Tooltip
+                placement="bottom"
+                title={antdState.isDarkMode ? "라이트 모드" : "다크 모드"}
+                arrow
+              >
+                <Avatar
+                  icon={
+                    antdState.isDarkMode ? <SunOutlined /> : <MoonOutlined />
+                  }
+                  onClick={toggleDarkMode}
+                />
+              </Tooltip>
             </a>
             <a href="#">
-              <Avatar icon={<CompressOutlined />} onClick={toggleCompactMode} />
+              <Tooltip
+                placement="bottom"
+                title={antdState.isCompactMode ? "확대 모드" : "축소 모드"}
+                arrow
+              >
+                <Avatar
+                  icon={<CompressOutlined />}
+                  onClick={toggleCompactMode}
+                />
+              </Tooltip>
+            </a>
+
+            <a href="#">
+              <Tooltip placement="bottom" title={"설정"} arrow>
+                <Avatar
+                  icon={<SettingOutlined />}
+                  onClick={() =>
+                    openNotification("top", "정보", "개발중인 기능입니다.")
+                  }
+                />
+              </Tooltip>
             </a>
             <a href="#">
-              <Avatar
-                icon={<SettingOutlined />}
-                onClick={() =>
-                  openNotification("top", "정보", "개발중인 기능입니다.")
-                }
-              />
-            </a>
-            <a href="#">
-              <Avatar
-                icon={<BellOutlined />}
-                onClick={() =>
-                  openNotification("top", "정보", "개발중인 기능입니다.")
-                }
-              />
+              <Tooltip placement="bottom" title={"알림"} arrow>
+                <Avatar
+                  icon={<BellOutlined />}
+                  onClick={() =>
+                    openNotification("top", "정보", "개발중인 기능입니다.")
+                  }
+                />
+              </Tooltip>
             </a>
             <Popover
               placement="bottomRight"

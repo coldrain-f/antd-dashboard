@@ -1,15 +1,20 @@
 import React, { useState } from "react";
-import { Breadcrumb, FloatButton, Layout, theme } from "antd";
+import {
+  Breadcrumb,
+  Button,
+  Drawer,
+  FloatButton,
+  Layout,
+  Modal,
+  Space,
+  theme,
+} from "antd";
 
 import CloudTabs from "./CloudTabs";
 import CloudNavbar from "./CloudNavbar";
 import CloudSideNavbar from "./CloudSideNavbar";
-import {
-  CommentOutlined,
-  CustomerServiceOutlined,
-  MoreOutlined,
-  ToolOutlined,
-} from "@ant-design/icons";
+import { BookOutlined, CommentOutlined, LinkOutlined } from "@ant-design/icons";
+import Link from "antd/es/typography/Link";
 
 const { Header, Content, Sider } = Layout;
 
@@ -19,6 +24,15 @@ const CloudMain: React.FC = () => {
   } = theme.useToken();
 
   const [collapsed, setCollapsed] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Layout>
@@ -55,18 +69,36 @@ const CloudMain: React.FC = () => {
           </Content>
         </Layout>
       </Layout>
+
+      {/* Common */}
       <FloatButton.Group
-        trigger="hover"
+        trigger="click"
         type="primary"
         style={{ right: 42 }}
-        icon={<ToolOutlined />}
+        icon={<BookOutlined />}
       >
-        <FloatButton icon={<CommentOutlined />} tooltip={<div>채팅창</div>} />
+        <FloatButton
+          icon={<LinkOutlined />}
+          tooltip={<div>퀵 링크</div>}
+          onClick={showDrawer}
+        />
+        <FloatButton icon={<CommentOutlined />} tooltip={<div>채팅</div>} />
         <FloatButton.BackTop
           visibilityHeight={0}
           tooltip={<div>맨 위로</div>}
         />
       </FloatButton.Group>
+
+      <Drawer
+        title="퀵 링크"
+        onClose={onClose}
+        open={open}
+        extra={
+          <Space>
+            <Link>Edit</Link>
+          </Space>
+        }
+      ></Drawer>
     </Layout>
   );
 };
