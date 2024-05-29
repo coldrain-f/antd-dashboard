@@ -150,30 +150,13 @@ const CloudNavbar: React.FC = () => {
         >
           <Space>
             <a href="#">
-              <Tooltip
-                placement="bottom"
-                title={antdState.isDarkMode ? "라이트 모드" : "다크 모드"}
-                arrow
-              >
-                <Avatar
-                  icon={
-                    antdState.isDarkMode ? <SunOutlined /> : <MoonOutlined />
-                  }
-                  onClick={toggleDarkMode}
-                />
-              </Tooltip>
+              <Avatar
+                icon={antdState.isDarkMode ? <SunOutlined /> : <MoonOutlined />}
+                onClick={toggleDarkMode}
+              />
             </a>
             <a href="#">
-              <Tooltip
-                placement="bottom"
-                title={antdState.isCompactMode ? "확대 모드" : "축소 모드"}
-                arrow
-              >
-                <Avatar
-                  icon={<CompressOutlined />}
-                  onClick={toggleCompactMode}
-                />
-              </Tooltip>
+              <Avatar icon={<CompressOutlined />} onClick={toggleCompactMode} />
             </a>
 
             <a href="#">
