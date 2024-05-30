@@ -10,6 +10,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import AntdContentsTable from "./AntdContentsTable";
+import CloudExampleEditTable from "./CloudExampleEditTable";
 
 interface DraggableTabPaneProps extends React.HTMLAttributes<HTMLDivElement> {
   "data-node-key": string;
@@ -38,8 +39,12 @@ const DraggableTabNode = ({ className, ...props }: DraggableTabPaneProps) => {
 
 const CloudTabs: React.FC = () => {
   const [tabItems, setTabItems] = useState([
-    { label: "사용자 관리", key: "1", children: <AntdContentsTable /> },
-    { label: "Tab 1", key: "2", children: "Hello world!" },
+    {
+      label: "편집 테이블 샘플",
+      key: "1",
+      children: <CloudExampleEditTable />,
+    },
+    { label: "사용자 관리", key: "2", children: <AntdContentsTable /> },
   ]);
 
   const sensor = useSensor(PointerSensor, {
