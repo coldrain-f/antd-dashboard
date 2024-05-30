@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { SearchOutlined } from "@ant-design/icons";
+import { EditOutlined, SearchOutlined } from "@ant-design/icons";
 import type { InputRef, TableColumnsType, TableColumnType } from "antd";
 import { Button, Input, Space, Table } from "antd";
 import type { FilterDropdownProps } from "antd/es/table/interface";
@@ -85,7 +85,7 @@ const CloudExampleEditTable: React.FC = () => {
               setSearchedColumn(dataIndex);
             }}
           >
-            필터
+            적용
           </Button>
           <Button
             type="link"
@@ -127,19 +127,23 @@ const CloudExampleEditTable: React.FC = () => {
 
   const columns: TableColumnsType<DataType> = [
     {
-      title: "Full Name",
+      title: "#",
+      dataIndex: "key",
+      rowScope: "row",
+      fixed: "left",
+    },
+    {
+      title: "이름",
       width: 150,
       dataIndex: "name",
       key: "name",
-      fixed: "left",
       ...getColumnSearchProps("name"),
     },
     {
-      title: "Age",
+      title: "나이",
       width: 100,
       dataIndex: "age",
       key: "age",
-      fixed: "left",
       ...getColumnSearchProps("age"),
       sorter: (a, b) => a.age - b.age,
       sortDirections: ["descend", "ascend"],
@@ -199,7 +203,7 @@ const CloudExampleEditTable: React.FC = () => {
       key: "operation",
       fixed: "right",
       width: 100,
-      render: () => <a>action</a>,
+      render: () => <Button icon={<EditOutlined />}>편집</Button>,
     },
   ];
 
@@ -217,6 +221,9 @@ const CloudExampleEditTable: React.FC = () => {
     <Table
       columns={columns}
       dataSource={data}
+      rowSelection={{
+        type: "checkbox",
+      }}
       scroll={{ x: "max-content", y: 550 }}
     />
   );
