@@ -177,6 +177,7 @@ const AntdContentsTable: React.FC = () => {
       </Title>
 
       <Table
+        className=""
         columns={columns}
         rowSelection={{ ...rowSelection, checkStrictly }}
         dataSource={data}
