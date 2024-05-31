@@ -102,7 +102,7 @@ const CloudMain: React.FC = () => {
         <FloatButton.Group
           trigger="click"
           type="primary"
-          style={{ right: 42 }}
+          style={{ right: 40 }}
           icon={<BookOutlined />}
         >
           <FloatButton

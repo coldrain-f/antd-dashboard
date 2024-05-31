@@ -504,12 +504,13 @@ const CloudExampleEditTable: React.FC = () => {
 
   return (
     <Table
+      style={{ height: "62vh" }}
       columns={columns}
       dataSource={data}
       rowSelection={{
         type: "checkbox",
       }}
-      scroll={{ x: "max-content", y: 530 }}
+      scroll={{ x: "max-content", y: "calc(62vh - 50px)" }}
     />
   );
 };
