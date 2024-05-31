@@ -42,7 +42,11 @@ const CloudTabs: React.FC = () => {
     {
       label: "편집 테이블 샘플",
       key: "1",
-      children: <CloudExampleEditTable />,
+      children: (
+        <div style={{ height: "73vh" }}>
+          <CloudExampleEditTable />
+        </div>
+      ),
     },
     { label: "사용자 관리", key: "2", children: <AntdContentsTable /> },
   ]);
