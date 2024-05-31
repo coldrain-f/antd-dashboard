@@ -1,15 +1,41 @@
 import React, { useRef, useState } from "react";
 import {
+  AppstoreAddOutlined,
+  CheckOutlined,
+  DeleteColumnOutlined,
+  DeleteOutlined,
+  DeleteRowOutlined,
   EditOutlined,
-  FileSearchOutlined,
+  FieldNumberOutlined,
+  NumberOutlined,
+  PlusOutlined,
   SearchOutlined,
-  TableOutlined,
+  SettingOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
-import type { InputRef, TableColumnsType, TableColumnType } from "antd";
-import { Button, Card, Input, Space, Table } from "antd";
+import type {
+  DropdownProps,
+  InputRef,
+  MenuProps,
+  TableColumnsType,
+  TableColumnType,
+} from "antd";
+import {
+  Badge,
+  Button,
+  Card,
+  Col,
+  Divider,
+  Dropdown,
+  Input,
+  Row,
+  Space,
+  Table,
+  Typography,
+} from "antd";
 import type { FilterDropdownProps } from "antd/es/table/interface";
 import Highlighter from "react-highlight-words";
+import { SizeType } from "antd/es/config-provider/SizeContext";
 
 type DataIndex = keyof DataType;
 
@@ -33,6 +59,8 @@ interface DataType {
   status: string;
   total: number;
 }
+
+const { Title, Text } = Typography;
 
 const CloudExampleEditTable: React.FC = () => {
   const [searchText, setSearchText] = useState("");
@@ -257,7 +285,7 @@ const CloudExampleEditTable: React.FC = () => {
       title: "상태",
       dataIndex: "status",
       key: "7",
-      width: 100,
+      width: 120,
       fixed: "right",
       ...getColumnSearchProps("status"),
     },
@@ -502,16 +530,118 @@ const CloudExampleEditTable: React.FC = () => {
     },
   ];
 
+  const [open, setOpen] = useState(false);
+  const [bordered, setBordered] = useState(true);
+  const [size, setSize] = useState<SizeType>("middle");
+
+  const handleMenuClick: MenuProps["onClick"] = (e) => {
+    if (e.key === "1") {
+      if (bordered) {
+        setBordered(false);
+      } else {
+        setBordered(true);
+      }
+    } else if (e.key === "2") {
+      setSize("small");
+    } else if (e.key === "3") {
+      setSize("middle");
+    } else if (e.key === "4") {
+      setSize("large");
+    }
+  };
+
+  const handleOpenChange: DropdownProps["onOpenChange"] = (nextOpen, info) => {
+    if (info.source === "trigger" || nextOpen) {
+      setOpen(nextOpen);
+    }
+  };
+
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      label: (
+        <Space>
+          <Typography.Text>
+            {bordered ? "테이블 테두리 해제" : "테이블 테두리 적용"}
+          </Typography.Text>
+        </Space>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <Space>
+          <Typography.Text>{"테이블 사이즈(Small)"}</Typography.Text>
+          {size === "small" ? <CheckOutlined /> : ""}
+        </Space>
+      ),
+    },
+    {
+      key: "3",
+      label: (
+        <Space>
+          <Typography.Text>{"테이블 사이즈(Middle)"}</Typography.Text>
+          {size === "middle" ? <CheckOutlined /> : ""}
+        </Space>
+      ),
+    },
+    {
+      key: "4",
+      label: (
+        <Space>
+          <Typography.Text>{"테이블 사이즈(Large)"}</Typography.Text>
+          {size === "large" ? <CheckOutlined /> : ""}
+        </Space>
+      ),
+    },
+  ];
+
   return (
-    <Table
-      style={{ height: "62vh" }}
-      columns={columns}
-      dataSource={data}
-      rowSelection={{
-        type: "checkbox",
-      }}
-      scroll={{ x: "max-content", y: "calc(62vh - 50px)" }}
-    />
+    <>
+      <Row justify={"end"} align={"middle"} style={{ marginBottom: 15 }}>
+        <Col span={20}>
+          <Space>
+            <UnorderedListOutlined />
+            <Typography.Text>Total: 12</Typography.Text>
+          </Space>
+        </Col>
+        <Col span={4} style={{ display: "flex", justifyContent: "end" }}>
+          <Space>
+            <Button icon={<PlusOutlined />} type="primary">
+              행 추가
+            </Button>
+            <Badge count={5} color="green">
+              <Button icon={<DeleteOutlined />}>선택 삭제</Button>
+            </Badge>
+            <Dropdown
+              menu={{
+                items,
+                onClick: handleMenuClick,
+              }}
+              onOpenChange={handleOpenChange}
+              open={open}
+              arrow={{ pointAtCenter: true }}
+              placement="bottomRight"
+              trigger={["click"]}
+            >
+              <Button icon={<SettingOutlined />} />
+            </Dropdown>
+          </Space>
+        </Col>
+      </Row>
+
+      <Table
+        style={{ height: "56vh" }}
+        bordered={bordered}
+        columns={columns}
+        dataSource={data}
+        rowSelection={{
+          type: "checkbox",
+        }}
+        scroll={{ x: "max-content", y: "calc(56vh - 50px)" }}
+        size={size}
+      />
+    </>
   );
 };
 
