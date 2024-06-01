@@ -14,6 +14,8 @@ import {
   Space,
   Divider,
   Layout,
+  ConfigProvider,
+  theme,
 } from "antd";
 import { Link } from "react-router-dom";
 
@@ -32,96 +34,112 @@ const { Content } = Layout;
 
 const CloudSignUp: React.FC = () => {
   return (
-    <Layout>
-      <Row
-        justify="center"
-        align="middle"
-        style={{
-          minHeight: "100vh",
-        }}
-      >
-        <Col span={6}>
-          <Card title="회원가입">
-            <Form name="sign-up" layout="vertical" autoComplete="off">
-              <Form.Item<FieldType>
-                name="username"
-                rules={[
-                  { required: true, message: "아이디를 입력해 주세요." },
-                  { type: "email", message: "올바른 이메일 형식이 아닙니다." },
-                ]}
-                hasFeedback
-              >
-                <Input
-                  prefix={<UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
-                  placeholder="아이디(Email)"
-                />
-              </Form.Item>
-
-              <Form.Item<FieldType>
-                name="password"
-                rules={[
-                  { required: true, message: "비밀번호를 입력해 주세요." },
-                ]}
-                hasFeedback
-              >
-                <Input.Password
-                  prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
-                  placeholder="비밀번호"
-                />
-              </Form.Item>
-
-              <Form.Item<FieldType>
-                name="confirmPassword"
-                rules={[
-                  { required: true, message: "비밀번호 확인을 입력해 주세요." },
-                  ({ getFieldValue }) => ({
-                    validator(_, value) {
-                      if (!value || getFieldValue("password") === value) {
-                        return Promise.resolve();
+    <ConfigProvider theme={{ algorithm: theme.defaultAlgorithm }}>
+      <Layout>
+        <Content style={{ backgroundColor: "#ffffff" }}>
+          <Row
+            justify="center"
+            align="middle"
+            style={{
+              minHeight: "100vh",
+            }}
+          >
+            <Col span={6}>
+              <Card title="회원가입">
+                <Form name="sign-up" layout="vertical" autoComplete="off">
+                  <Form.Item<FieldType>
+                    name="username"
+                    rules={[
+                      { required: true, message: "아이디를 입력해 주세요." },
+                      {
+                        type: "email",
+                        message: "올바른 이메일 형식이 아닙니다.",
+                      },
+                    ]}
+                    hasFeedback
+                  >
+                    <Input
+                      prefix={
+                        <UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />
                       }
-                      return Promise.reject(
-                        new Error("비밀번호가 일치하지 않습니다.")
-                      );
-                    },
-                  }),
-                ]}
-                hasFeedback
-              >
-                <Input.Password
-                  prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
-                  placeholder="비밀번호 확인"
-                />
-              </Form.Item>
+                      placeholder="아이디(Email)"
+                    />
+                  </Form.Item>
 
-              <Form.Item name="auth-code">
-                <Space.Compact style={{ width: "100%" }}>
-                  <Input
-                    prefix={
-                      <FieldNumberOutlined
-                        style={{ color: "rgba(0,0,0,.25)" }}
+                  <Form.Item<FieldType>
+                    name="password"
+                    rules={[
+                      { required: true, message: "비밀번호를 입력해 주세요." },
+                    ]}
+                    hasFeedback
+                  >
+                    <Input.Password
+                      prefix={
+                        <LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                      }
+                      placeholder="비밀번호"
+                    />
+                  </Form.Item>
+
+                  <Form.Item<FieldType>
+                    name="confirmPassword"
+                    rules={[
+                      {
+                        required: true,
+                        message: "비밀번호 확인을 입력해 주세요.",
+                      },
+                      ({ getFieldValue }) => ({
+                        validator(_, value) {
+                          if (!value || getFieldValue("password") === value) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject(
+                            new Error("비밀번호가 일치하지 않습니다.")
+                          );
+                        },
+                      }),
+                    ]}
+                    hasFeedback
+                  >
+                    <Input.Password
+                      prefix={
+                        <LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                      }
+                      placeholder="비밀번호 확인"
+                    />
+                  </Form.Item>
+
+                  <Form.Item name="auth-code">
+                    <Space.Compact style={{ width: "100%" }}>
+                      <Input
+                        prefix={
+                          <FieldNumberOutlined
+                            style={{ color: "rgba(0,0,0,.25)" }}
+                          />
+                        }
+                        placeholder="인증코드"
+                        type="number"
+                        maxLength={6}
                       />
-                    }
-                    placeholder="인증코드"
-                    type="number"
-                    maxLength={6}
-                  />
-                  <Button type="dashed">인증번호 전송</Button>
-                </Space.Compact>
-              </Form.Item>
+                      <Button type="dashed">인증번호 전송</Button>
+                    </Space.Compact>
+                  </Form.Item>
 
-              <Form.Item>
-                <Button type="primary" htmlType="submit" block>
-                  회원가입
-                </Button>
-              </Form.Item>
-            </Form>
-            <Space split={<Divider type="vertical" />}>
-              <Link to="/">돌아가기</Link>
-            </Space>
-          </Card>
-        </Col>
-      </Row>
-    </Layout>
+                  <Form.Item>
+                    <Button type="primary" htmlType="submit" block>
+                      회원가입
+                    </Button>
+                  </Form.Item>
+                </Form>
+                <Space split={<Divider type="vertical" />}>
+                  <Link to="/">돌아가기</Link>
+                </Space>
+              </Card>
+            </Col>
+          </Row>
+        </Content>
+      </Layout>
+    </ConfigProvider>
   );
 };
 
