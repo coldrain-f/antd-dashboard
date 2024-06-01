@@ -51,7 +51,10 @@ const CloudSignUp: React.FC = () => {
                 ]}
                 hasFeedback
               >
-                <Input prefix={<UserOutlined />} placeholder="아이디(Email)" />
+                <Input
+                  prefix={<UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+                  placeholder="아이디(Email)"
+                />
               </Form.Item>
 
               <Form.Item<FieldType>
@@ -62,7 +65,7 @@ const CloudSignUp: React.FC = () => {
                 hasFeedback
               >
                 <Input.Password
-                  prefix={<LockOutlined />}
+                  prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
                   placeholder="비밀번호"
                 />
               </Form.Item>
@@ -85,7 +88,7 @@ const CloudSignUp: React.FC = () => {
                 hasFeedback
               >
                 <Input.Password
-                  prefix={<LockOutlined />}
+                  prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
                   placeholder="비밀번호 확인"
                 />
               </Form.Item>
@@ -93,7 +96,11 @@ const CloudSignUp: React.FC = () => {
               <Form.Item name="auth-code">
                 <Space.Compact style={{ width: "100%" }}>
                   <Input
-                    prefix={<FieldNumberOutlined />}
+                    prefix={
+                      <FieldNumberOutlined
+                        style={{ color: "rgba(0,0,0,.25)" }}
+                      />
+                    }
                     placeholder="인증코드"
                     type="number"
                     maxLength={6}

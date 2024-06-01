@@ -63,6 +63,7 @@ const CloudNavbar: React.FC = () => {
   const items: MenuProps["items"] = [
     { key: 1, label: "Home" },
     { key: 2, label: "Admin" },
+    { key: 3, label: "Guide" },
   ];
 
   const [antdState, setAntdState] = useRecoilState(antdRecoilState);
@@ -110,7 +111,7 @@ const CloudNavbar: React.FC = () => {
           <Menu
             theme="dark"
             mode="horizontal"
-            defaultSelectedKeys={["2"]}
+            defaultSelectedKeys={["3"]}
             items={items}
             style={{ flex: 1, minWidth: 0 }}
           />

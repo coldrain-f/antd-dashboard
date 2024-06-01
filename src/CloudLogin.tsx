@@ -72,7 +72,9 @@ const CloudLogin: React.FC = () => {
                   hasFeedback
                 >
                   <Input
-                    prefix={<UserOutlined />}
+                    prefix={
+                      <UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                    }
                     placeholder="아이디(Email)"
                   />
                 </Form.Item>
@@ -84,7 +86,9 @@ const CloudLogin: React.FC = () => {
                   hasFeedback
                 >
                   <Input.Password
-                    prefix={<LockOutlined />}
+                    prefix={
+                      <LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                    }
                     placeholder="비밀번호"
                   />
                 </Form.Item>

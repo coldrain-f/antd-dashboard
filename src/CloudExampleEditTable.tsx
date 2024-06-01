@@ -7,11 +7,16 @@ import {
   DeleteRowOutlined,
   EditOutlined,
   FieldNumberOutlined,
+  InsertRowAboveOutlined,
   NumberOutlined,
+  PlusCircleOutlined,
   PlusOutlined,
+  PlusSquareOutlined,
+  PullRequestOutlined,
   SearchOutlined,
   SettingOutlined,
   UnorderedListOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import type {
   DropdownProps,
@@ -19,6 +24,7 @@ import type {
   MenuProps,
   TableColumnsType,
   TableColumnType,
+  TableProps,
 } from "antd";
 import {
   Badge,
@@ -37,6 +43,8 @@ import {
 import type { FilterDropdownProps } from "antd/es/table/interface";
 import Highlighter from "react-highlight-words";
 import { SizeType } from "antd/es/config-provider/SizeContext";
+import { TablePaginationConfig } from "antd/lib";
+import { FilterValue, SorterResult } from "antd/lib/table/interface";
 
 type DataIndex = keyof DataType;
 
@@ -96,7 +104,7 @@ const CloudExampleEditTable: React.FC = () => {
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
           ref={searchInput}
-          placeholder={`${dataIndex} 검색`}
+          placeholder={`필터 검색`}
           value={selectedKeys[0]}
           onChange={(e) =>
             setSelectedKeys(e.target.value ? [e.target.value] : [])
@@ -151,11 +159,12 @@ const CloudExampleEditTable: React.FC = () => {
     filterIcon: (filtered: boolean) => (
       <SearchOutlined style={{ color: filtered ? "#1677ff" : undefined }} />
     ),
-    onFilter: (value, record) =>
-      record[dataIndex]
+    onFilter: (value, record) => {
+      return record[dataIndex]
         .toString()
         .toLowerCase()
-        .includes((value as string).toLowerCase()),
+        .includes((value as string).toLowerCase());
+    },
     onFilterDropdownOpenChange: (visible) => {
       if (visible) {
         setTimeout(() => searchInput.current?.select(), 100);
@@ -187,7 +196,21 @@ const CloudExampleEditTable: React.FC = () => {
       dataIndex: "category",
       key: "category",
       fixed: "left",
-      ...getColumnSearchProps("category"),
+
+      filters: [
+        {
+          text: "턱걸이",
+          value: "턱걸이",
+        },
+        {
+          text: "A/B 슬라이드",
+          value: "A/B 슬라이드",
+        },
+      ],
+      filterMode: "tree",
+      filterSearch: true,
+
+      onFilter: (value, record) => record.category.startsWith(value as string),
     },
     {
       title: "수행 날짜",
@@ -204,91 +227,117 @@ const CloudExampleEditTable: React.FC = () => {
       key: "weight",
       fixed: "left",
       ...getColumnSearchProps("weight"),
+      ellipsis: true,
     },
     {
       title: "1세트",
       dataIndex: "set1",
-      key: "1",
+      key: "set1",
       width: 100,
-      ...getColumnSearchProps("set1"),
+      ellipsis: true,
     },
     {
       title: "휴식",
       dataIndex: "restTime1",
-      key: "2",
-      width: 120,
-      ...getColumnSearchProps("restTime1"),
+      key: "restTime1",
+      // width: 120,
+      ellipsis: true,
     },
     {
       title: "2세트",
       dataIndex: "set2",
-      key: "3",
+      key: "set2",
       width: 100,
-      ...getColumnSearchProps("set2"),
+      ellipsis: true,
     },
     {
       title: "휴식",
       dataIndex: "restTime2",
-      key: "4",
+      key: "restTime2",
       width: 120,
-      ...getColumnSearchProps("restTime2"),
+      ellipsis: true,
     },
     {
       title: "3세트",
       dataIndex: "set3",
-      key: "5",
+      key: "set3",
       width: 100,
-      ...getColumnSearchProps("set3"),
+      ellipsis: true,
     },
     {
       title: "휴식",
       dataIndex: "restTime3",
-      key: "6",
+      key: "restTime3",
       width: 120,
-      ...getColumnSearchProps("restTime3"),
+      ellipsis: true,
     },
     {
       title: "4세트",
       dataIndex: "set4",
-      key: "7",
+      key: "set4",
       width: 100,
-      ...getColumnSearchProps("set4"),
+      ellipsis: true,
     },
     {
       title: "휴식",
       dataIndex: "restTime4",
-      key: "6",
+      key: "restTime4",
       width: 120,
-      ...getColumnSearchProps("restTime4"),
+      ellipsis: true,
     },
     {
       title: "5세트",
       dataIndex: "set5",
-      key: "7",
+      key: "set5",
       width: 100,
-      ...getColumnSearchProps("set5"),
+      ellipsis: true,
     },
     {
       title: "휴식",
       dataIndex: "restTime5",
-      key: "6",
+      key: "restTime5",
       width: 120,
-      ...getColumnSearchProps("restTime5"),
+      ellipsis: true,
     },
     {
       title: "6세트",
       dataIndex: "set6",
-      key: "7",
+      key: "set6",
       width: 100,
-      ...getColumnSearchProps("set6"),
+      ellipsis: true,
     },
     {
       title: "상태",
       dataIndex: "status",
-      key: "7",
+      key: "status",
       width: 120,
       fixed: "right",
-      ...getColumnSearchProps("status"),
+      filters: [
+        {
+          text: "매우 쉬움",
+          value: "매우 쉬움",
+        },
+        {
+          text: "쉬움",
+          value: "쉬움",
+        },
+        {
+          text: "보통",
+          value: "보통",
+        },
+        {
+          text: "어려움",
+          value: "어려움",
+        },
+        {
+          text: "매우 어려움",
+          value: "매우 어려움",
+        },
+      ],
+      filterMode: "tree",
+      filterSearch: true,
+      onFilter: (value, record) => record.status.startsWith(value as string),
+      ellipsis: true,
     },
     {
       title: "총합",
@@ -297,6 +346,7 @@ const CloudExampleEditTable: React.FC = () => {
       width: 100,
       fixed: "right",
       ...getColumnSearchProps("total"),
+      ellipsis: true,
     },
 
     {
@@ -305,6 +355,7 @@ const CloudExampleEditTable: React.FC = () => {
       fixed: "right",
       width: 100,
       render: () => <Button icon={<EditOutlined />}>편집</Button>,
+      ellipsis: true,
     },
   ];
 
@@ -534,6 +585,33 @@ const CloudExampleEditTable: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [bordered, setBordered] = useState(true);
   const [size, setSize] = useState<SizeType>("middle");
+  const [dataSource, setDataSource] = useState<DataType[]>(data);
+  const [filteredDataSource, setFilteredDataSource] = useState<DataType[]>([]);
+  const [scroll, setScroll] = useState<{
+    x?: number | string;
+    y?: number | string;
+  }>(
+    dataSource.length > 0
+      ? { x: "max-content", y: "calc(55vh - 50px)" }
+      : { x: 550, y: "calc(55vh - 50px)" }
+  );
+
+  // 필터 초기화
+  type OnChange = NonNullable<TableProps<DataType>["onChange"]>;
+  type Filters = Parameters<OnChange>[1];
+
+  type GetSingle<T> = T extends (infer U)[] ? U : never;
+  type Sorts = GetSingle<Parameters<OnChange>[2]>;
+
+  const [filteredInfo, setFilteredInfo] = useState<Filters>({});
+  const [sortedInfo, setSortedInfo] = useState<Sorts>({});
+
+  const clearAll = () => {
+    setFilteredInfo({});
+    setSortedInfo({});
+  };
+
+  // //필터 초기화
 
   const handleMenuClick: MenuProps["onClick"] = (e) => {
     if (e.key === "1") {
@@ -554,6 +632,21 @@ const CloudExampleEditTable: React.FC = () => {
   const handleOpenChange: DropdownProps["onOpenChange"] = (nextOpen, info) => {
     if (info.source === "trigger" || nextOpen) {
       setOpen(nextOpen);
+    }
+  };
+
+  const onChange: TableProps<DataType>["onChange"] = (
+    pagination,
+    filters,
+    sorter,
+    extra
+  ) => {
+    console.log("params", pagination, filters, sorter, extra);
+    if (extra.currentDataSource.length <= 0) {
+      // 필터 후 데이터가 없으면 x: 0(헤더 꺠짐 방지)
+      setScroll({ x: 0, y: "calc(55vh - 50px)" });
+    } else {
+      setScroll({ x: "max-content", y: "calc(55vh - 50px)" });
     }
   };
 
@@ -605,13 +698,13 @@ const CloudExampleEditTable: React.FC = () => {
         <Col span={20}>
           <Space>
             <UnorderedListOutlined />
-            <Typography.Text>Total: 12</Typography.Text>
+            <Typography.Text>Total: 11</Typography.Text>
           </Space>
         </Col>
         <Col span={4} style={{ display: "flex", justifyContent: "end" }}>
           <Space>
             <Button icon={<PlusOutlined />} type="primary">
-              행 추가
+              추가
             </Button>
             <Badge count={5} color="green">
               <Button icon={<DeleteOutlined />}>선택 삭제</Button>
@@ -636,14 +729,16 @@ const CloudExampleEditTable: React.FC = () => {
       </Row>
 
       <Table
-        style={{ height: "56vh" }}
+        style={{ height: "55vh" }}
         bordered={bordered}
         columns={columns}
-        dataSource={data}
+        dataSource={dataSource}
         rowSelection={{
           type: "checkbox",
         }}
-        scroll={{ x: "max-content", y: "calc(56vh - 50px)" }}
+        onChange={onChange}
+        // scroll={{ x: "max-content", y: "calc(55vh - 50px)" }}
+        scroll={scroll}
         size={size}
       />
     </>
