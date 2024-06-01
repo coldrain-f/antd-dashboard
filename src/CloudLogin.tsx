@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import type { FormProps } from "antd";
 import {
@@ -9,12 +9,15 @@ import {
   Button,
   Card,
   Checkbox,
-  Typography,
   Divider,
   Space,
   Layout,
+  theme,
+  ConfigProvider,
 } from "antd";
 import { Link, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { antdRecoilState } from "./recoil/antdRecoilState";
 
 type FieldType = {
   username?: string;
@@ -22,9 +25,10 @@ type FieldType = {
   remember?: string;
 };
 
-const { Content } = Layout;
-
 const CloudLogin: React.FC = () => {
+  const { Content } = Layout;
+  const [antdState] = useRecoilState(antdRecoilState);
+
   const navigate = useNavigate();
 
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
@@ -40,7 +44,11 @@ const CloudLogin: React.FC = () => {
 
   return (
     <Layout>
-      <Content>
+      <Content
+        style={{
+          backgroundColor: antdState.isDarkMode ? "#000000" : "#ffffff",
+        }}
+      >
         <Row
           justify="center"
           align="middle"

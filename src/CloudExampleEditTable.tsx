@@ -633,6 +633,18 @@ const CloudExampleEditTable: React.FC = () => {
     } else {
       setScroll({ x: "max-content", y: "calc(55vh - 50px)" });
     }
+    setFilteredDataSource(extra.currentDataSource);
+  };
+
+  const calcTableHeight = (height: string) => {
+    if (dataSource.length <= 0) {
+      return "auto";
+    }
+    if (filteredDataSource.length <= 0) {
+      return "auto";
+    }
+
+    return height;
   };
 
   const items: MenuProps["items"] = [
@@ -712,14 +724,8 @@ const CloudExampleEditTable: React.FC = () => {
           </Space>
         </Col>
       </Row>
-
       <Table
-        style={{
-          height:
-            dataSource.length > 0 && filteredDataSource.length > 0
-              ? "55vh"
-              : "auto",
-        }}
+        style={{ height: calcTableHeight("55vh") }}
         bordered={bordered}
         columns={columns}
         dataSource={dataSource}
@@ -727,7 +733,6 @@ const CloudExampleEditTable: React.FC = () => {
           type: "checkbox",
         }}
         onChange={onChange}
-        // scroll={{ x: "max-content", y: "calc(55vh - 50px)" }}
         scroll={scroll}
         size={size}
       />
