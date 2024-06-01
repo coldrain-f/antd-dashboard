@@ -31,6 +31,7 @@ import {
   Row,
   Space,
   Table,
+  Tooltip,
   Typography,
 } from "antd";
 import type { FilterDropdownProps } from "antd/es/table/interface";
@@ -560,37 +561,39 @@ const CloudExampleEditTable: React.FC = () => {
     {
       key: "1",
       label: (
-        <Space>
-          <Typography.Text>
-            {bordered ? "테이블 테두리 해제" : "테이블 테두리 적용"}
-          </Typography.Text>
-        </Space>
+        <Badge
+          status={bordered ? "success" : "default"}
+          text={"테이블 테두리"}
+        />
       ),
     },
+    { type: "divider" },
     {
       key: "2",
       label: (
-        <Space>
-          <Typography.Text>{"테이블 사이즈(Small)"}</Typography.Text>
-          {size === "small" ? <CheckOutlined /> : ""}
-        </Space>
+        <Badge
+          status={size === "small" ? "success" : "default"}
+          text={"테이블 사이즈(Small)"}
+        />
       ),
     },
     {
       key: "3",
       label: (
-        <Space>
-          <Typography.Text>{"테이블 사이즈(Middle)"}</Typography.Text>
-          {size === "middle" ? <CheckOutlined /> : ""}
-        </Space>
+        <Badge
+          status={size === "middle" ? "success" : "default"}
+          text={"테이블 사이즈(Middle)"}
+        />
       ),
     },
     {
       key: "4",
       label: (
         <Space>
-          <Typography.Text>{"테이블 사이즈(Large)"}</Typography.Text>
-          {size === "large" ? <CheckOutlined /> : ""}
+          <Badge
+            status={size === "large" ? "success" : "default"}
+            text={"테이블 사이즈(Large)"}
+          />
         </Space>
       ),
     },
@@ -624,7 +627,9 @@ const CloudExampleEditTable: React.FC = () => {
               placement="bottomRight"
               trigger={["click"]}
             >
-              <Button icon={<SettingOutlined />} />
+              <Tooltip placement="top" title={"테이블 옵션"} arrow>
+                <Button icon={<SettingOutlined />} />
+              </Tooltip>
             </Dropdown>
           </Space>
         </Col>
