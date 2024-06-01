@@ -1,8 +1,10 @@
 import React, { useRef, useState } from "react";
 import {
+  ClearOutlined,
   DeleteOutlined,
   EditOutlined,
   PlusOutlined,
+  ReloadOutlined,
   SearchOutlined,
   SettingOutlined,
   UnorderedListOutlined,
@@ -685,6 +687,39 @@ const CloudExampleEditTable: React.FC = () => {
             text={"테이블 사이즈(Large)"}
           />
         </Space>
+      ),
+    },
+    { type: "divider" },
+    {
+      key: "5",
+      label: (
+        <Tooltip
+          placement="left"
+          title={"적용된 모든 필터를 초기화합니다."}
+          arrow
+        >
+          <Space>
+            <ClearOutlined />
+            <Typography.Text>테이블 필터 초기화</Typography.Text>
+          </Space>
+        </Tooltip>
+      ),
+    },
+    {
+      key: "6",
+      label: (
+        <Tooltip
+          placement="left"
+          title={
+            "필터는 유지된 상태로 적용된 테이블의 모든 설정을 기본값으로 설정합니다."
+          }
+          arrow
+        >
+          <Space>
+            <ReloadOutlined />
+            <Typography.Text>테이블 기본 설정</Typography.Text>
+          </Space>
+        </Tooltip>
       ),
     },
   ];
