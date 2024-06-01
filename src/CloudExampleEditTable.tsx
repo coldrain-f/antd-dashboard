@@ -1,22 +1,11 @@
 import React, { useRef, useState } from "react";
 import {
-  AppstoreAddOutlined,
-  CheckOutlined,
-  DeleteColumnOutlined,
   DeleteOutlined,
-  DeleteRowOutlined,
   EditOutlined,
-  FieldNumberOutlined,
-  InsertRowAboveOutlined,
-  NumberOutlined,
-  PlusCircleOutlined,
   PlusOutlined,
-  PlusSquareOutlined,
-  PullRequestOutlined,
   SearchOutlined,
   SettingOutlined,
   UnorderedListOutlined,
-  UserOutlined,
 } from "@ant-design/icons";
 import type {
   DropdownProps,
@@ -29,9 +18,7 @@ import type {
 import {
   Badge,
   Button,
-  Card,
   Col,
-  Divider,
   Dropdown,
   Input,
   Row,
@@ -43,8 +30,6 @@ import {
 import type { FilterDropdownProps } from "antd/es/table/interface";
 import Highlighter from "react-highlight-words";
 import { SizeType } from "antd/es/config-provider/SizeContext";
-import { TablePaginationConfig } from "antd/lib";
-import { FilterValue, SorterResult } from "antd/lib/table/interface";
 
 type DataIndex = keyof DataType;
 
@@ -729,7 +714,12 @@ const CloudExampleEditTable: React.FC = () => {
       </Row>
 
       <Table
-        style={{ height: "55vh" }}
+        style={{
+          height:
+            dataSource.length > 0 && filteredDataSource.length > 0
+              ? "55vh"
+              : "auto",
+        }}
         bordered={bordered}
         columns={columns}
         dataSource={dataSource}

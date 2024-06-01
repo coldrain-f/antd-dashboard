@@ -23,8 +23,3 @@ code {
 .ant-table-body {
   height: inherit;
 }
-
-.ant-table-tbody,
-table {
-  height: 100%;
-}
