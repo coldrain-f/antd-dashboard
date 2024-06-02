@@ -65,10 +65,6 @@ const CloudExampleEditTable: React.FC = () => {
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
 
-  useEffect(() => {
-    setDataSource(dataSourceJson as DataType[]);
-  }, []);
-
   const handleSearch = (
     selectedKeys: string[],
     confirm: FilterDropdownProps["confirm"],
@@ -182,6 +178,8 @@ const CloudExampleEditTable: React.FC = () => {
       dataIndex: "key",
       rowScope: "row",
       fixed: "left",
+
+      ellipsis: true,
     },
     {
       title: "종류",
@@ -359,7 +357,7 @@ const CloudExampleEditTable: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [bordered, setBordered] = useState(true);
   const [size, setSize] = useState<SizeType>("middle");
-  const [dataSource, setDataSource] = useState<DataType[]>([]);
+  const [dataSource, setDataSource] = useState<DataType[]>(dataSourceJson);
   const [filteredDataSource, setFilteredDataSource] = useState<DataType[]>([]);
   const [scroll, setScroll] = useState<{
     x?: number | string;
@@ -367,7 +365,7 @@ const CloudExampleEditTable: React.FC = () => {
   }>(
     dataSource.length > 0
       ? { x: "max-content", y: "calc(55vh - 50px)" }
-      : { x: 550, y: "calc(55vh - 50px)" }
+      : { x: 0, y: "calc(55vh - 50px)" }
   );
 
   // 필터 초기화
