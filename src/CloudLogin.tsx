@@ -14,6 +14,7 @@ import {
   Layout,
   theme,
   ConfigProvider,
+  message,
 } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -25,12 +26,25 @@ type FieldType = {
 
 const CloudLogin: React.FC = () => {
   const { Content } = Layout;
-
+  const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
+
+  const success = () => {
+    messageApi
+      .open({
+        type: "loading",
+        content: "Action in progress..",
+        duration: 2.5,
+      })
+      .then(() => {
+        message.success("Loading finished", 2.5);
+        navigate(`/dashboard`);
+      });
+  };
 
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
     console.log("Success: ", values);
-    navigate(`/dashboard`);
+    success();
   };
 
   const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
@@ -47,6 +61,7 @@ const CloudLogin: React.FC = () => {
     >
       <Layout>
         <Content style={{ backgroundColor: "#ffffff" }}>
+          {contextHolder}
           <Row
             justify="center"
             align="middle"
