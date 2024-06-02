@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import moment from "moment";
 import {
   ClearOutlined,
   DeleteOutlined,
@@ -33,6 +34,9 @@ import type { FilterDropdownProps } from "antd/es/table/interface";
 import Highlighter from "react-highlight-words";
 import { SizeType } from "antd/es/config-provider/SizeContext";
 
+// 임시 데이터
+import dataSourceJson from "./data/dataSource.json";
+
 type DataIndex = keyof DataType;
 
 interface DataType {
@@ -56,12 +60,14 @@ interface DataType {
   total: number;
 }
 
-const { Title, Text } = Typography;
-
 const CloudExampleEditTable: React.FC = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
+
+  useEffect(() => {
+    setDataSource(dataSourceJson as DataType[]);
+  }, []);
 
   const handleSearch = (
     selectedKeys: string[],
@@ -205,6 +211,9 @@ const CloudExampleEditTable: React.FC = () => {
       dataIndex: "startDate",
       key: "startDate",
       fixed: "left",
+      // defaultSortOrder: "descend",
+      sortDirections: ["descend", "ascend"],
+      sorter: (a, b) => moment(a.startDate).unix() - moment(b.startDate).unix(),
       ...getColumnSearchProps("startDate"),
     },
     {
@@ -329,10 +338,11 @@ const CloudExampleEditTable: React.FC = () => {
     {
       title: "총합",
       dataIndex: "total",
-      key: "7",
+      key: "total",
       width: 100,
       fixed: "right",
       ...getColumnSearchProps("total"),
+      sorter: (a, b) => a.total - b.total,
       ellipsis: true,
     },
 
@@ -346,233 +356,10 @@ const CloudExampleEditTable: React.FC = () => {
     },
   ];
 
-  const data: DataType[] = [
-    {
-      key: 1,
-      category: "A/B 슬라이드",
-      startDate: "2024-04-07",
-      weight: "0kg",
-      set1: "10",
-      restTime1: "0:30",
-      set2: "10",
-      restTime2: "0:30",
-      set3: "10",
-      restTime3: "",
-      set4: "",
-      restTime4: "",
-      set5: "",
-      restTime5: "",
-      set6: "",
-      restTime6: "",
-      total: 30,
-      status: "보통",
-    },
-    {
-      key: 2,
-      category: "턱걸이",
-      startDate: "2024-04-09",
-      weight: "0kg",
-      set1: "12",
-      restTime1: "0:30",
-      set2: "10",
-      restTime2: "0:30",
-      set3: "4",
-      restTime3: "0:30",
-      set4: "5",
-      restTime4: "0:30",
-      set5: "2",
-      restTime5: "",
-      set6: "",
-      restTime6: "",
-      total: 33,
-      status: "어려움",
-    },
-    {
-      key: 3,
-      category: "턱걸이",
-      startDate: "2024-04-11",
-      weight: "0kg",
-      set1: "12",
-      restTime1: "0:30",
-      set2: "12",
-      restTime2: "0:30",
-      set3: "6",
-      restTime3: "0:30",
-      set4: "4",
-      restTime4: "0:30",
-      set5: "2",
-      restTime5: "",
-      set6: "",
-      restTime6: "",
-      total: 36,
-      status: "어려움",
-    },
-    {
-      key: 4,
-      category: "턱걸이",
-      startDate: "2024-04-15",
-      weight: "0kg",
-      set1: "12",
-      restTime1: "0:30",
-      set2: "12",
-      restTime2: "0:30",
-      set3: "5",
-      restTime3: "0:30",
-      set4: "3",
-      restTime4: "0:30",
-      set5: "3",
-      restTime5: "0:30",
-      set6: "2",
-      restTime6: "",
-      total: 37,
-      status: "매우 어려움",
-    },
-    {
-      key: 5,
-      category: "A/B 슬라이드",
-      startDate: "2024-04-15",
-      weight: "0kg",
-      set1: "12",
-      restTime1: "0:30",
-      set2: "12",
-      restTime2: "0:30",
-      set3: "12",
-      restTime3: "",
-      set4: "",
-      restTime4: "",
-      set5: "",
-      restTime5: "",
-      set6: "",
-      restTime6: "",
-      total: 36,
-      status: "어려움",
-    },
-    {
-      key: 6,
-      category: "A/B 슬라이드",
-      startDate: "2024-04-21",
-      weight: "0kg",
-      set1: "12",
-      restTime1: "0:30",
-      set2: "12",
-      restTime2: "0:30",
-      set3: "12",
-      restTime3: "",
-      set4: "",
-      restTime4: "",
-      set5: "",
-      restTime5: "",
-      set6: "",
-      restTime6: "",
-      total: 36,
-      status: "보통",
-    },
-    {
-      key: 7,
-      category: "턱걸이",
-      startDate: "2024-04-26",
-      weight: "0kg",
-      set1: "12",
-      restTime1: "0:30",
-      set2: "9",
-      restTime2: "0:30",
-      set3: "6",
-      restTime3: "0:30",
-      set4: "4",
-      restTime4: "0:30",
-      set5: "4",
-      restTime5: "0:30",
-      set6: "2",
-      restTime6: "",
-      total: 37,
-      status: "매우 어려움",
-    },
-    {
-      key: 8,
-      category: "A/B 슬라이드",
-      startDate: "2024-04-26",
-      weight: "0kg",
-      set1: "12",
-      restTime1: "0:30",
-      set2: "12",
-      restTime2: "0:30",
-      set3: "12",
-      restTime3: "",
-      set4: "",
-      restTime4: "",
-      set5: "",
-      restTime5: "",
-      set6: "",
-      restTime6: "",
-      total: 36,
-      status: "매우 어려움",
-    },
-    {
-      key: 9,
-      category: "A/B 슬라이드",
-      startDate: "2024-04-28",
-      weight: "0kg",
-      set1: "12",
-      restTime1: "0:30",
-      set2: "12",
-      restTime2: "0:30",
-      set3: "12",
-      restTime3: "",
-      set4: "",
-      restTime4: "",
-      set5: "",
-      restTime5: "",
-      set6: "",
-      restTime6: "",
-      total: 36,
-      status: "보통",
-    },
-    {
-      key: 10,
-      category: "A/B 슬라이드",
-      startDate: "2024-04-29",
-      weight: "0kg",
-      set1: "12",
-      restTime1: "0:30",
-      set2: "12",
-      restTime2: "0:30",
-      set3: "12",
-      restTime3: "",
-      set4: "",
-      restTime4: "",
-      set5: "",
-      restTime5: "",
-      set6: "",
-      restTime6: "",
-      total: 36,
-      status: "매우 어려움",
-    },
-    {
-      key: 11,
-      category: "A/B 슬라이드",
-      startDate: "2024-04-30",
-      weight: "0kg",
-      set1: "12",
-      restTime1: "0:30",
-      set2: "12",
-      restTime2: "0:30",
-      set3: "12",
-      restTime3: "",
-      set4: "",
-      restTime4: "",
-      set5: "",
-      restTime5: "",
-      set6: "",
-      restTime6: "",
-      total: 36,
-      status: "어려움",
-    },
-  ];
-
   const [open, setOpen] = useState(false);
   const [bordered, setBordered] = useState(true);
   const [size, setSize] = useState<SizeType>("middle");
-  const [dataSource, setDataSource] = useState<DataType[]>(data);
+  const [dataSource, setDataSource] = useState<DataType[]>([]);
   const [filteredDataSource, setFilteredDataSource] = useState<DataType[]>([]);
   const [scroll, setScroll] = useState<{
     x?: number | string;
