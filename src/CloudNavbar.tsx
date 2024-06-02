@@ -12,6 +12,7 @@ import {
   Avatar,
   Button,
   Col,
+  ConfigProvider,
   Divider,
   Menu,
   MenuProps,
@@ -125,26 +126,33 @@ const CloudNavbar: React.FC = () => {
           }}
         >
           <Space>
-            <a href="#">
-              <Avatar
-                icon={antdState.isDarkMode ? <SunOutlined /> : <MoonOutlined />}
-                onClick={toggleDarkMode}
-              />
-            </a>
-            <a href="#">
-              <Avatar icon={<CompressOutlined />} onClick={toggleCompactMode} />
-            </a>
+            <Space>
+              <a href="#">
+                <Avatar
+                  icon={
+                    antdState.isDarkMode ? <SunOutlined /> : <MoonOutlined />
+                  }
+                  onClick={toggleDarkMode}
+                />
+              </a>
+              <a href="#">
+                <Avatar
+                  icon={<CompressOutlined />}
+                  onClick={toggleCompactMode}
+                />
+              </a>
 
-            <a href="#">
-              <Tooltip placement="bottom" title={"설정"} arrow>
-                <Avatar icon={<SettingOutlined />} />
-              </Tooltip>
-            </a>
-            <a href="#">
-              <Tooltip placement="bottom" title={"알림"} arrow>
-                <Avatar icon={<BellOutlined />} />
-              </Tooltip>
-            </a>
+              <a href="#">
+                <Tooltip placement="bottom" title={"설정"} arrow>
+                  <Avatar icon={<SettingOutlined />} />
+                </Tooltip>
+              </a>
+              <a href="#">
+                <Tooltip placement="bottom" title={"알림"} arrow>
+                  <Avatar icon={<BellOutlined />} />
+                </Tooltip>
+              </a>
+            </Space>
             <Popover
               placement="bottomRight"
               title={"프로필"}
