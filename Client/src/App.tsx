@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { ConfigProvider } from "antd";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+
+import CloudLogin from "./pages/CloudLogin";
+import CloudSignUp from "./pages/CloudSignUp";
 import CloudMain from "./CloudMain";
-import CloudLogin from "./CloudLogin";
-import CloudSignUp from "./CloudSignUp";
 
 import { antdRecoilState } from "./recoil/antdRecoilState";
 import { useRecoilState } from "recoil";
 
 import { ConfigProviderProps } from "antd/lib";
 import koKR from "antd/locale/ko_KR";
+import enUS from "antd/locale/en_US";
 
 /* <DatePicker /> 로케일 관련 Import */
 import dayjs from "dayjs";
