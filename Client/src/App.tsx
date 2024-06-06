@@ -11,7 +11,6 @@ import { useRecoilState } from "recoil";
 
 import { ConfigProviderProps } from "antd/lib";
 import koKR from "antd/locale/ko_KR";
-import enUS from "antd/locale/en_US";
 
 /* <DatePicker /> 로케일 관련 Import */
 import dayjs from "dayjs";

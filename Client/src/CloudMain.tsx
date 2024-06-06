@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import {
   Breadcrumb,
+  Button,
+  Col,
   ConfigProvider,
   Drawer,
   FloatButton,
   Layout,
+  Row,
   Space,
   theme,
 } from "antd";
@@ -12,7 +15,13 @@ import {
 import CloudTabs from "./CloudTabs";
 import CloudNavbar from "./CloudNavbar";
 import CloudSideNavbar from "./CloudSideNavbar";
-import { BookOutlined, CommentOutlined, LinkOutlined } from "@ant-design/icons";
+import {
+  BookOutlined,
+  CaretRightOutlined,
+  CommentOutlined,
+  HomeOutlined,
+  LinkOutlined,
+} from "@ant-design/icons";
 import Link from "antd/es/typography/Link";
 import CloudHome from "./pages/CloudHome";
 
@@ -25,6 +34,9 @@ const CloudMain: React.FC = () => {
 
   const [collapsed, setCollapsed] = useState(false);
   const [open, setOpen] = useState(false);
+
+  // 임시
+  const [isMain, setIsMain] = useState(false);
 
   const showDrawer = () => {
     setOpen(true);
@@ -66,7 +78,23 @@ const CloudMain: React.FC = () => {
                 borderRadius: borderRadiusLG,
               }}
             >
-              <CloudHome />
+              <Row>
+                <Col
+                  span={24}
+                  style={{ display: "flex", justifyContent: "end" }}
+                >
+                  <Button
+                    type="link"
+                    icon={<CaretRightOutlined />}
+                    onClick={() => {
+                      setIsMain(!isMain);
+                    }}
+                  >
+                    {isMain ? "Tabs" : "Analysis"}
+                  </Button>
+                </Col>
+              </Row>
+              {isMain ? <CloudHome /> : <CloudTabs />}
 
               {/* <CloudTabs /> */}
             </Content>
