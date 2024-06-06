@@ -14,6 +14,7 @@ import CloudNavbar from "./CloudNavbar";
 import CloudSideNavbar from "./CloudSideNavbar";
 import { BookOutlined, CommentOutlined, LinkOutlined } from "@ant-design/icons";
 import Link from "antd/es/typography/Link";
+import CloudHome from "./pages/CloudHome";
 
 const { Header, Content, Sider } = Layout;
 
@@ -65,7 +66,9 @@ const CloudMain: React.FC = () => {
                 borderRadius: borderRadiusLG,
               }}
             >
-              <CloudTabs />
+              <CloudHome />
+
+              {/* <CloudTabs /> */}
             </Content>
           </Layout>
         </Layout>
