@@ -68,11 +68,25 @@ const CloudMain: React.FC = () => {
             <CloudSideNavbar />
           </Sider>
           <Layout style={{ padding: "0 24px 24px" }}>
-            <Breadcrumb style={{ margin: "16px 0" }}>
-              <Breadcrumb.Item>Admin</Breadcrumb.Item>
-              <Breadcrumb.Item>회원 관리</Breadcrumb.Item>
-              <Breadcrumb.Item>회원 관리</Breadcrumb.Item>
-            </Breadcrumb>
+            <Row>
+              <Col span={12}>
+                <Breadcrumb style={{ margin: "16px 0" }}>
+                  <Breadcrumb.Item>Admin</Breadcrumb.Item>
+                  <Breadcrumb.Item>회원 관리</Breadcrumb.Item>
+                  <Breadcrumb.Item>회원 관리</Breadcrumb.Item>
+                </Breadcrumb>
+              </Col>
+              <Col span={12} style={{ display: "flex", justifyContent: "end" }}>
+                <Button
+                  style={{ margin: "10px" }}
+                  onClick={() => {
+                    setIsMain(!isMain);
+                  }}
+                >
+                  {isMain ? "Tabs" : "Analysis"}
+                </Button>
+              </Col>
+            </Row>
             <Content
               style={{
                 overflow: "auto",
@@ -82,22 +96,6 @@ const CloudMain: React.FC = () => {
                 borderRadius: borderRadiusLG,
               }}
             >
-              <Row>
-                <Col
-                  span={24}
-                  style={{ display: "flex", justifyContent: "end" }}
-                >
-                  <Button
-                    type="link"
-                    icon={<CaretRightOutlined />}
-                    onClick={() => {
-                      setIsMain(!isMain);
-                    }}
-                  >
-                    {isMain ? "Tabs" : "Analysis"}
-                  </Button>
-                </Col>
-              </Row>
               {isMain ? <CloudHome /> : <CloudTabs />}
 
               {/* <CloudTabs /> */}
@@ -105,7 +103,7 @@ const CloudMain: React.FC = () => {
           </Layout>
           <Sider
             width={60}
-            collapsedWidth={250}
+            collapsedWidth={280}
             style={{
               background: colorBgContainer,
             }}

@@ -14,6 +14,7 @@ import {
   CheckCircleOutlined,
   CloseOutlined,
   FormOutlined,
+  MenuUnfoldOutlined,
   ShoppingOutlined,
 } from "@ant-design/icons";
 
@@ -85,7 +86,7 @@ const CloudRightSider: React.FC = () => {
             extra={
               <Button
                 type={"text"}
-                icon={<CloseOutlined />}
+                icon={<MenuUnfoldOutlined />}
                 style={{
                   borderRadius: 0,
                 }}
