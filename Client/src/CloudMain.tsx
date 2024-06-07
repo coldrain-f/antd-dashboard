@@ -40,7 +40,7 @@ const CloudMain: React.FC = () => {
   const [siderState] = useRecoilState(antdSiderState);
 
   // 임시
-  const [isMain, setIsMain] = useState(false);
+  const [isMain, setIsMain] = useState(true);
 
   const showDrawer = () => {
     setOpen(true);
