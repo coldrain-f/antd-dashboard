@@ -18,6 +18,7 @@ import {
   CalendarOutlined,
   CheckCircleOutlined,
   ClockCircleOutlined,
+  CloudOutlined,
   FormOutlined,
   LineChartOutlined,
   MoreOutlined,
@@ -375,12 +376,12 @@ const MyResponsiveLine = () => (
 );
 
 const CloudHome: React.FC = () => {
-  const { Title } = Typography;
+  const { Title, Text } = Typography;
 
   return (
     <>
       <Row>
-        <Col span={24}>
+        <Col span={12}>
           <Typography>
             <Title
               level={2}
@@ -402,6 +403,25 @@ const CloudHome: React.FC = () => {
             >
               님, 안녕하세요!
             </Title>
+          </Typography>
+        </Col>
+        <Col
+          span={12}
+          style={{
+            display: "flex",
+            justifyContent: "end",
+            alignItems: "center",
+          }}
+        >
+          <Typography>
+            <Space>
+              <Text style={{ cursor: "default" }}>미세먼지 보통</Text>
+              <Divider type="vertical" />
+              <Text style={{ cursor: "default" }}>28°</Text>
+              <Text>
+                <CloudOutlined />
+              </Text>
+            </Space>
           </Typography>
         </Col>
       </Row>
