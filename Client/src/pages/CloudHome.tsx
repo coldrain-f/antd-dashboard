@@ -1,6 +1,6 @@
 import React from "react";
 import { ArrowDownOutlined } from "@ant-design/icons";
-import { Card, Col, Row, Statistic } from "antd";
+import { Card, Col, Row, Space, Statistic, Typography } from "antd";
 import { ResponsivePie } from "@nivo/pie";
 
 // Guide: https://nivo.rocks/pie/
@@ -164,8 +164,25 @@ const MyResponsivePie = () => {
 };
 
 const CloudHome: React.FC = () => {
+  const { Title } = Typography;
+
   return (
     <>
+      <Row>
+        <Col span={24}>
+          <Typography>
+            <Title level={2} style={{ display: "inline-block" }}>
+              홍길동
+            </Title>
+            <Title
+              level={3}
+              style={{ display: "inline-block", fontWeight: "normal" }}
+            >
+              님, 안녕하세요!
+            </Title>
+          </Typography>
+        </Col>
+      </Row>
       <Row gutter={16}>
         <Col span={12}>
           <Card bordered={false}>

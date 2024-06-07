@@ -3,7 +3,6 @@ import {
   Breadcrumb,
   Button,
   Col,
-  ConfigProvider,
   Drawer,
   FloatButton,
   Layout,
@@ -19,11 +18,14 @@ import {
   BookOutlined,
   CaretRightOutlined,
   CommentOutlined,
-  HomeOutlined,
   LinkOutlined,
 } from "@ant-design/icons";
 import Link from "antd/es/typography/Link";
 import CloudHome from "./pages/CloudHome";
+import CloudRightSider from "./CloudrRightSider";
+
+import { antdSiderState } from "./recoil/antdSiderState";
+import { useRecoilState } from "recoil";
 
 const { Header, Content, Sider } = Layout;
 
@@ -34,6 +36,8 @@ const CloudMain: React.FC = () => {
 
   const [collapsed, setCollapsed] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const [siderState] = useRecoilState(antdSiderState);
 
   // 임시
   const [isMain, setIsMain] = useState(false);
@@ -99,13 +103,23 @@ const CloudMain: React.FC = () => {
               {/* <CloudTabs /> */}
             </Content>
           </Layout>
+          <Sider
+            width={60}
+            collapsedWidth={250}
+            style={{
+              background: colorBgContainer,
+            }}
+            collapsed={siderState.collapsed}
+          >
+            <CloudRightSider />
+          </Sider>
         </Layout>
 
         {/* Common */}
         <FloatButton.Group
           trigger="click"
           type="primary"
-          style={{ right: 40 }}
+          style={{ right: 70 }}
           icon={<BookOutlined />}
         >
           <FloatButton
