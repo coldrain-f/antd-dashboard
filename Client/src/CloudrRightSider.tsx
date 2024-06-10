@@ -1,29 +1,19 @@
 import React from "react";
-import {
-  Avatar,
-  Button,
-  Card,
-  Col,
-  Flex,
-  Row,
-  Space,
-  Tooltip,
-  Typography,
-} from "antd";
+import { Button, Card, Flex, Tooltip, Typography } from "antd";
 import {
   CalendarOutlined,
   CheckCircleOutlined,
-  CloseOutlined,
   FormOutlined,
   MenuUnfoldOutlined,
-  ShoppingOutlined,
 } from "@ant-design/icons";
 
 import { antdSiderState } from "./recoil/antdSiderState";
+import { antdRecoilState } from "./recoil/antdRecoilState";
 import { useRecoilState } from "recoil";
 
 const CloudRightSider: React.FC = () => {
   const [siderState, setSiderState] = useRecoilState(antdSiderState);
+  const [recoilState] = useRecoilState(antdRecoilState);
 
   const handleClick = () => {
     setSiderState({ collapsed: true });
@@ -36,11 +26,17 @@ const CloudRightSider: React.FC = () => {
           justify="start"
           vertical
           style={{
+            // #141414
+            // #303030 border
             height: "100%",
             width: "60px",
-            backgroundColor: "#fafafa",
-            borderLeft: "1px solid #e0e0e0",
-            borderRight: "1px solid #e0e0e0",
+            backgroundColor: recoilState.isDarkMode ? "#141414" : "#fafafa",
+            borderLeft: recoilState.isDarkMode
+              ? "1px solid #363636"
+              : "1px solid #e0e0e0",
+            borderRight: recoilState.isDarkMode
+              ? "1px solid #363636"
+              : "1px solid #e0e0e0",
           }}
         >
           <Tooltip title={"할 일"} placement={"left"}>
