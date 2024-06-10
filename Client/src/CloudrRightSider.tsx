@@ -6,6 +6,7 @@ import {
   Col,
   Flex,
   Row,
+  Space,
   Tooltip,
   Typography,
 } from "antd";
@@ -30,8 +31,18 @@ const CloudRightSider: React.FC = () => {
 
   return (
     <>
-      {!siderState.collapsed ? (
-        <Flex justify="start" vertical style={{ height: "100%" }}>
+      <Flex style={{ height: "100%" }}>
+        <Flex
+          justify="start"
+          vertical
+          style={{
+            height: "100%",
+            width: "60px",
+            backgroundColor: "#fafafa",
+            borderLeft: "1px solid #e0e0e0",
+            borderRight: "1px solid #e0e0e0",
+          }}
+        >
           <Tooltip title={"할 일"} placement={"left"}>
             <Button
               type="text"
@@ -72,10 +83,12 @@ const CloudRightSider: React.FC = () => {
             />
           </Tooltip>
         </Flex>
-      ) : (
-        <>
+        {siderState.collapsed && (
           <Card
-            style={{ height: "100%" }}
+            style={{
+              width: "100%",
+              borderLeft: "0px",
+            }}
             title={
               <Typography>
                 <Typography.Title level={5} style={{ margin: 0 }}>
@@ -96,8 +109,8 @@ const CloudRightSider: React.FC = () => {
               />
             }
           ></Card>
-        </>
-      )}
+        )}
+      </Flex>
     </>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Avatar,
   Breadcrumb,
   Button,
   Col,
@@ -54,7 +55,6 @@ const CloudMain: React.FC = () => {
     <>
       <Layout>
         <Header>
-          <div className="demo-logo" />
           <CloudNavbar />
         </Header>
         <Layout>
@@ -103,7 +103,7 @@ const CloudMain: React.FC = () => {
           </Layout>
           <Sider
             width={60}
-            collapsedWidth={280}
+            collapsedWidth={340}
             style={{
               background: colorBgContainer,
             }}
