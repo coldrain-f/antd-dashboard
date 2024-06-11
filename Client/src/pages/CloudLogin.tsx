@@ -15,8 +15,12 @@ import {
   theme,
   ConfigProvider,
   message,
+  Image,
+  Flex,
 } from "antd";
 import { Link, useNavigate } from "react-router-dom";
+import SVGComponent from "../component/CloudLogo";
+import CloudBanner from "../component/CloudBanner";
 
 type FieldType = {
   username?: string;
@@ -62,6 +66,7 @@ const CloudLogin: React.FC = () => {
       <Layout>
         <Content style={{ backgroundColor: "#ffffff" }}>
           {contextHolder}
+
           <Row
             justify="center"
             align="middle"
@@ -70,6 +75,16 @@ const CloudLogin: React.FC = () => {
             }}
           >
             <Col span={6}>
+              {/* <Flex
+                justify="center"
+                style={{ marginBottom: "20", height: "100%" }}
+              >
+                <CloudBanner
+                  width={"200px"}
+                  height={"245px"}
+                  viewBox="0 0 4096 1554.887939983557"
+                />
+              </Flex> */}
               <Card title="로그인" bordered={true}>
                 <Form
                   name="login"

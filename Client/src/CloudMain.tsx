@@ -54,7 +54,7 @@ const CloudMain: React.FC = () => {
   return (
     <>
       <Layout>
-        <Header>
+        <Header style={{ paddingLeft: 25 }}>
           <CloudNavbar />
         </Header>
         <Layout>
