@@ -1,5 +1,12 @@
 import React from "react";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  BarcodeOutlined,
+  IdcardOutlined,
+  LockOutlined,
+  LoginOutlined,
+  SignatureOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import type { FormProps } from "antd";
 import {
   Row,
@@ -13,6 +20,7 @@ import {
   theme,
   ConfigProvider,
   message,
+  Space,
 } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -86,9 +94,24 @@ const CloudLogin: React.FC = () => {
                   </Link>
                 }
                 actions={[
-                  <Link to="/">아이디 찾기</Link>,
-                  <Link to="/">비밀번호 찾기</Link>,
-                  <Link to="/join">회원가입</Link>,
+                  <Link to="/">
+                    <Space>
+                      <IdcardOutlined />
+                      아이디 찾기
+                    </Space>
+                  </Link>,
+                  <Link to="/">
+                    <Space>
+                      <BarcodeOutlined />
+                      비밀번호 찾기
+                    </Space>
+                  </Link>,
+                  <Link to="/join">
+                    <Space>
+                      <SignatureOutlined />
+                      회원가입
+                    </Space>
+                  </Link>,
                 ]}
               >
                 <Form
@@ -138,7 +161,12 @@ const CloudLogin: React.FC = () => {
                     <Checkbox>로그인 상태 유지</Checkbox>
                   </Form.Item>
                   <Form.Item>
-                    <Button type="primary" htmlType="submit" block>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      block
+                      icon={<LoginOutlined />}
+                    >
                       로그인
                     </Button>
                   </Form.Item>

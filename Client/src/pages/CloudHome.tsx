@@ -295,7 +295,7 @@ const data = [
 ];
 
 const MyResponsiveLine = () => (
-  <div style={{ width: "100%", height: "387px" }}>
+  <div style={{ width: "100%", height: "500px" }}>
     <ResponsiveLine
       data={data}
       margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
@@ -420,7 +420,8 @@ const CloudHome: React.FC = () => {
       <Row gutter={16}>
         <Col span={10}>
           <Card
-            bordered={false}
+            style={{ height: "615px" }}
+            bordered={true}
             title={"타임라인"}
             extra={
               <Segmented<string>
@@ -479,6 +480,7 @@ const CloudHome: React.FC = () => {
         </Col>
         <Col span={14}>
           <Card
+            style={{ height: "615px" }}
             bordered={false}
             title="라인 차트"
             extra={<Button type="text" icon={<SettingOutlined />} />}

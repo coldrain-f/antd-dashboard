@@ -117,7 +117,7 @@ const CloudNavbar: React.FC = () => {
         <Link to="/dashboard">
           <SVGComponent
             width={"125px"}
-            height={"64px"}
+            height={antdState.isCompactMode ? "56px" : "64px"}
             viewBox="0 0 4096 1554.887939983557"
           />
         </Link>

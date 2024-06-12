@@ -3,6 +3,8 @@ import {
   LockOutlined,
   UserOutlined,
   FieldNumberOutlined,
+  RollbackOutlined,
+  LoginOutlined,
 } from "@ant-design/icons";
 import {
   Button,
@@ -64,7 +66,14 @@ const CloudSignUp: React.FC = () => {
                     />
                   </Link>
                 }
-                actions={[<Link to="/">돌아가기</Link>]}
+                actions={[
+                  <Link to="/">
+                    <Space>
+                      <RollbackOutlined />
+                      돌아가기
+                    </Space>
+                  </Link>,
+                ]}
               >
                 <Form name="sign-up" layout="vertical" autoComplete="off">
                   <Form.Item<FieldType>
@@ -146,7 +155,12 @@ const CloudSignUp: React.FC = () => {
                   </Form.Item>
 
                   <Form.Item>
-                    <Button type="primary" htmlType="submit" block>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      block
+                      icon={<LoginOutlined />}
+                    >
                       회원가입
                     </Button>
                   </Form.Item>

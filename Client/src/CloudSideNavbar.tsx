@@ -1,5 +1,5 @@
 import React from "react";
-import { ConfigProvider, Menu, MenuProps } from "antd";
+import { ConfigProvider, Menu, MenuProps, theme } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
 import { antdRecoilState } from "./recoil/antdRecoilState";
@@ -22,13 +22,12 @@ const CloudSideNavbar: React.FC = () => {
     },
   ];
 
-  // 다크모드인 경우 색상 설정 필요
   return (
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: antdState.isDarkMode ? "#1677FF" : "",
-          colorPrimaryBg: antdState.isDarkMode ? "" : "#f3f4f6",
+          //colorPrimary: antdState.isDarkMode ? "#1677FF" : "",
+          //colorPrimaryBg: antdState.isDarkMode ? "" : "#f3f4f6",
         },
       }}
     >
