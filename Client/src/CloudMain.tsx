@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Avatar,
   Breadcrumb,
   Button,
   Col,
@@ -15,12 +14,7 @@ import {
 import CloudTabs from "./CloudTabs";
 import CloudNavbar from "./CloudNavbar";
 import CloudSideNavbar from "./CloudSideNavbar";
-import {
-  BookOutlined,
-  CaretRightOutlined,
-  CommentOutlined,
-  LinkOutlined,
-} from "@ant-design/icons";
+import { BookOutlined, CommentOutlined, LinkOutlined } from "@ant-design/icons";
 import Link from "antd/es/typography/Link";
 import CloudHome from "./pages/CloudHome";
 import CloudRightSider from "./CloudrRightSider";

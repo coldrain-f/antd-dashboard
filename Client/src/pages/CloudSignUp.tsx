@@ -18,6 +18,7 @@ import {
   theme,
 } from "antd";
 import { Link } from "react-router-dom";
+import CloudBanner from "../component/CloudBanner";
 
 type FieldType = {
   username?: string;
@@ -34,7 +35,14 @@ const { Content } = Layout;
 
 const CloudSignUp: React.FC = () => {
   return (
-    <ConfigProvider theme={{ algorithm: theme.defaultAlgorithm }}>
+    <ConfigProvider
+      theme={{
+        algorithm: theme.defaultAlgorithm,
+        token: {
+          colorPrimary: "#4d4d4d",
+        },
+      }}
+    >
       <Layout>
         <Content style={{ backgroundColor: "#ffffff" }}>
           <Row
@@ -45,7 +53,19 @@ const CloudSignUp: React.FC = () => {
             }}
           >
             <Col span={6}>
-              <Card title="회원가입">
+              <Card
+                bordered={false}
+                cover={
+                  <Link to="/join">
+                    <CloudBanner
+                      width={"100%"}
+                      height={"200px"}
+                      viewBox="0 0 4096 3585.892473118279"
+                    />
+                  </Link>
+                }
+                actions={[<Link to="/">돌아가기</Link>]}
+              >
                 <Form name="sign-up" layout="vertical" autoComplete="off">
                   <Form.Item<FieldType>
                     name="username"
@@ -131,9 +151,6 @@ const CloudSignUp: React.FC = () => {
                     </Button>
                   </Form.Item>
                 </Form>
-                <Space split={<Divider type="vertical" />}>
-                  <Link to="/">돌아가기</Link>
-                </Space>
               </Card>
             </Col>
           </Row>

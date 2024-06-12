@@ -1,8 +1,13 @@
 import React from "react";
-import { Menu, MenuProps } from "antd";
+import { ConfigProvider, Menu, MenuProps } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
+import { antdRecoilState } from "./recoil/antdRecoilState";
+import { useRecoilState } from "recoil";
+
 const CloudSideNavbar: React.FC = () => {
+  const [antdState] = useRecoilState(antdRecoilState);
+
   const items: MenuProps["items"] = [
     {
       key: "USER_ADMIN_001",
@@ -17,17 +22,27 @@ const CloudSideNavbar: React.FC = () => {
     },
   ];
 
+  // 다크모드인 경우 색상 설정 필요
   return (
-    <Menu
-      mode="inline"
-      defaultOpenKeys={["USER_ADMIN_001"]} // 부모
-      defaultSelectedKeys={["USER_ADMIN_001_1"]} // 자식
-      style={{
-        height: "88vh",
-        borderRight: 0,
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: antdState.isDarkMode ? "#1677FF" : "",
+          colorPrimaryBg: antdState.isDarkMode ? "" : "#f3f4f6",
+        },
       }}
-      items={items}
-    />
+    >
+      <Menu
+        mode="inline"
+        defaultOpenKeys={["USER_ADMIN_001"]} // 부모
+        defaultSelectedKeys={["USER_ADMIN_001_1"]} // 자식
+        style={{
+          height: "88vh",
+          borderRight: 0,
+        }}
+        items={items}
+      />
+    </ConfigProvider>
   );
 };
 

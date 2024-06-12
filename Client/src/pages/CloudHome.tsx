@@ -4,26 +4,17 @@ import {
   Card,
   Col,
   Divider,
-  Flex,
-  Progress,
   Row,
   Segmented,
   Space,
   Timeline,
   Typography,
 } from "antd";
-import { ResponsivePie } from "@nivo/pie";
-import { green, red, blue } from "@ant-design/colors";
+
 import {
-  CalendarOutlined,
-  CheckCircleOutlined,
   ClockCircleOutlined,
   CloudOutlined,
-  FormOutlined,
-  LineChartOutlined,
-  MoreOutlined,
   SettingOutlined,
-  ToolOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
 

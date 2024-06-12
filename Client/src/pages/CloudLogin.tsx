@@ -9,17 +9,13 @@ import {
   Button,
   Card,
   Checkbox,
-  Divider,
-  Space,
   Layout,
   theme,
   ConfigProvider,
   message,
-  Image,
-  Flex,
 } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import SVGComponent from "../component/CloudLogo";
+
 import CloudBanner from "../component/CloudBanner";
 
 type FieldType = {
@@ -61,6 +57,9 @@ const CloudLogin: React.FC = () => {
     <ConfigProvider
       theme={{
         algorithm: theme.defaultAlgorithm,
+        token: {
+          colorPrimary: "#4d4d4d",
+        },
       }}
     >
       <Layout>
@@ -75,17 +74,23 @@ const CloudLogin: React.FC = () => {
             }}
           >
             <Col span={6}>
-              {/* <Flex
-                justify="center"
-                style={{ marginBottom: "20", height: "100%" }}
+              <Card
+                bordered={false}
+                cover={
+                  <Link to="/">
+                    <CloudBanner
+                      width={"100%"}
+                      height={"200px"}
+                      viewBox="0 0 4096 3585.892473118279"
+                    />
+                  </Link>
+                }
+                actions={[
+                  <Link to="/">아이디 찾기</Link>,
+                  <Link to="/">비밀번호 찾기</Link>,
+                  <Link to="/join">회원가입</Link>,
+                ]}
               >
-                <CloudBanner
-                  width={"200px"}
-                  height={"245px"}
-                  viewBox="0 0 4096 1554.887939983557"
-                />
-              </Flex> */}
-              <Card title="로그인" bordered={true}>
                 <Form
                   name="login"
                   layout="vertical"
@@ -132,18 +137,12 @@ const CloudLogin: React.FC = () => {
                   <Form.Item<FieldType> name="remember" valuePropName="checked">
                     <Checkbox>로그인 상태 유지</Checkbox>
                   </Form.Item>
-
                   <Form.Item>
                     <Button type="primary" htmlType="submit" block>
                       로그인
                     </Button>
                   </Form.Item>
                 </Form>
-                <Space split={<Divider type="vertical" />}>
-                  <Link to="/">아이디 찾기</Link>
-                  <Link to="/">비밀번호 찾기</Link>
-                  <Link to="/join">회원가입</Link>
-                </Space>
               </Card>
             </Col>
           </Row>

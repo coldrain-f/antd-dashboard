@@ -29,7 +29,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { antdRecoilState } from "./recoil/antdRecoilState";
 import { useRecoilState } from "recoil";
 
-import logo from "./images/logo8.png";
 import SVGComponent from "./component/CloudLogo";
 
 const { Title } = Typography;

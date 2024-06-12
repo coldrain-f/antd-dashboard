@@ -30,7 +30,8 @@ const App: React.FC = () => {
       locale={locale}
       theme={{
         token: {
-          colorPrimary: "#00B96B",
+          // colorPrimary: "#00B96B",
+          colorPrimary: "#334155",
           fontFamily: "Noto Sans KR",
           fontSize: 14, // default
         },
