@@ -108,23 +108,10 @@ const CloudMain: React.FC = () => {
         </Layout>
 
         {/* Common */}
-        <FloatButton.Group
-          trigger="click"
-          type="primary"
+        <FloatButton.BackTop
           style={{ right: 70 }}
-          icon={<BookOutlined />}
-        >
-          <FloatButton
-            icon={<LinkOutlined />}
-            tooltip={<div>퀵 링크</div>}
-            onClick={showDrawer}
-          />
-          <FloatButton icon={<CommentOutlined />} tooltip={<div>채팅</div>} />
-          <FloatButton.BackTop
-            visibilityHeight={0}
-            tooltip={<div>맨 위로</div>}
-          />
-        </FloatButton.Group>
+          tooltip={<div>맨 위로</div>}
+        />
 
         <Drawer
           title="퀵 링크"

@@ -1,9 +1,11 @@
 import React from "react";
-import { Button, Card, Flex, Tooltip, Typography } from "antd";
+import { Button, Card, Divider, Flex, Tooltip, Typography } from "antd";
 import {
   CalendarOutlined,
   CheckCircleOutlined,
+  CommentOutlined,
   FormOutlined,
+  LinkOutlined,
   MenuUnfoldOutlined,
 } from "@ant-design/icons";
 
@@ -69,6 +71,38 @@ const CloudRightSider: React.FC = () => {
             <Button
               type="text"
               icon={<CalendarOutlined />}
+              block
+              size="large"
+              style={{
+                borderRadius: 0,
+                height: "45px",
+              }}
+              onClick={handleClick}
+            />
+          </Tooltip>
+          <Divider
+            style={{
+              marginTop: 10,
+              marginBottom: 10,
+            }}
+          />
+          <Tooltip title={"퀵 링크"} placement={"left"}>
+            <Button
+              type="text"
+              icon={<LinkOutlined />}
+              block
+              size="large"
+              style={{
+                borderRadius: 0,
+                height: "45px",
+              }}
+              onClick={handleClick}
+            />
+          </Tooltip>
+          <Tooltip title={"채팅"} placement={"left"}>
+            <Button
+              type="text"
+              icon={<CommentOutlined />}
               block
               size="large"
               style={{

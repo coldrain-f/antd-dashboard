@@ -212,7 +212,7 @@ const CloudHome: React.FC = () => {
         <Col span={9}>
           <Card
             style={{ height: "100%" }}
-            title="할 일"
+            title="나의 할 일"
             extra={<Button type="text" icon={<SettingOutlined />} />}
             bordered={false}
           >
@@ -262,7 +262,7 @@ const CloudHome: React.FC = () => {
           <Card
             style={{ height: "100%" }}
             bordered={false}
-            title="완료 타임라인"
+            title="타임라인"
             extra={
               <Segmented<string>
                 options={[
