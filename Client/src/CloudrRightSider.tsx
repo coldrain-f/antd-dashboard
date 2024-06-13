@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Card, Divider, Flex, Tooltip, Typography } from "antd";
 import {
+  BulbOutlined,
   CalendarOutlined,
   CheckCircleOutlined,
   CommentOutlined,
@@ -80,16 +81,18 @@ const CloudRightSider: React.FC = () => {
               onClick={handleClick}
             />
           </Tooltip>
+
           <Divider
             style={{
               marginTop: 10,
               marginBottom: 10,
             }}
           />
-          <Tooltip title={"퀵 링크"} placement={"left"}>
+
+          <Tooltip title={"채팅"} placement={"left"}>
             <Button
               type="text"
-              icon={<LinkOutlined />}
+              icon={<CommentOutlined />}
               block
               size="large"
               style={{
@@ -99,10 +102,10 @@ const CloudRightSider: React.FC = () => {
               onClick={handleClick}
             />
           </Tooltip>
-          <Tooltip title={"채팅"} placement={"left"}>
+          <Tooltip title={"퀵 링크"} placement={"left"}>
             <Button
               type="text"
-              icon={<CommentOutlined />}
+              icon={<LinkOutlined />}
               block
               size="large"
               style={{

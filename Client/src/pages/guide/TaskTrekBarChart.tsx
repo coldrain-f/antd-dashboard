@@ -74,7 +74,7 @@ const TaskTrekBarChart = () => (
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: "food",
+        legend: "Todo",
         legendPosition: "middle",
         legendOffset: -40,
         truncateTickAt: 0,

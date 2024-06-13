@@ -164,7 +164,8 @@ const CloudNavbar: React.FC = () => {
                 cursor: "pointer",
                 marginLeft: "12px",
               }}
-              src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png"
+              // src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png"
+              src="https://api.dicebear.com/7.x/miniavs/svg?seed=1"
               icon={<UserOutlined />}
             />
           </Popover>

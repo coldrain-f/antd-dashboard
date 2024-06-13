@@ -3,6 +3,7 @@ import {
   Button,
   Card,
   Col,
+  DatePicker,
   Divider,
   Row,
   Segmented,
@@ -13,6 +14,9 @@ import {
 } from "antd";
 
 import {
+  CalendarOutlined,
+  CheckCircleOutlined,
+  CheckCircleTwoTone,
   CloudOutlined,
   SettingOutlined,
   UnorderedListOutlined,
@@ -110,7 +114,7 @@ const MyResponsiveLine = () => (
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: "count",
+        legend: "Todo",
         legendOffset: -40,
         legendPosition: "middle",
         truncateTickAt: 0,
@@ -213,7 +217,28 @@ const CloudHome: React.FC = () => {
           <Card
             style={{ height: "100%" }}
             title="나의 할 일"
-            extra={<Button type="text" icon={<SettingOutlined />} />}
+            extra={
+              <Space>
+                <Segmented<string>
+                  options={[
+                    {
+                      label: "할 일",
+                      value: "Todo",
+                      icon: <CheckCircleOutlined />,
+                    },
+                    {
+                      label: "일정",
+                      value: "Plan",
+                      icon: <CalendarOutlined />,
+                    },
+                  ]}
+                  onChange={(value) => {
+                    console.log(value); // string
+                  }}
+                />
+                <Button type="text" icon={<SettingOutlined />} />
+              </Space>
+            }
             bordered={false}
           >
             <Row gutter={8} style={{ marginBottom: 10 }}>
@@ -264,29 +289,10 @@ const CloudHome: React.FC = () => {
             bordered={false}
             title="타임라인"
             extra={
-              <Segmented<string>
-                options={[
-                  {
-                    label: "전체",
-                    value: "ALL",
-                    icon: <UnorderedListOutlined />,
-                  },
-                  {
-                    label: "할 일",
-                    value: "Todo",
-                    icon: <></>,
-                  },
-                  { label: "메모", value: "Memo", icon: <></> },
-                  {
-                    label: "일정",
-                    value: "Plan",
-                    icon: <></>,
-                  },
-                ]}
-                onChange={(value) => {
-                  console.log(value); // string
-                }}
-              />
+              <Space>
+                <DatePicker picker="year" />
+                <Button type="text" icon={<SettingOutlined />} />
+              </Space>
             }
           >
             <MyResponsiveLine />
