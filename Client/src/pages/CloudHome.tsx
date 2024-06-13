@@ -7,295 +7,82 @@ import {
   Row,
   Segmented,
   Space,
-  Timeline,
+  Statistic,
+  StatisticProps,
   Typography,
 } from "antd";
 
 import {
-  ClockCircleOutlined,
   CloudOutlined,
   SettingOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
 
+import CountUp from "react-countup";
+
 // Guide: https://nivo.rocks/pie/
 import { ResponsiveLine } from "@nivo/line";
+import TaskTrekBarChart from "./guide/TaskTrekBarChart";
 
 const data = [
   {
-    id: "japan",
+    id: "해야 할 일",
     color: "hsl(219, 70%, 50%)",
     data: [
-      {
-        x: "plane",
-        y: 288,
-      },
-      {
-        x: "helicopter",
-        y: 221,
-      },
-      {
-        x: "boat",
-        y: 84,
-      },
-      {
-        x: "train",
-        y: 291,
-      },
-      {
-        x: "subway",
-        y: 99,
-      },
-      {
-        x: "bus",
-        y: 118,
-      },
-      {
-        x: "car",
-        y: 291,
-      },
-      {
-        x: "moto",
-        y: 50,
-      },
-      {
-        x: "bicycle",
-        y: 241,
-      },
-      {
-        x: "horse",
-        y: 139,
-      },
-      {
-        x: "skateboard",
-        y: 183,
-      },
-      {
-        x: "others",
-        y: 237,
-      },
+      { x: "1월", y: Math.floor(Math.random() * 300) },
+      { x: "2월", y: Math.floor(Math.random() * 300) },
+      { x: "3월", y: Math.floor(Math.random() * 300) },
+      { x: "4월", y: Math.floor(Math.random() * 300) },
+      { x: "5월", y: Math.floor(Math.random() * 300) },
+      { x: "6월", y: Math.floor(Math.random() * 300) },
+      { x: "7월", y: Math.floor(Math.random() * 300) },
+      { x: "8월", y: Math.floor(Math.random() * 300) },
+      { x: "9월", y: Math.floor(Math.random() * 300) },
+      { x: "10월", y: Math.floor(Math.random() * 300) },
+      { x: "11월", y: Math.floor(Math.random() * 300) },
+      { x: "12월", y: Math.floor(Math.random() * 300) },
     ],
   },
   {
-    id: "france",
+    id: "진행중",
     color: "hsl(169, 70%, 50%)",
     data: [
-      {
-        x: "plane",
-        y: 129,
-      },
-      {
-        x: "helicopter",
-        y: 279,
-      },
-      {
-        x: "boat",
-        y: 57,
-      },
-      {
-        x: "train",
-        y: 73,
-      },
-      {
-        x: "subway",
-        y: 171,
-      },
-      {
-        x: "bus",
-        y: 64,
-      },
-      {
-        x: "car",
-        y: 252,
-      },
-      {
-        x: "moto",
-        y: 5,
-      },
-      {
-        x: "bicycle",
-        y: 161,
-      },
-      {
-        x: "horse",
-        y: 221,
-      },
-      {
-        x: "skateboard",
-        y: 85,
-      },
-      {
-        x: "others",
-        y: 218,
-      },
+      { x: "1월", y: Math.floor(Math.random() * 300) },
+      { x: "2월", y: Math.floor(Math.random() * 300) },
+      { x: "3월", y: Math.floor(Math.random() * 300) },
+      { x: "4월", y: Math.floor(Math.random() * 300) },
+      { x: "5월", y: Math.floor(Math.random() * 300) },
+      { x: "6월", y: Math.floor(Math.random() * 300) },
+      { x: "7월", y: Math.floor(Math.random() * 300) },
+      { x: "8월", y: Math.floor(Math.random() * 300) },
+      { x: "9월", y: Math.floor(Math.random() * 300) },
+      { x: "10월", y: Math.floor(Math.random() * 300) },
+      { x: "11월", y: Math.floor(Math.random() * 300) },
+      { x: "12월", y: Math.floor(Math.random() * 300) },
     ],
   },
   {
-    id: "us",
+    id: "완료",
     color: "hsl(198, 70%, 50%)",
     data: [
-      {
-        x: "plane",
-        y: 261,
-      },
-      {
-        x: "helicopter",
-        y: 72,
-      },
-      {
-        x: "boat",
-        y: 284,
-      },
-      {
-        x: "train",
-        y: 157,
-      },
-      {
-        x: "subway",
-        y: 49,
-      },
-      {
-        x: "bus",
-        y: 212,
-      },
-      {
-        x: "car",
-        y: 259,
-      },
-      {
-        x: "moto",
-        y: 18,
-      },
-      {
-        x: "bicycle",
-        y: 228,
-      },
-      {
-        x: "horse",
-        y: 217,
-      },
-      {
-        x: "skateboard",
-        y: 128,
-      },
-      {
-        x: "others",
-        y: 218,
-      },
-    ],
-  },
-  {
-    id: "germany",
-    color: "hsl(97, 70%, 50%)",
-    data: [
-      {
-        x: "plane",
-        y: 124,
-      },
-      {
-        x: "helicopter",
-        y: 236,
-      },
-      {
-        x: "boat",
-        y: 64,
-      },
-      {
-        x: "train",
-        y: 248,
-      },
-      {
-        x: "subway",
-        y: 83,
-      },
-      {
-        x: "bus",
-        y: 234,
-      },
-      {
-        x: "car",
-        y: 193,
-      },
-      {
-        x: "moto",
-        y: 44,
-      },
-      {
-        x: "bicycle",
-        y: 41,
-      },
-      {
-        x: "horse",
-        y: 114,
-      },
-      {
-        x: "skateboard",
-        y: 79,
-      },
-      {
-        x: "others",
-        y: 275,
-      },
-    ],
-  },
-  {
-    id: "norway",
-    color: "hsl(85, 70%, 50%)",
-    data: [
-      {
-        x: "plane",
-        y: 84,
-      },
-      {
-        x: "helicopter",
-        y: 300,
-      },
-      {
-        x: "boat",
-        y: 84,
-      },
-      {
-        x: "train",
-        y: 195,
-      },
-      {
-        x: "subway",
-        y: 224,
-      },
-      {
-        x: "bus",
-        y: 97,
-      },
-      {
-        x: "car",
-        y: 25,
-      },
-      {
-        x: "moto",
-        y: 259,
-      },
-      {
-        x: "bicycle",
-        y: 36,
-      },
-      {
-        x: "horse",
-        y: 164,
-      },
-      {
-        x: "skateboard",
-        y: 43,
-      },
-      {
-        x: "others",
-        y: 33,
-      },
+      { x: "1월", y: Math.floor(Math.random() * 300) },
+      { x: "2월", y: Math.floor(Math.random() * 300) },
+      { x: "3월", y: Math.floor(Math.random() * 300) },
+      { x: "4월", y: Math.floor(Math.random() * 300) },
+      { x: "5월", y: Math.floor(Math.random() * 300) },
+      { x: "6월", y: Math.floor(Math.random() * 300) },
+      { x: "7월", y: Math.floor(Math.random() * 300) },
+      { x: "8월", y: Math.floor(Math.random() * 300) },
+      { x: "9월", y: Math.floor(Math.random() * 300) },
+      { x: "10월", y: Math.floor(Math.random() * 300) },
+      { x: "11월", y: Math.floor(Math.random() * 300) },
+      { x: "12월", y: Math.floor(Math.random() * 300) },
     ],
   },
 ];
 
 const MyResponsiveLine = () => (
-  <div style={{ width: "100%", height: "500px" }}>
+  <div style={{ width: "100%", height: "470px" }}>
     <ResponsiveLine
       data={data}
       margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
@@ -314,7 +101,7 @@ const MyResponsiveLine = () => (
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: "transportation",
+        legend: "",
         legendOffset: 36,
         legendPosition: "middle",
         truncateTickAt: 0,
@@ -368,10 +155,13 @@ const MyResponsiveLine = () => (
 
 const CloudHome: React.FC = () => {
   const { Title, Text } = Typography;
+  const formatter: StatisticProps["formatter"] = (value) => (
+    <CountUp end={value as number} separator="," />
+  );
 
   return (
     <>
-      <Row>
+      <Row gutter={16}>
         <Col span={12}>
           <Typography>
             <Title
@@ -418,11 +208,61 @@ const CloudHome: React.FC = () => {
       </Row>
       <Divider />
       <Row gutter={16}>
-        <Col span={10}>
+        {/* 할 일 Statistic */}
+        <Col span={9}>
           <Card
-            style={{ height: "615px" }}
-            bordered={true}
-            title={"타임라인"}
+            style={{ height: "100%" }}
+            title="할 일"
+            extra={<Button type="text" icon={<SettingOutlined />} />}
+            bordered={false}
+          >
+            <Row gutter={8} style={{ marginBottom: 10 }}>
+              <Col span={8}>
+                <Card>
+                  <Statistic
+                    title="해야 할 일"
+                    value={64}
+                    formatter={formatter}
+                    suffix="개"
+                  />
+                </Card>
+              </Col>
+
+              <Col span={8}>
+                <Card>
+                  <Statistic
+                    title="진행중"
+                    value={127}
+                    formatter={formatter}
+                    suffix="개"
+                  />
+                </Card>
+              </Col>
+
+              <Col span={8}>
+                <Card>
+                  <Statistic
+                    title="완료"
+                    value={30}
+                    formatter={formatter}
+                    suffix="개"
+                  />
+                </Card>
+              </Col>
+            </Row>
+            <Row>
+              <Col span={24}>
+                <TaskTrekBarChart />
+              </Col>
+            </Row>
+          </Card>
+        </Col>
+        {/* 타임라인 */}
+        <Col span={15}>
+          <Card
+            style={{ height: "100%" }}
+            bordered={false}
+            title="완료 타임라인"
             extra={
               <Segmented<string>
                 options={[
@@ -448,42 +288,6 @@ const CloudHome: React.FC = () => {
                 }}
               />
             }
-          >
-            <Timeline
-              mode="alternate"
-              items={[
-                {
-                  children: "Create a services site 2015-09-01",
-                },
-                {
-                  children: "Solve initial network problems 2015-09-01",
-                  color: "green",
-                },
-                {
-                  dot: <ClockCircleOutlined style={{ fontSize: "16px" }} />,
-                  children: `Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.`,
-                },
-                {
-                  color: "red",
-                  children: "Network problems being solved 2015-09-01",
-                },
-                {
-                  children: "Create a services site 2015-09-01",
-                },
-                {
-                  dot: <ClockCircleOutlined style={{ fontSize: "16px" }} />,
-                  children: "Technical testing 2015-09-01",
-                },
-              ]}
-            />
-          </Card>
-        </Col>
-        <Col span={14}>
-          <Card
-            style={{ height: "615px" }}
-            bordered={false}
-            title="라인 차트"
-            extra={<Button type="text" icon={<SettingOutlined />} />}
           >
             <MyResponsiveLine />
           </Card>
