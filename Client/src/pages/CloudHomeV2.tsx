@@ -24,6 +24,7 @@ import CountUp from "react-countup";
 import ColumnWithDataLabelsChart from "../component/charts/ColumnWithDataLabelsChart";
 import { Color } from "bizcharts/lib/plots/core/dependents";
 import TaskTrekBarChart from "./guide/TaskTrekBarChart";
+import LineWithDataLabelsChart from "../component/charts/LineWithDataLabelsChart";
 
 const CloudHomeV2: React.FC = () => {
   const { Title, Text } = Typography;
@@ -145,7 +146,9 @@ const CloudHomeV2: React.FC = () => {
                 <Button type="text" icon={<SettingOutlined />} />
               </Space>
             }
-          ></Card>
+          >
+            <LineWithDataLabelsChart />
+          </Card>
         </Col>
       </Row>
     </>
