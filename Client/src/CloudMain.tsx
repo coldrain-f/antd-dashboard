@@ -21,6 +21,7 @@ import CloudRightSider from "./CloudrRightSider";
 
 import { antdSiderState } from "./recoil/antdSiderState";
 import { useRecoilState } from "recoil";
+import CloudHomeV2 from "./pages/CloudHomeV2";
 
 const { Header, Content, Sider } = Layout;
 
@@ -90,7 +91,7 @@ const CloudMain: React.FC = () => {
                 borderRadius: borderRadiusLG,
               }}
             >
-              {isMain ? <CloudHome /> : <CloudTabs />}
+              {isMain ? <CloudHomeV2 /> : <CloudTabs />}
 
               {/* <CloudTabs /> */}
             </Content>
