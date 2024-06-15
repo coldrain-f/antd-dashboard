@@ -14,14 +14,13 @@ import {
 import CloudTabs from "./CloudTabs";
 import CloudNavbar from "./CloudNavbar";
 import CloudSideNavbar from "./CloudSideNavbar";
-import { BookOutlined, CommentOutlined, LinkOutlined } from "@ant-design/icons";
 import Link from "antd/es/typography/Link";
-import CloudHome from "./pages/CloudHome";
 import CloudRightSider from "./CloudrRightSider";
 
 import { antdSiderState } from "./recoil/antdSiderState";
 import { useRecoilState } from "recoil";
 import CloudHomeV2 from "./pages/CloudHomeV2";
+import CloudHomeV3 from "./pages/CloudHomeV3";
 
 const { Header, Content, Sider } = Layout;
 
@@ -56,20 +55,23 @@ const CloudMain: React.FC = () => {
           <Sider
             width={200}
             style={{ background: colorBgContainer }}
-            collapsible
-            collapsed={collapsed}
-            onCollapse={(value) => setCollapsed(value)}
+            // collapsible
+            // collapsed={collapsed}
+            // onCollapse={(value) => setCollapsed(value)}
           >
             <CloudSideNavbar />
           </Sider>
           <Layout style={{ padding: "0 24px 24px" }}>
-            <Row>
+            <Row style={{ marginRight: "50px" }}>
               <Col span={12}>
-                <Breadcrumb style={{ margin: "16px 0" }}>
-                  <Breadcrumb.Item>Admin</Breadcrumb.Item>
-                  <Breadcrumb.Item>회원 관리</Breadcrumb.Item>
-                  <Breadcrumb.Item>회원 관리</Breadcrumb.Item>
-                </Breadcrumb>
+                <Breadcrumb
+                  style={{ margin: "16px 0" }}
+                  items={[
+                    { title: "Admin" },
+                    { title: "회원 관리" },
+                    { title: "회원 관리" },
+                  ]}
+                ></Breadcrumb>
               </Col>
               <Col span={12} style={{ display: "flex", justifyContent: "end" }}>
                 <Button
@@ -87,6 +89,7 @@ const CloudMain: React.FC = () => {
                 overflow: "auto",
                 padding: 24,
                 margin: 0,
+                marginRight: "58px",
                 background: colorBgContainer,
                 borderRadius: borderRadiusLG,
               }}
@@ -101,6 +104,11 @@ const CloudMain: React.FC = () => {
             collapsedWidth={340}
             style={{
               background: colorBgContainer,
+              position: "absolute",
+              top: 65,
+              right: 0,
+              bottom: 0,
+              zIndex: 100,
             }}
             collapsed={siderState.collapsed}
           >

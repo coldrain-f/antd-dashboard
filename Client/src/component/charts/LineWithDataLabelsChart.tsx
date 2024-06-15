@@ -1,30 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 
+import { useRecoilState } from "recoil";
+import { antdRecoilState } from "../../recoil/antdRecoilState";
+
 interface MyComponentProps {}
 
-const LineWithDataLabelsChart: React.FC<MyComponentProps> = () => {
+const LineWithDataLabelsChart: React.FC = () => {
+  const [recoilState] = useRecoilState(antdRecoilState);
+
+  const [data, setData] = useState([
+    {
+      name: "해야 할 일",
+      data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10],
+    },
+    {
+      name: "진행 중",
+      data: [35, 41, 62, 42, 13, 18, 29, 37, 36, 51, 32, 35],
+    },
+    {
+      name: "완료",
+      data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47],
+    },
+  ]);
+
   const chartOptions: ApexOptions = {
     // Define your chart options here
     chart: {
       fontFamily: "Noto Sans KR, Arial, sans-serif",
+      redrawOnParentResize: true, // resize
+      redrawOnWindowResize: true,
+      toolbar: {
+        tools: {
+          download: false,
+          selection: false,
+          zoom: false,
+          zoomin: false,
+          zoomout: false,
+          pan: false,
+        },
+      },
     },
 
-    series: [
-      {
-        name: "해야 할 일",
-        data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10],
-      },
-      {
-        name: "진행 중",
-        data: [35, 41, 62, 42, 13, 18, 29, 37, 36, 51, 32, 35],
-      },
-      {
-        name: "완료",
-        data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47],
-      },
-    ],
+    theme: {
+      mode: recoilState.isDarkMode ? "dark" : "light",
+    },
+
+    series: data,
 
     dataLabels: {
       enabled: false,
@@ -58,7 +81,11 @@ const LineWithDataLabelsChart: React.FC<MyComponentProps> = () => {
         sizeOffset: 6,
       },
     },
-
+    yaxis: {
+      title: {
+        text: "Timeline",
+      },
+    },
     xaxis: {
       categories: [
         "1월",
@@ -74,6 +101,12 @@ const LineWithDataLabelsChart: React.FC<MyComponentProps> = () => {
         "11월",
         "12월",
       ],
+      axisBorder: {
+        show: true,
+      },
+      axisTicks: {
+        show: true,
+      },
     },
 
     tooltip: {
@@ -101,9 +134,6 @@ const LineWithDataLabelsChart: React.FC<MyComponentProps> = () => {
         },
       ],
     },
-    grid: {
-      borderColor: "#f1f1f1",
-    },
   };
 
   return (
@@ -113,6 +143,7 @@ const LineWithDataLabelsChart: React.FC<MyComponentProps> = () => {
         series={chartOptions.series}
         type="line"
         height={500}
+        width={"100%"}
       />
     </div>
   );

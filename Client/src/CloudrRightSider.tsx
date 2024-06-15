@@ -1,7 +1,6 @@
-import React from "react";
-import { Button, Card, Divider, Flex, Tooltip, Typography } from "antd";
+import React, { useState } from "react";
+import { Button, Card, Divider, Drawer, Flex, Tooltip, Typography } from "antd";
 import {
-  BulbOutlined,
   CalendarOutlined,
   CheckCircleOutlined,
   CommentOutlined,
@@ -18,12 +17,32 @@ const CloudRightSider: React.FC = () => {
   const [siderState, setSiderState] = useRecoilState(antdSiderState);
   const [recoilState] = useRecoilState(antdRecoilState);
 
+  const [open, setOpen] = useState(false);
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
   const handleClick = () => {
     setSiderState({ collapsed: true });
+    // showDrawer();
   };
 
   return (
     <>
+      <Drawer
+        title="할 일"
+        onClose={onClose}
+        open={open}
+        mask={false}
+        maskClosable={true}
+        keyboard={true}
+        width={327}
+      ></Drawer>
       <Flex style={{ height: "100%" }}>
         <Flex
           justify="start"

@@ -2,15 +2,27 @@ import React from "react";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 
+import { useRecoilState } from "recoil";
+import { antdRecoilState } from "../../recoil/antdRecoilState";
+
 interface MyComponentProps {}
 
 const MyComponent: React.FC<MyComponentProps> = () => {
+  const [recoilState] = useRecoilState(antdRecoilState);
+
   const chartOptions: ApexOptions = {
     // Define your chart options here
     chart: {
       fontFamily: "Noto Sans KR, Arial, sans-serif",
+      redrawOnParentResize: true, // resize
+      redrawOnWindowResize: true,
       // stacked: true,
     },
+
+    theme: {
+      mode: recoilState.isDarkMode ? "dark" : "light",
+    },
+
     plotOptions: {
       bar: {
         // borderRadius: 10,
@@ -48,7 +60,7 @@ const MyComponent: React.FC<MyComponentProps> = () => {
       offsetY: -20,
       style: {
         fontSize: "12px",
-        colors: ["#304758"],
+        colors: [recoilState.isDarkMode ? "#ffffff" : "#304758"],
       },
     },
     legend: {

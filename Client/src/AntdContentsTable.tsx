@@ -3,11 +3,8 @@ import { Button, Card, Form, Input, Space, Table, Typography } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
 import {
   ClearOutlined,
-  DatabaseOutlined,
   FileSearchOutlined,
-  InfoOutlined,
   SearchOutlined,
-  TabletOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
 

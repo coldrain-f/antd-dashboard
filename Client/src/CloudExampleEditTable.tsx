@@ -364,8 +364,8 @@ const CloudExampleEditTable: React.FC = () => {
     y?: number | string;
   }>(
     dataSource.length > 0
-      ? { x: "max-content", y: "calc(55vh - 50px)" }
-      : { x: 0, y: "calc(55vh - 50px)" }
+      ? { x: "max-content", y: "calc(60vh - 50px)" }
+      : { x: 0, y: "calc(60vh - 50px)" }
   );
 
   // 필터 초기화
@@ -416,9 +416,9 @@ const CloudExampleEditTable: React.FC = () => {
     console.log("params", pagination, filters, sorter, extra);
     if (extra.currentDataSource.length <= 0) {
       // 필터 후 데이터가 없으면 x: 0(헤더 꺠짐 방지)
-      setScroll({ x: 0, y: "calc(55vh - 50px)" });
+      setScroll({ x: 0, y: "calc(60vh - 50px)" });
     } else {
-      setScroll({ x: "max-content", y: "calc(55vh - 50px)" });
+      setScroll({ x: "max-content", y: "calc(60vh - 50px)" });
     }
     setFilteredDataSource(extra.currentDataSource);
   };
@@ -545,7 +545,7 @@ const CloudExampleEditTable: React.FC = () => {
         </Col>
       </Row>
       <Table
-        style={{ height: calcTableHeight("55vh") }}
+        style={{ height: calcTableHeight("60vh") }}
         bordered={bordered}
         columns={columns}
         dataSource={dataSource}

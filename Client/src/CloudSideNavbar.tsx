@@ -7,6 +7,7 @@ import { useRecoilState } from "recoil";
 
 const CloudSideNavbar: React.FC = () => {
   const [antdState] = useRecoilState(antdRecoilState);
+  const [recoilState] = useRecoilState(antdRecoilState);
 
   const items: MenuProps["items"] = [
     {
@@ -36,8 +37,14 @@ const CloudSideNavbar: React.FC = () => {
         defaultOpenKeys={["USER_ADMIN_001"]} // 부모
         defaultSelectedKeys={["USER_ADMIN_001_1"]} // 자식
         style={{
-          height: "88vh",
-          borderRight: 0,
+          //height: "88vh",
+          height: "93vh",
+          borderLeft: recoilState.isDarkMode
+            ? "0px solid #363636"
+            : "1px solid #e0e0e0",
+          borderRight: recoilState.isDarkMode
+            ? "0px solid #363636"
+            : "1px solid #e0e0e0",
         }}
         items={items}
       />

@@ -16,10 +16,8 @@ import {
 import {
   CalendarOutlined,
   CheckCircleOutlined,
-  CheckCircleTwoTone,
   CloudOutlined,
   SettingOutlined,
-  UnorderedListOutlined,
 } from "@ant-design/icons";
 
 import CountUp from "react-countup";

@@ -5,26 +5,21 @@ import {
   Col,
   DatePicker,
   Divider,
+  Flex,
   Row,
-  Segmented,
   Space,
   Statistic,
   StatisticProps,
   Typography,
 } from "antd";
 
-import {
-  CalendarOutlined,
-  CheckCircleOutlined,
-  CloudOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import { CloudOutlined, SettingOutlined } from "@ant-design/icons";
 
 import CountUp from "react-countup";
-import ColumnWithDataLabelsChart from "../component/charts/ColumnWithDataLabelsChart";
-import { Color } from "bizcharts/lib/plots/core/dependents";
-import TaskTrekBarChart from "./guide/TaskTrekBarChart";
 import LineWithDataLabelsChart from "../component/charts/LineWithDataLabelsChart";
+import ColumnWithDataLabelsChart from "../component/charts/ColumnWithDataLabelsChart";
+
+import dayjs from "dayjs";
 
 const CloudHomeV2: React.FC = () => {
   const { Title, Text } = Typography;
@@ -127,11 +122,8 @@ const CloudHomeV2: React.FC = () => {
                 </Card>
               </Col>
             </Row>
-            <Row>
-              <Col span={24}>
-                <ColumnWithDataLabelsChart />
-              </Col>
-            </Row>
+
+            <ColumnWithDataLabelsChart />
           </Card>
         </Col>
         {/* 타임라인 */}
@@ -142,7 +134,10 @@ const CloudHomeV2: React.FC = () => {
             title="타임라인"
             extra={
               <Space>
-                <DatePicker picker="year" />
+                <DatePicker
+                  picker="year"
+                  defaultValue={dayjs("2024-01-01", "YYYY-MM-DD")}
+                />
                 <Button type="text" icon={<SettingOutlined />} />
               </Space>
             }
