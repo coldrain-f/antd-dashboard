@@ -63,7 +63,7 @@ const CloudRightSider: React.FC = () => {
         >
           <Tooltip title={"할 일"} placement={"left"}>
             <Button
-              type="text"
+              type={siderState.collapsed ? "link" : "text"}
               icon={<CheckCircleOutlined />}
               block
               size="large"
