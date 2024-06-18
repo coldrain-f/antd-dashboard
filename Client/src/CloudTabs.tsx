@@ -9,8 +9,6 @@ import {
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import AntdContentsTable from "./AntdContentsTable";
-import CloudExampleEditTable from "./CloudExampleEditTable";
 import { useRecoilState } from "recoil";
 import { tasktrekTabState } from "./recoil/tasktrekTabState";
 
@@ -39,16 +37,9 @@ const DraggableTabNode = ({ className, ...props }: DraggableTabPaneProps) => {
   });
 };
 
-const initialItems = [
-  { label: "운동 관리", key: "1", children: <CloudExampleEditTable /> },
-  { label: "사용자 관리", key: "2", children: <AntdContentsTable /> },
-];
-
 const CloudTabs: React.FC = () => {
-  const [activeKey, setActiveKey] = useState(initialItems[0].key);
-  const [tabItems, setTabItems] = useState(initialItems);
-
   const [tabRecoilState, setTabRecoilState] = useRecoilState(tasktrekTabState);
+  const [activeKey, setActiveKey] = useState("1");
 
   const sensor = useSensor(PointerSensor, {
     activationConstraint: { distance: 10 },
@@ -56,11 +47,27 @@ const CloudTabs: React.FC = () => {
 
   const onDragEnd = ({ active, over }: DragEndEvent) => {
     if (active.id !== over?.id) {
-      setTabItems((prev) => {
-        const activeIndex = prev.findIndex((i) => i.key === active.id);
-        const overIndex = prev.findIndex((i) => i.key === over?.id);
-        return arrayMove(prev, activeIndex, overIndex);
+      const activeIndex = tabRecoilState.items.findIndex(
+        (i) => i.key === active.id
+      );
+      const overIndex = tabRecoilState.items.findIndex(
+        (i) => i.key === over?.id
+      );
+      setTabRecoilState({
+        items: arrayMove(tabRecoilState.items, activeIndex, overIndex),
       });
+    }
+  };
+
+  const onEdit = (
+    targetKey: React.MouseEvent | React.KeyboardEvent | string,
+    action: "add" | "remove"
+  ) => {
+    if (action === "remove") {
+      const removedItems = tabRecoilState.items.filter(
+        (item) => item?.key !== targetKey
+      );
+      setTabRecoilState({ items: removedItems });
     }
   };
 
@@ -70,10 +77,11 @@ const CloudTabs: React.FC = () => {
       type="editable-card"
       items={tabRecoilState.items}
       accessKey={activeKey}
+      onEdit={onEdit}
       renderTabBar={(tabBarProps, DefaultTabBar) => (
         <DndContext sensors={[sensor]} onDragEnd={onDragEnd}>
           <SortableContext
-            items={tabItems.map((i) => i.key)}
+            items={tabRecoilState.items.map((i) => i.key)}
             strategy={horizontalListSortingStrategy}
           >
             <DefaultTabBar {...tabBarProps}>

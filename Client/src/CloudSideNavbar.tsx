@@ -18,9 +18,9 @@ const CloudSideNavbar: React.FC = () => {
   const [tabRecoilState, setTabRecoilState] = useRecoilState(tasktrekTabState);
 
   const addTab = (
+    key: string,
     label: React.ReactNode,
-    children: JSX.Element,
-    key: string
+    children: JSX.Element
   ) => {
     const newItem = { label, children, key };
 
@@ -34,7 +34,7 @@ const CloudSideNavbar: React.FC = () => {
 
     setTabRecoilState((prevState) => ({
       items: [...prevState.items, newItem],
-      activeKey: "activeKey",
+      activeKey: key,
     }));
   };
 
@@ -83,23 +83,21 @@ const CloudSideNavbar: React.FC = () => {
   ];
 
   const onClick: MenuProps["onClick"] = (e) => {
-    const a = items.find(
-      (item): item is SubMenuType => item?.key === e.keyPath[1]
-    ) as SubMenuType;
+    const menuItem = items
+      .find((item): item is SubMenuType => item?.key === e.keyPath[1])
+      ?.children.find(
+        (item): item is SubMenuType => item?.key === e.keyPath[0]
+      ) as SubMenuType;
 
-    const b = a.children.find(
-      (item): item is SubMenuType => item?.key === e.keyPath[0]
-    ) as SubMenuType;
-
-    addTab(b.label, <TaskTrekMenuManagement />, b.key);
+    addTab(menuItem.key, menuItem.label, <CloudExampleEditTable />);
   };
 
   return (
     <Menu
       onClick={onClick}
       mode="inline"
-      defaultOpenKeys={["USER_ADMIN_001"]} // 부모
-      defaultSelectedKeys={["USER_ADMIN_001_1"]} // 자식
+      // defaultOpenKeys={["USER_ADMIN_001"]} // 부모
+      // defaultSelectedKeys={["USER_ADMIN_001_1"]} // 자식
       style={{
         height: "93vh",
         borderLeft: recoilState.isDarkMode

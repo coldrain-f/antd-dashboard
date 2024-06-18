@@ -2,6 +2,7 @@ import {
   BellOutlined,
   CompressOutlined,
   DashboardOutlined,
+  GlobalOutlined,
   LoginOutlined,
   MoonOutlined,
   SettingOutlined,
@@ -11,14 +12,12 @@ import {
 import {
   Avatar,
   Button,
-  Col,
   Divider,
   Flex,
-  Image,
   Menu,
   MenuProps,
+  Popconfirm,
   Popover,
-  Row,
   Space,
   Tooltip,
   Typography,
@@ -30,6 +29,8 @@ import { antdRecoilState } from "./recoil/antdRecoilState";
 import { useRecoilState } from "recoil";
 
 import SVGComponent from "./component/CloudLogo";
+import { tasktrekTabState } from "./recoil/tasktrekTabState";
+import { useState } from "react";
 
 const { Title } = Typography;
 
@@ -74,6 +75,7 @@ const CloudNavbar: React.FC = () => {
   ];
 
   const [antdState, setAntdState] = useRecoilState(antdRecoilState);
+  const [tabRecoilState, setTabRecoilState] = useRecoilState(tasktrekTabState);
 
   const toggleDarkMode = () => {
     if (antdState.isDarkMode) {
@@ -114,13 +116,24 @@ const CloudNavbar: React.FC = () => {
   return (
     <>
       <Flex justify="start" style={{ height: "100%" }}>
-        <Link to="/dashboard">
+        <Popconfirm
+          placement="bottomLeft"
+          title={"안내"}
+          description={"정말로 모든 탭을 닫으시겠습니까?"}
+          okText="확인"
+          cancelText="취소"
+          onConfirm={() => {
+            setTabRecoilState({ items: [] });
+          }}
+        >
           <SVGComponent
             width={"125px"}
             height={antdState.isCompactMode ? "56px" : "64px"}
             viewBox="0 0 4096 1554.887939983557"
+            style={{ cursor: "pointer" }}
           />
-        </Link>
+        </Popconfirm>
+
         <Menu
           theme="dark"
           mode="horizontal"
@@ -139,7 +152,6 @@ const CloudNavbar: React.FC = () => {
             <a href="#">
               <Avatar icon={<CompressOutlined />} onClick={toggleCompactMode} />
             </a>
-
             <a href="#">
               <Tooltip placement="bottom" title={"설정"} arrow>
                 <Avatar icon={<SettingOutlined />} />
