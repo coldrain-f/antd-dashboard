@@ -29,16 +29,18 @@ const LineWithDataLabelsChart: React.FC = () => {
     // Define your chart options here
     chart: {
       fontFamily: "Noto Sans KR, Arial, sans-serif",
+      background: recoilState.isDarkMode ? "#141414" : "#ffffff",
       redrawOnParentResize: true, // resize
       redrawOnWindowResize: true,
       toolbar: {
         tools: {
-          download: false,
+          download: true,
           selection: false,
           zoom: false,
           zoomin: false,
           zoomout: false,
           pan: false,
+          reset: false,
         },
       },
     },

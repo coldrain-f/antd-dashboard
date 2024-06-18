@@ -71,7 +71,7 @@ const CloudLogin: React.FC = () => {
       }}
     >
       <Layout>
-        <Content style={{ backgroundColor: "#ffffff" }}>
+        <Content style={{ backgroundColor: "#F9FAFC" }}>
           {contextHolder}
 
           <Row
@@ -83,6 +83,11 @@ const CloudLogin: React.FC = () => {
           >
             <Col span={6}>
               <Card
+                style={{
+                  padding: 10,
+                  borderRadius: 10,
+                  boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)",
+                }}
                 bordered={false}
                 cover={
                   <Link to="/">
@@ -90,6 +95,7 @@ const CloudLogin: React.FC = () => {
                       width={"100%"}
                       height={"200px"}
                       viewBox="0 0 4096 3585.892473118279"
+                      style={{ cursor: "default" }}
                     />
                   </Link>
                 }

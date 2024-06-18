@@ -11,6 +11,8 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import AntdContentsTable from "./AntdContentsTable";
 import CloudExampleEditTable from "./CloudExampleEditTable";
+import { useRecoilState } from "recoil";
+import { tasktrekTabState } from "./recoil/tasktrekTabState";
 
 interface DraggableTabPaneProps extends React.HTMLAttributes<HTMLDivElement> {
   "data-node-key": string;
@@ -37,15 +39,16 @@ const DraggableTabNode = ({ className, ...props }: DraggableTabPaneProps) => {
   });
 };
 
+const initialItems = [
+  { label: "운동 관리", key: "1", children: <CloudExampleEditTable /> },
+  { label: "사용자 관리", key: "2", children: <AntdContentsTable /> },
+];
+
 const CloudTabs: React.FC = () => {
-  const [tabItems, setTabItems] = useState([
-    {
-      label: "편집 테이블 샘플",
-      key: "1",
-      children: <CloudExampleEditTable />,
-    },
-    { label: "사용자 관리", key: "2", children: <AntdContentsTable /> },
-  ]);
+  const [activeKey, setActiveKey] = useState(initialItems[0].key);
+  const [tabItems, setTabItems] = useState(initialItems);
+
+  const [tabRecoilState, setTabRecoilState] = useRecoilState(tasktrekTabState);
 
   const sensor = useSensor(PointerSensor, {
     activationConstraint: { distance: 10 },
@@ -65,7 +68,8 @@ const CloudTabs: React.FC = () => {
     <Tabs
       hideAdd
       type="editable-card"
-      items={tabItems}
+      items={tabRecoilState.items}
+      accessKey={activeKey}
       renderTabBar={(tabBarProps, DefaultTabBar) => (
         <DndContext sensors={[sensor]} onDragEnd={onDragEnd}>
           <SortableContext

@@ -16,6 +16,18 @@ const MyComponent: React.FC<MyComponentProps> = () => {
       fontFamily: "Noto Sans KR, Arial, sans-serif",
       redrawOnParentResize: true, // resize
       redrawOnWindowResize: true,
+      background: recoilState.isDarkMode ? "#141414" : "#ffffff",
+      toolbar: {
+        tools: {
+          download: true,
+          selection: false,
+          zoom: false,
+          zoomin: false,
+          zoomout: false,
+          pan: false,
+          reset: false,
+        },
+      },
       // stacked: true,
     },
 

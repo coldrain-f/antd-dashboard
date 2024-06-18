@@ -3,6 +3,7 @@ import { Button, Card, Divider, Drawer, Flex, Tooltip, Typography } from "antd";
 import {
   CalendarOutlined,
   CheckCircleOutlined,
+  CheckSquareOutlined,
   CommentOutlined,
   FormOutlined,
   LinkOutlined,
@@ -64,7 +65,7 @@ const CloudRightSider: React.FC = () => {
           <Tooltip title={"할 일"} placement={"left"}>
             <Button
               type={siderState.collapsed ? "link" : "text"}
-              icon={<CheckCircleOutlined />}
+              icon={<CheckSquareOutlined />}
               block
               size="large"
               style={{
