@@ -116,23 +116,33 @@ const CloudNavbar: React.FC = () => {
   return (
     <>
       <Flex justify="start" style={{ height: "100%" }}>
-        <Popconfirm
-          placement="bottomLeft"
-          title={"안내"}
-          description={"정말로 모든 탭을 닫으시겠습니까?"}
-          okText="확인"
-          cancelText="취소"
-          onConfirm={() => {
-            setTabRecoilState({ items: [] });
-          }}
-        >
+        {tabRecoilState.items.length > 0 ? (
+          <Popconfirm
+            title={"안내"}
+            description={"정말로 모든 탭을 닫으시겠습니까?"}
+            okText="확인"
+            cancelText="취소"
+            placement="bottomLeft"
+            okType="primary"
+            onConfirm={() => {
+              setTabRecoilState({ items: [] });
+            }}
+          >
+            <SVGComponent
+              width={"125px"}
+              height={antdState.isCompactMode ? "56px" : "64px"}
+              viewBox="0 0 4096 1554.887939983557"
+              style={{ cursor: "pointer" }}
+            />
+          </Popconfirm>
+        ) : (
           <SVGComponent
             width={"125px"}
             height={antdState.isCompactMode ? "56px" : "64px"}
             viewBox="0 0 4096 1554.887939983557"
             style={{ cursor: "pointer" }}
           />
-        </Popconfirm>
+        )}
 
         <Menu
           theme="dark"
@@ -176,8 +186,8 @@ const CloudNavbar: React.FC = () => {
                 cursor: "pointer",
                 marginLeft: "12px",
               }}
-              // src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png"
-              src="https://api.dicebear.com/7.x/miniavs/svg?seed=1"
+              src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png"
+              // src="https://api.dicebear.com/7.x/miniavs/svg?seed=1"
               icon={<UserOutlined />}
             />
           </Popover>
