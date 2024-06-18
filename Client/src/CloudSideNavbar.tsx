@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Menu } from "antd";
 import { CalendarOutlined, UserOutlined } from "@ant-design/icons";
 
@@ -12,6 +12,50 @@ import CloudExampleEditTable from "./CloudExampleEditTable";
 import TaskTrekMenuManagement from "./pages/guide/TaskTrekMenuManagement";
 
 type MenuItem = Required<MenuProps>["items"][number];
+
+const items: MenuItem[] = [
+  {
+    key: "TODO_ADMIN_001",
+    icon: React.createElement(CalendarOutlined),
+    label: "자기 관리",
+    children: [
+      {
+        key: "TODO_ADMIN_001_01",
+        label: "할 일 관리",
+      },
+      {
+        key: "TODO_ADMIN_001_02",
+        label: "메모 관리",
+      },
+      {
+        key: "TODO_ADMIN_001_03",
+        label: "일정 관리",
+      },
+    ],
+  },
+  {
+    key: "USER_ADMIN_001",
+    icon: React.createElement(UserOutlined),
+    label: "회원 관리",
+    children: [
+      {
+        key: "USER_ADMIN_001_01",
+        label: "회원 관리",
+      },
+    ],
+  },
+  {
+    key: "EXERCISE_ADMIN_001",
+    icon: React.createElement(UserOutlined),
+    label: "운동 관리",
+    children: [
+      {
+        key: "EXERCISE_ADMIN_01",
+        label: "운동 관리",
+      },
+    ],
+  },
+];
 
 const CloudSideNavbar: React.FC = () => {
   const [recoilState] = useRecoilState(antdRecoilState);
@@ -29,6 +73,11 @@ const CloudSideNavbar: React.FC = () => {
       (item) => item.key === newItem.key
     );
     if (duplicate !== undefined) {
+      // 중복인 경우 activeKey만 설정
+      setTabRecoilState((prevState) => ({
+        items: [...prevState.items],
+        activeKey: key,
+      }));
       return;
     }
 
@@ -37,50 +86,6 @@ const CloudSideNavbar: React.FC = () => {
       activeKey: key,
     }));
   };
-
-  const items: MenuItem[] = [
-    {
-      key: "TODO_ADMIN_001",
-      icon: React.createElement(CalendarOutlined),
-      label: "자기 관리",
-      children: [
-        {
-          key: "TODO_ADMIN_001_01",
-          label: "할 일 관리",
-        },
-        {
-          key: "TODO_ADMIN_001_02",
-          label: "메모 관리",
-        },
-        {
-          key: "TODO_ADMIN_001_03",
-          label: "일정 관리",
-        },
-      ],
-    },
-    {
-      key: "USER_ADMIN_001",
-      icon: React.createElement(UserOutlined),
-      label: "회원 관리",
-      children: [
-        {
-          key: "USER_ADMIN_001_01",
-          label: "회원 관리",
-        },
-      ],
-    },
-    {
-      key: "EXERCISE_ADMIN_001",
-      icon: React.createElement(UserOutlined),
-      label: "운동 관리",
-      children: [
-        {
-          key: "EXERCISE_ADMIN_01",
-          label: "운동 관리",
-        },
-      ],
-    },
-  ];
 
   const onClick: MenuProps["onClick"] = (e) => {
     const menuItem = items
@@ -96,8 +101,8 @@ const CloudSideNavbar: React.FC = () => {
     <Menu
       onClick={onClick}
       mode="inline"
-      // defaultOpenKeys={["USER_ADMIN_001"]} // 부모
-      // defaultSelectedKeys={["USER_ADMIN_001_1"]} // 자식
+      // defaultOpenKeys={["TODO_ADMIN_001"]}
+      // defaultSelectedKeys={["USER_ADMIN_001_1"]}
       style={{
         height: "93vh",
         borderLeft: recoilState.isDarkMode

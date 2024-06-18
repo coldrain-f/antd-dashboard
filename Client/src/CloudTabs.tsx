@@ -39,7 +39,6 @@ const DraggableTabNode = ({ className, ...props }: DraggableTabPaneProps) => {
 
 const CloudTabs: React.FC = () => {
   const [tabRecoilState, setTabRecoilState] = useRecoilState(tasktrekTabState);
-  const [activeKey, setActiveKey] = useState("1");
 
   const sensor = useSensor(PointerSensor, {
     activationConstraint: { distance: 10 },
@@ -71,13 +70,24 @@ const CloudTabs: React.FC = () => {
     }
   };
 
+  const onTabClick = (
+    key: string,
+    event: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>
+  ) => {
+    setTabRecoilState((prev) => ({
+      items: [...prev.items],
+      activeKey: key,
+    }));
+  };
+
   return (
     <Tabs
       hideAdd
       type="editable-card"
       items={tabRecoilState.items}
-      accessKey={activeKey}
+      activeKey={tabRecoilState.activeKey}
       onEdit={onEdit}
+      onTabClick={onTabClick}
       renderTabBar={(tabBarProps, DefaultTabBar) => (
         <DndContext sensors={[sensor]} onDragEnd={onDragEnd}>
           <SortableContext
