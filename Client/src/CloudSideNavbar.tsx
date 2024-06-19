@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Menu } from "antd";
-import { CalendarOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  CalendarOutlined,
+  ContainerOutlined,
+  FileOutlined,
+  FileTextOutlined,
+  InboxOutlined,
+  MenuOutlined,
+  TableOutlined,
+  TagsOutlined,
+  UserOutlined,
+  WalletOutlined,
+} from "@ant-design/icons";
 
 import { antdRecoilState } from "./recoil/antdRecoilState";
 import { tasktrekTabState } from "./recoil/tasktrekTabState";
@@ -66,7 +77,7 @@ const CloudSideNavbar: React.FC = () => {
     label: React.ReactNode,
     children: JSX.Element
   ) => {
-    const newItem = { label, children, key };
+    const newItem = { label, children, key, icon: <MenuOutlined /> };
 
     // 탭이 이미 존재하는지 체크
     const duplicate = tabRecoilState.items.find(

@@ -49,6 +49,8 @@ const LineWithDataLabelsChart: React.FC = () => {
       mode: recoilState.isDarkMode ? "dark" : "light",
     },
 
+    colors: ["#008FFBD9", "#00E396D9", "#FEB019D9"],
+
     series: data,
 
     dataLabels: {
