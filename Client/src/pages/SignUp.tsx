@@ -1,66 +1,40 @@
 import React from "react";
 import {
-  BarcodeOutlined,
-  IdcardOutlined,
   LockOutlined,
-  LoginOutlined,
-  SignatureOutlined,
   UserOutlined,
+  FieldNumberOutlined,
+  RollbackOutlined,
+  LoginOutlined,
 } from "@ant-design/icons";
-import type { FormProps } from "antd";
 import {
+  Button,
   Row,
   Col,
+  Card,
   Form,
   Input,
-  Button,
-  Card,
-  Checkbox,
-  Layout,
-  theme,
-  ConfigProvider,
-  message,
   Space,
+  Layout,
+  ConfigProvider,
+  theme,
 } from "antd";
-import { Link, useNavigate } from "react-router-dom";
-
-import CloudBanner from "../component/CloudBanner";
+import { Link } from "react-router-dom";
+import CloudBanner from "../component/logo/TaskTrekBlackLogo";
 
 type FieldType = {
   username?: string;
   password?: string;
-  remember?: string;
+  confirmPassword?: string;
+  email?: string;
 };
 
-const CloudLogin: React.FC = () => {
-  const { Content } = Layout;
-  const [messageApi, contextHolder] = message.useMessage();
-  const navigate = useNavigate();
+const { Content } = Layout;
 
-  const success = () => {
-    messageApi
-      .open({
-        type: "loading",
-        content: "Action in progress..",
-        duration: 2.5,
-      })
-      .then(() => {
-        message.success("Loading finished", 2.5);
-        navigate(`/dashboard`);
-      });
-  };
+// Todo: - 인증번호 전송 버튼 추가
+//       - 아이디 사용할 수 없는 아이디입니다.(중복체크 기능)
+//       - 인증번호 validation 체크
 
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log("Success: ", values);
-    success();
-  };
-
-  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
-    errorInfo
-  ) => {
-    console.log("Failed:", errorInfo);
-  };
-
+const SignUp: React.FC = () => {
   return (
     <ConfigProvider
       theme={{
@@ -72,8 +46,6 @@ const CloudLogin: React.FC = () => {
     >
       <Layout>
         <Content style={{ backgroundColor: "#F9FAFC" }}>
-          {contextHolder}
-
           <Row
             justify="center"
             align="middle"
@@ -90,7 +62,7 @@ const CloudLogin: React.FC = () => {
                 }}
                 bordered={false}
                 cover={
-                  <Link to="/">
+                  <Link to="/join">
                     <CloudBanner
                       width={"100%"}
                       height={"200px"}
@@ -102,34 +74,13 @@ const CloudLogin: React.FC = () => {
                 actions={[
                   <Link to="/">
                     <Space>
-                      <IdcardOutlined />
-                      아이디 찾기
-                    </Space>
-                  </Link>,
-                  <Link to="/">
-                    <Space>
-                      <BarcodeOutlined />
-                      비밀번호 찾기
-                    </Space>
-                  </Link>,
-                  <Link to="/join">
-                    <Space>
-                      <SignatureOutlined />
-                      회원가입
+                      <RollbackOutlined />
+                      돌아가기
                     </Space>
                   </Link>,
                 ]}
               >
-                <Form
-                  name="login"
-                  layout="vertical"
-                  onFinish={onFinish}
-                  onFinishFailed={onFinishFailed}
-                  autoComplete="off"
-                  initialValues={{
-                    remember: false,
-                  }}
-                >
+                <Form name="sign-up" layout="vertical" autoComplete="off">
                   <Form.Item<FieldType>
                     name="username"
                     rules={[
@@ -148,6 +99,7 @@ const CloudLogin: React.FC = () => {
                       placeholder="아이디(Email)"
                     />
                   </Form.Item>
+
                   <Form.Item<FieldType>
                     name="password"
                     rules={[
@@ -163,9 +115,50 @@ const CloudLogin: React.FC = () => {
                     />
                   </Form.Item>
 
-                  <Form.Item<FieldType> name="remember" valuePropName="checked">
-                    <Checkbox>로그인 상태 유지</Checkbox>
+                  <Form.Item<FieldType>
+                    name="confirmPassword"
+                    rules={[
+                      {
+                        required: true,
+                        message: "비밀번호 확인을 입력해 주세요.",
+                      },
+                      ({ getFieldValue }) => ({
+                        validator(_, value) {
+                          if (!value || getFieldValue("password") === value) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject(
+                            new Error("비밀번호가 일치하지 않습니다.")
+                          );
+                        },
+                      }),
+                    ]}
+                    hasFeedback
+                  >
+                    <Input.Password
+                      prefix={
+                        <LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />
+                      }
+                      placeholder="비밀번호 확인"
+                    />
                   </Form.Item>
+
+                  <Form.Item name="auth-code">
+                    <Space.Compact style={{ width: "100%" }}>
+                      <Input
+                        prefix={
+                          <FieldNumberOutlined
+                            style={{ color: "rgba(0,0,0,.25)" }}
+                          />
+                        }
+                        placeholder="인증코드"
+                        type="number"
+                        maxLength={6}
+                      />
+                      <Button type="dashed">인증번호 전송</Button>
+                    </Space.Compact>
+                  </Form.Item>
+
                   <Form.Item>
                     <Button
                       type="primary"
@@ -173,7 +166,7 @@ const CloudLogin: React.FC = () => {
                       block
                       icon={<LoginOutlined />}
                     >
-                      로그인
+                      회원가입
                     </Button>
                   </Form.Item>
                 </Form>
@@ -186,4 +179,4 @@ const CloudLogin: React.FC = () => {
   );
 };
 
-export default CloudLogin;
+export default SignUp;

@@ -7,7 +7,7 @@ import { antdRecoilState } from "../../recoil/antdRecoilState";
 
 interface MyComponentProps {}
 
-const MyComponent: React.FC<MyComponentProps> = () => {
+const ColumnWithDataLabelsChart: React.FC<MyComponentProps> = () => {
   const [recoilState] = useRecoilState(antdRecoilState);
 
   const chartOptions: ApexOptions = {
@@ -133,10 +133,11 @@ const MyComponent: React.FC<MyComponentProps> = () => {
         options={chartOptions}
         series={chartOptions.series}
         type="bar"
-        height={370}
+        height={375}
+        style={{ maxWidth: 529 }}
       />
     </div>
   );
 };
 
-export default MyComponent;
+export default ColumnWithDataLabelsChart;

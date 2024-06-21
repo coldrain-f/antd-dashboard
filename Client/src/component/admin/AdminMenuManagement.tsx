@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { Button, Card, Form, Input, Space, Table, Typography } from "antd";
-import type { TableColumnsType, TableProps } from "antd";
+import React from "react";
 import {
-  ClearOutlined,
-  FileSearchOutlined,
-  SearchOutlined,
+  DeleteOutlined,
+  PlusOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
+import { Badge, Button, Col, Row, Space, Table, Typography } from "antd";
+import type { TableColumnsType, TableProps } from "antd";
 
 type TableRowSelection<T> = TableProps<T>["rowSelection"];
 
@@ -20,18 +19,18 @@ interface DataType {
 
 const columns: TableColumnsType<DataType> = [
   {
-    title: "이름",
+    title: "Name",
     dataIndex: "name",
     key: "name",
   },
   {
-    title: "나이",
+    title: "Age",
     dataIndex: "age",
     key: "age",
     width: "12%",
   },
   {
-    title: "주소",
+    title: "Address",
     dataIndex: "address",
     width: "30%",
     key: "address",
@@ -120,67 +119,34 @@ const rowSelection: TableRowSelection<DataType> = {
   },
 };
 
-const { Title } = Typography;
-
-const AntdContentsTable: React.FC = () => {
-  const [checkStrictly, setCheckStrictly] = useState(false);
-
+const AdminMenuManagement: React.FC = () => {
   return (
     <>
-      <Card
-        style={{ marginBottom: 20 }}
-        title={
-          <>
-            <Space>
-              <FileSearchOutlined />
-              {"검색 조건"}
-            </Space>
-          </>
-        }
-        extra={
+      <Row justify={"end"} align={"middle"} style={{ marginBottom: 15 }}>
+        <Col span={20}>
           <Space>
-            <Button type="primary" icon={<SearchOutlined />}>
-              검색
-            </Button>
-            <Button icon={<ClearOutlined />}>초기화</Button>
+            <UnorderedListOutlined />
+            <Typography.Text>Total: 11</Typography.Text>
           </Space>
-        }
-      >
-        <Form
-          name="horizontal_login"
-          layout="inline"
-          autoComplete="off"
-          size="small"
-        >
-          <Form.Item label="이름" name="name">
-            <Input />
-          </Form.Item>
-
-          <Form.Item label="나이" name="age">
-            <Input />
-          </Form.Item>
-
-          <Form.Item label="주소" name="address">
-            <Input />
-          </Form.Item>
-        </Form>
-      </Card>
-
-      <Title level={5}>
-        <Space>
-          <UnorderedListOutlined />
-          {"데이터 목록"}
-        </Space>
-      </Title>
-
+        </Col>
+        <Col span={4} style={{ display: "flex", justifyContent: "end" }}>
+          <Space>
+            <Button icon={<PlusOutlined />} type="primary">
+              추가
+            </Button>
+            <Badge count={5} color="green">
+              <Button icon={<DeleteOutlined />}>선택 삭제</Button>
+            </Badge>
+          </Space>
+        </Col>
+      </Row>
       <Table
-        className=""
         columns={columns}
-        rowSelection={{ ...rowSelection, checkStrictly }}
+        rowSelection={{ ...rowSelection }}
         dataSource={data}
       />
     </>
   );
 };
 
-export default AntdContentsTable;
+export default AdminMenuManagement;

@@ -10,7 +10,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useRecoilState } from "recoil";
-import { tasktrekTabState } from "./recoil/tasktrekTabState";
+import { tasktrekTabState } from "../../recoil/tasktrekTabState";
 
 interface DraggableTabPaneProps extends React.HTMLAttributes<HTMLDivElement> {
   "data-node-key": string;
@@ -37,7 +37,7 @@ const DraggableTabNode = ({ className, ...props }: DraggableTabPaneProps) => {
   });
 };
 
-const CloudTabs: React.FC = () => {
+const DashboardContentTabs: React.FC = () => {
   const [tabRecoilState, setTabRecoilState] = useRecoilState(tasktrekTabState);
 
   const sensor = useSensor(PointerSensor, {
@@ -108,4 +108,4 @@ const CloudTabs: React.FC = () => {
   );
 };
 
-export default CloudTabs;
+export default DashboardContentTabs;

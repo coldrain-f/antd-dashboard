@@ -1,6 +1,6 @@
-import * as React from "react";
 import { SVGProps } from "react";
-const CloudBanner = (props: SVGProps<SVGSVGElement>) => (
+
+const TaskTrekBlackLogo = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     id="SvgjsSvg12724"
@@ -58,4 +58,4 @@ const CloudBanner = (props: SVGProps<SVGSVGElement>) => (
     </g>
   </svg>
 );
-export default CloudBanner;
+export default TaskTrekBlackLogo;

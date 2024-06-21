@@ -1,29 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 
 import { useRecoilState } from "recoil";
 import { antdRecoilState } from "../../recoil/antdRecoilState";
-
-interface MyComponentProps {}
+import { Flex } from "antd";
 
 const LineWithDataLabelsChart: React.FC = () => {
   const [recoilState] = useRecoilState(antdRecoilState);
-
-  const [data, setData] = useState([
-    {
-      name: "해야 할 일",
-      data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10],
-    },
-    {
-      name: "진행 중",
-      data: [35, 41, 62, 42, 13, 18, 29, 37, 36, 51, 32, 35],
-    },
-    {
-      name: "완료",
-      data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47],
-    },
-  ]);
 
   const chartOptions: ApexOptions = {
     // Define your chart options here
@@ -51,7 +35,20 @@ const LineWithDataLabelsChart: React.FC = () => {
 
     colors: ["#008FFBD9", "#00E396D9", "#FEB019D9"],
 
-    series: data,
+    series: [
+      {
+        name: "해야 할 일",
+        data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10],
+      },
+      {
+        name: "진행 중",
+        data: [35, 41, 62, 42, 13, 18, 29, 37, 36, 51, 32, 35],
+      },
+      {
+        name: "완료",
+        data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47],
+      },
+    ],
 
     dataLabels: {
       enabled: false,
@@ -141,15 +138,13 @@ const LineWithDataLabelsChart: React.FC = () => {
   };
 
   return (
-    <div>
-      <ReactApexChart
-        options={chartOptions}
-        series={chartOptions.series}
-        type="line"
-        height={500}
-        width={"100%"}
-      />
-    </div>
+    <ReactApexChart
+      options={chartOptions}
+      series={chartOptions.series}
+      type="line"
+      height={500}
+      style={{ maxWidth: 924 }}
+    />
   );
 };
 

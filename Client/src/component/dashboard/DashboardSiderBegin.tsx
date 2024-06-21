@@ -1,26 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { Menu } from "antd";
+import React from "react";
+import { Menu, theme } from "antd";
 import {
   CalendarOutlined,
-  ContainerOutlined,
-  FileOutlined,
-  FileTextOutlined,
-  InboxOutlined,
   MenuOutlined,
-  TableOutlined,
-  TagsOutlined,
   UserOutlined,
-  WalletOutlined,
 } from "@ant-design/icons";
 
-import { antdRecoilState } from "./recoil/antdRecoilState";
-import { tasktrekTabState } from "./recoil/tasktrekTabState";
 import { useRecoilState } from "recoil";
 
 import type { MenuProps } from "antd";
 import type { SubMenuType } from "antd/es/menu/hooks/useItems";
-import CloudExampleEditTable from "./CloudExampleEditTable";
-import TaskTrekMenuManagement from "./pages/guide/TaskTrekMenuManagement";
+import Sider from "antd/es/layout/Sider";
+import { antdRecoilState } from "../../recoil/antdRecoilState";
+import { tasktrekTabState } from "../../recoil/tasktrekTabState";
+import CloudExampleEditTable from "../guide/GuideDefaultEditGrid";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -68,9 +61,12 @@ const items: MenuItem[] = [
   },
 ];
 
-const CloudSideNavbar: React.FC = () => {
+const DashboardSiderBegin: React.FC = () => {
   const [recoilState] = useRecoilState(antdRecoilState);
   const [tabRecoilState, setTabRecoilState] = useRecoilState(tasktrekTabState);
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
 
   const addTab = (
     key: string,
@@ -109,23 +105,24 @@ const CloudSideNavbar: React.FC = () => {
   };
 
   return (
-    <Menu
-      onClick={onClick}
-      mode="inline"
-      // defaultOpenKeys={["TODO_ADMIN_001"]}
-      // defaultSelectedKeys={["USER_ADMIN_001_1"]}
-      style={{
-        height: "93vh",
-        borderLeft: recoilState.isDarkMode
-          ? "0px solid #363636"
-          : "1px solid #e0e0e0",
-        borderRight: recoilState.isDarkMode
-          ? "0px solid #363636"
-          : "1px solid #e0e0e0",
-      }}
-      items={items}
-    />
+    <Sider width={200} style={{ background: colorBgContainer }}>
+      <Menu
+        onClick={onClick}
+        mode="inline"
+        // defaultOpenKeys={["TODO_ADMIN_001"]}
+        // defaultSelectedKeys={["USER_ADMIN_001_1"]}
+        style={{
+          height: "93vh",
+          borderLeft: recoilState.isDarkMode
+            ? "0px solid #363636"
+            : "1px solid #e0e0e0",
+          borderRight: recoilState.isDarkMode
+            ? "0px solid #363636"
+            : "1px solid #e0e0e0",
+        }}
+        items={items}
+      />
+    </Sider>
   );
 };
-
-export default CloudSideNavbar;
+export default DashboardSiderBegin;

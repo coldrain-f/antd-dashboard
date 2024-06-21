@@ -1,8 +1,16 @@
 import React, { useState } from "react";
-import { Button, Card, Divider, Drawer, Flex, Tooltip, Typography } from "antd";
+import {
+  Button,
+  Card,
+  Divider,
+  Drawer,
+  Flex,
+  Tooltip,
+  Typography,
+  theme,
+} from "antd";
 import {
   CalendarOutlined,
-  CheckCircleOutlined,
   CheckSquareOutlined,
   CommentOutlined,
   FormOutlined,
@@ -10,19 +18,20 @@ import {
   MenuUnfoldOutlined,
 } from "@ant-design/icons";
 
-import { antdSiderState } from "./recoil/antdSiderState";
-import { antdRecoilState } from "./recoil/antdRecoilState";
 import { useRecoilState } from "recoil";
+import { antdSiderState } from "../../recoil/antdSiderState";
+import { antdRecoilState } from "../../recoil/antdRecoilState";
+import Sider from "antd/es/layout/Sider";
 
-const CloudRightSider: React.FC = () => {
+const DashboardSiderEnd: React.FC = () => {
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+
   const [siderState, setSiderState] = useRecoilState(antdSiderState);
   const [recoilState] = useRecoilState(antdRecoilState);
 
   const [open, setOpen] = useState(false);
-
-  const showDrawer = () => {
-    setOpen(true);
-  };
 
   const onClose = () => {
     setOpen(false);
@@ -34,7 +43,19 @@ const CloudRightSider: React.FC = () => {
   };
 
   return (
-    <>
+    <Sider
+      width={60}
+      collapsedWidth={340}
+      // style={{
+      //   background: colorBgContainer,
+      //   position: "absolute",
+      //   top: 65,
+      //   right: 0,
+      //   bottom: 0,
+      //   zIndex: 100,
+      // }}
+      collapsed={siderState.collapsed}
+    >
       <Drawer
         title="할 일"
         onClose={onClose}
@@ -141,6 +162,7 @@ const CloudRightSider: React.FC = () => {
             style={{
               width: "100%",
               borderLeft: "0px",
+              borderRadius: 0,
             }}
             title={
               <Typography>
@@ -164,8 +186,8 @@ const CloudRightSider: React.FC = () => {
           ></Card>
         )}
       </Flex>
-    </>
+    </Sider>
   );
 };
 
-export default CloudRightSider;
+export default DashboardSiderEnd;

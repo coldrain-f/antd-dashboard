@@ -1,7 +1,6 @@
-import * as React from "react";
 import { SVGProps } from "react";
 
-const SVGComponent = (props: SVGProps<SVGSVGElement>) => (
+const TaskTrekWhiteLogo = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     id="SvgjsSvg12789"
@@ -50,4 +49,5 @@ const SVGComponent = (props: SVGProps<SVGSVGElement>) => (
     </g>
   </svg>
 );
-export default SVGComponent;
+
+export default TaskTrekWhiteLogo;

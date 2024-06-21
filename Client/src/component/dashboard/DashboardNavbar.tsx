@@ -1,81 +1,46 @@
+import { SVGProps, useState } from "react";
 import {
   BellOutlined,
   CompressOutlined,
-  DashboardOutlined,
-  GlobalOutlined,
-  LoginOutlined,
   MoonOutlined,
   SettingOutlined,
   SunOutlined,
-  UserOutlined,
 } from "@ant-design/icons";
 import {
   Avatar,
-  Button,
-  Divider,
   Flex,
   Menu,
   MenuProps,
   Popconfirm,
-  Popover,
   Space,
   Tooltip,
-  Typography,
   theme,
 } from "antd";
-import { Link, useNavigate } from "react-router-dom";
 
-import { antdRecoilState } from "./recoil/antdRecoilState";
 import { useRecoilState } from "recoil";
+import { antdRecoilState } from "../../recoil/antdRecoilState";
+import { tasktrekTabState } from "../../recoil/tasktrekTabState";
 
-import SVGComponent from "./component/CloudLogo";
-import { tasktrekTabState } from "./recoil/tasktrekTabState";
-import { useState } from "react";
+import DashboardNavbarProfile from "./DashboardNavbarProfile";
+import TaskTrekWhiteLogo from "../logo/TaskTrekWhiteLogo";
 
-const { Title } = Typography;
-
-const CloudProfileContent: React.FC = () => {
-  const navigate = useNavigate();
-
-  const onLogout = () => {
-    navigate("/");
-  };
-
-  return (
-    <>
-      <Button
-        block
-        type="text"
-        style={{ textAlign: "start" }}
-        icon={<UserOutlined />}
-      >
-        내 정보
-      </Button>
-      <Button
-        block
-        type="text"
-        style={{ textAlign: "start" }}
-        icon={<DashboardOutlined />}
-      >
-        대시보드
-      </Button>
-      <Divider style={{ marginTop: 10, marginBottom: 10 }} />
-      <Button block icon={<LoginOutlined />} onClick={onLogout}>
-        로그아웃
-      </Button>
-    </>
-  );
+const TaskTrekLogoProps: SVGProps<SVGSVGElement> = {
+  width: "125px",
+  viewBox: "0 0 4096 1554.887939983557",
+  style: { cursor: "pointer" },
 };
 
-const CloudNavbar: React.FC = () => {
-  const items: MenuProps["items"] = [
-    { key: 1, label: "Home" },
-    { key: 2, label: "Admin" },
-    { key: 3, label: "Guide" },
-  ];
+const initalItems: MenuProps["items"] = [
+  { key: 1, label: "Home" },
+  { key: 2, label: "Admin" },
+  { key: 3, label: "Guide" },
+];
 
+const DashboardNavbar: React.FC = () => {
   const [antdState, setAntdState] = useRecoilState(antdRecoilState);
   const [tabRecoilState, setTabRecoilState] = useRecoilState(tasktrekTabState);
+
+  const [items] = useState<MenuProps["items"]>(initalItems);
 
   const toggleDarkMode = () => {
     if (antdState.isDarkMode) {
@@ -128,19 +93,15 @@ const CloudNavbar: React.FC = () => {
               setTabRecoilState({ items: [] });
             }}
           >
-            <SVGComponent
-              width={"125px"}
+            <TaskTrekWhiteLogo
+              {...TaskTrekLogoProps}
               height={antdState.isCompactMode ? "56px" : "64px"}
-              viewBox="0 0 4096 1554.887939983557"
-              style={{ cursor: "pointer" }}
             />
           </Popconfirm>
         ) : (
-          <SVGComponent
-            width={"125px"}
+          <TaskTrekWhiteLogo
+            {...TaskTrekLogoProps}
             height={antdState.isCompactMode ? "56px" : "64px"}
-            viewBox="0 0 4096 1554.887939983557"
-            style={{ cursor: "pointer" }}
           />
         )}
 
@@ -173,28 +134,11 @@ const CloudNavbar: React.FC = () => {
               </Tooltip>
             </a>
           </Space>
-          <Popover
-            placement="bottomRight"
-            title={"프로필"}
-            content={<CloudProfileContent />}
-            trigger={"click"}
-            overlayStyle={{ width: "12vw" }}
-          >
-            <Avatar
-              style={{
-                backgroundColor: "#87d068",
-                cursor: "pointer",
-                marginLeft: "12px",
-              }}
-              src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png"
-              // src="https://api.dicebear.com/7.x/miniavs/svg?seed=1"
-              icon={<UserOutlined />}
-            />
-          </Popover>
+          <DashboardNavbarProfile />
         </Space>
       </Flex>
     </>
   );
 };
 
-export default CloudNavbar;
+export default DashboardNavbar;

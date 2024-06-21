@@ -16,12 +16,13 @@ import {
 import { CloudOutlined, SettingOutlined } from "@ant-design/icons";
 
 import CountUp from "react-countup";
-import LineWithDataLabelsChart from "../component/charts/LineWithDataLabelsChart";
-import ColumnWithDataLabelsChart from "../component/charts/ColumnWithDataLabelsChart";
 
 import dayjs from "dayjs";
+import LineWithDataLabelsChart from "../charts/LineWithDataLabelsChart";
+import ColumnWithDataLabelsChart from "../charts/ColumnWithDataLabelsChart";
+import TodoBarChart from "../charts/TodoBarChart";
 
-const CloudHomeV2: React.FC = () => {
+const DashboardContentMainTwo: React.FC = () => {
   const { Title, Text } = Typography;
   const formatter: StatisticProps["formatter"] = (value) => (
     <CountUp end={value as number} separator="," />
@@ -79,7 +80,6 @@ const CloudHomeV2: React.FC = () => {
         {/* 할 일 Statistic */}
         <Col span={9}>
           <Card
-            style={{ height: "100%" }}
             title="나의 할 일"
             extra={
               <Space>
@@ -124,12 +124,13 @@ const CloudHomeV2: React.FC = () => {
             </Row>
 
             <ColumnWithDataLabelsChart />
+            {/* <TodoBarChart /> */}
           </Card>
         </Col>
+
         {/* 타임라인 */}
         <Col span={15}>
           <Card
-            style={{ height: "100%" }}
             bordered={false}
             title="타임라인"
             extra={
@@ -150,4 +151,4 @@ const CloudHomeV2: React.FC = () => {
   );
 };
 
-export default CloudHomeV2;
+export default DashboardContentMainTwo;

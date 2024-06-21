@@ -35,7 +35,7 @@ import Highlighter from "react-highlight-words";
 import { SizeType } from "antd/es/config-provider/SizeContext";
 
 // 임시 데이터
-import dataSourceJson from "./data/dataSource.json";
+import dataSourceJson from "../../assets/json/dataSource.json";
 
 type DataIndex = keyof DataType;
 
@@ -60,7 +60,7 @@ interface DataType {
   total: number;
 }
 
-const CloudExampleEditTable: React.FC = () => {
+const GuideDefaultEditGrid: React.FC = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
@@ -560,4 +560,4 @@ const CloudExampleEditTable: React.FC = () => {
   );
 };
 
-export default CloudExampleEditTable;
+export default GuideDefaultEditGrid;
