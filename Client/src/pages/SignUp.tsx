@@ -59,6 +59,7 @@ const SignUp: React.FC = () => {
                   padding: 10,
                   borderRadius: 10,
                   boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)",
+                  minWidth: "480px",
                 }}
                 bordered={false}
                 cover={
