@@ -1,104 +1,104 @@
 import React from "react";
 import {
   DeleteOutlined,
+  HomeOutlined,
   PlusOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
-import { Badge, Button, Col, Row, Space, Table, Typography } from "antd";
+import {
+  Badge,
+  Button,
+  Checkbox,
+  Col,
+  Input,
+  Row,
+  Select,
+  Space,
+  Table,
+  Typography,
+} from "antd";
 import type { TableColumnsType, TableProps } from "antd";
 
 type TableRowSelection<T> = TableProps<T>["rowSelection"];
 
 interface DataType {
-  key: React.ReactNode;
   name: string;
-  age: number;
-  address: string;
+  component?: string;
+  icon?: React.ReactNode;
+  isUsed: React.ReactNode;
   children?: DataType[];
 }
 
 const columns: TableColumnsType<DataType> = [
   {
-    title: "Name",
+    title: "메뉴 이름",
     dataIndex: "name",
     key: "name",
+    fixed: "left",
+    width: "200px",
   },
   {
-    title: "Age",
-    dataIndex: "age",
-    key: "age",
-    width: "12%",
+    title: "컴포넌트",
+    dataIndex: "component",
+    key: "component",
   },
   {
-    title: "Address",
-    dataIndex: "address",
-    width: "30%",
-    key: "address",
+    title: "아이콘",
+    dataIndex: "icon",
+    key: "icon",
+  },
+  {
+    title: "사용",
+    dataIndex: "isUsed",
+    key: "isUsed",
   },
 ];
 
 const data: DataType[] = [
   {
-    key: 1,
-    name: "John Brown sr.",
-    age: 60,
-    address: "New York No. 1 Lake Park",
+    name: "Home",
+    isUsed: <Checkbox />,
     children: [
       {
-        key: 11,
-        name: "John Brown",
-        age: 42,
-        address: "New York No. 2 Lake Park",
-      },
-      {
-        key: 12,
-        name: "John Brown jr.",
-        age: 30,
-        address: "New York No. 3 Lake Park",
+        name: "자기 관리",
+        isUsed: <Checkbox />,
+        icon: (
+          <Select defaultValue="lucy" style={{ width: 200 }}>
+            <Select.Option>
+              <Space>
+                <HomeOutlined />
+                <Typography.Text>HomeOutlined</Typography.Text>
+              </Space>
+            </Select.Option>
+          </Select>
+        ),
         children: [
           {
-            key: 121,
-            name: "Jimmy Brown",
-            age: 16,
-            address: "New York No. 3 Lake Park",
+            name: "할일 관리",
+            component: "<TaskManagement />",
+            isUsed: <Checkbox />,
           },
-        ],
-      },
-      {
-        key: 13,
-        name: "Jim Green sr.",
-        age: 72,
-        address: "London No. 1 Lake Park",
-        children: [
           {
-            key: 131,
-            name: "Jim Green",
-            age: 42,
-            address: "London No. 2 Lake Park",
-            children: [
-              {
-                key: 1311,
-                name: "Jim Green jr.",
-                age: 25,
-                address: "London No. 3 Lake Park",
-              },
-              {
-                key: 1312,
-                name: "Jimmy Green sr.",
-                age: 18,
-                address: "London No. 4 Lake Park",
-              },
-            ],
+            name: "메모 관리",
+            component: "<MemoManagement />",
+            isUsed: <Checkbox />,
+          },
+          {
+            name: "일정 관리",
+            component: "<PlanManagement />",
+            isUsed: <Checkbox />,
           },
         ],
       },
     ],
   },
   {
-    key: 2,
-    name: "Joe Black",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
+    name: "Admin",
+    isUsed: <Checkbox />,
+  },
+  {
+    name: "Guide",
+    isUsed: <Checkbox />,
   },
 ];
 

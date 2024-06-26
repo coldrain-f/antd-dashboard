@@ -6,11 +6,14 @@ import { antdRecoilState } from "../recoil/antdRecoilState";
 import { useRecoilState } from "recoil";
 
 import { ConfigProviderProps } from "antd/lib";
-import koKR from "antd/locale/ko_KR";
+// import koKR from "antd/locale/ko_KR";
+import enUS from "antd/locale/en_US";
 
 // <DatePicker /> 로케일 관련 Import
 import dayjs from "dayjs";
-import "dayjs/locale/ko";
+// import "dayjs/locale/ko";
+import "dayjs/locale/en";
+
 import Dashboard from "../pages/Dashboard";
 import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
@@ -19,10 +22,10 @@ type Locale = ConfigProviderProps["locale"];
 
 const App: React.FC = () => {
   const [antdState] = useRecoilState(antdRecoilState);
-  const [locale] = useState<Locale>(koKR);
+  const [locale] = useState<Locale>(enUS);
 
   // <DatePicker /> 로케일 설정
-  dayjs.locale("ko");
+  //dayjs.locale("ko");
 
   return (
     <ConfigProvider

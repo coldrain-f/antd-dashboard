@@ -77,7 +77,6 @@ const DashboardContentMain: React.FC = () => {
         {/* 할 일 Statistic */}
 
         <Card
-          style={{ width: "600px" }}
           title="나의 할 일"
           extra={
             <Space>

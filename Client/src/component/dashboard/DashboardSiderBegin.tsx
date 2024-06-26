@@ -14,37 +14,40 @@ import type { SubMenuType } from "antd/es/menu/hooks/useItems";
 import { antdRecoilState } from "../../recoil/antdRecoilState";
 import { tasktrekTabState } from "../../recoil/tasktrekTabState";
 import CloudExampleEditTable from "../guide/GuideDefaultEditGrid";
+import AdminMenuManagement from "../admin/AdminMenuManagement";
+import GuideDefaultEditGrid from "../guide/GuideDefaultEditGrid";
+import TaskManagement from "../task/TaskManagement";
 
 type MenuItem = Required<MenuProps>["items"][number];
+
+const tabComponents = [
+  {
+    menuKey: "TODO_ADMIN_001_01",
+    tabComponent: <TaskManagement />,
+  },
+  {
+    menuKey: "TODO_ADMIN_001_02",
+    tabComponent: <></>,
+  },
+  {
+    menuKey: "TODO_ADMIN_001_03",
+    tabComponent: <></>,
+  },
+  {
+    menuKey: "EXERCISE_ADMIN_001_01",
+    tabComponent: <GuideDefaultEditGrid />,
+  },
+];
 
 const items: MenuItem[] = [
   {
     key: "TODO_ADMIN_001",
     icon: React.createElement(CalendarOutlined),
-    label: "자기 관리",
+    label: "작업 관리",
     children: [
       {
         key: "TODO_ADMIN_001_01",
         label: "할 일 관리",
-      },
-      {
-        key: "TODO_ADMIN_001_02",
-        label: "메모 관리",
-      },
-      {
-        key: "TODO_ADMIN_001_03",
-        label: "일정 관리",
-      },
-    ],
-  },
-  {
-    key: "USER_ADMIN_001",
-    icon: React.createElement(UserOutlined),
-    label: "회원 관리",
-    children: [
-      {
-        key: "USER_ADMIN_001_01",
-        label: "회원 관리",
       },
     ],
   },
@@ -54,7 +57,7 @@ const items: MenuItem[] = [
     label: "운동 관리",
     children: [
       {
-        key: "EXERCISE_ADMIN_01",
+        key: "EXERCISE_ADMIN_001_01",
         label: "운동 관리",
       },
     ],
@@ -101,7 +104,13 @@ const DashboardSiderBegin: React.FC = () => {
         (item): item is SubMenuType => item?.key === e.keyPath[0]
       ) as SubMenuType;
 
-    addTab(menuItem.key, menuItem.label, <CloudExampleEditTable />);
+    const tabComponent = tabComponents.find(
+      (item) => item.menuKey == menuItem.key
+    );
+
+    if (tabComponent !== undefined) {
+      addTab(menuItem.key, menuItem.label, tabComponent.tabComponent);
+    }
   };
 
   return (
