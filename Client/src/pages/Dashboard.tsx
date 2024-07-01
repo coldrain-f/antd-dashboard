@@ -30,11 +30,12 @@ const Dashboard: React.FC = () => {
         <DashboardSiderBegin />
         <Layout style={contentLayoutStyle}>
           <Breadcrumb
+            separator=">"
             style={{ margin: "16px 0" }}
             items={[
-              { title: "Admin" },
-              { title: "회원 관리" },
-              { title: "회원 관리" },
+              { title: "Guide" },
+              { title: "트레이닝" },
+              { title: "운동 관리" },
             ]}
           />
           <DashboardContent />

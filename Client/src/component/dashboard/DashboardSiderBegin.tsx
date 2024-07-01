@@ -2,6 +2,8 @@ import React from "react";
 import { Menu, theme } from "antd";
 import {
   CalendarOutlined,
+  FileOutlined,
+  FolderOpenOutlined,
   MenuOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -17,6 +19,7 @@ import CloudExampleEditTable from "../guide/GuideDefaultEditGrid";
 import AdminMenuManagement from "../admin/AdminMenuManagement";
 import GuideDefaultEditGrid from "../guide/GuideDefaultEditGrid";
 import TaskManagement from "../task/TaskManagement";
+import TaskSampleGrid from "../task/TaskSampleGrid";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -27,7 +30,7 @@ const tabComponents = [
   },
   {
     menuKey: "TODO_ADMIN_001_02",
-    tabComponent: <></>,
+    tabComponent: <TaskSampleGrid />,
   },
   {
     menuKey: "TODO_ADMIN_001_03",
@@ -41,20 +44,9 @@ const tabComponents = [
 
 const items: MenuItem[] = [
   {
-    key: "TODO_ADMIN_001",
-    icon: React.createElement(CalendarOutlined),
-    label: "작업 관리",
-    children: [
-      {
-        key: "TODO_ADMIN_001_01",
-        label: "할 일 관리",
-      },
-    ],
-  },
-  {
     key: "EXERCISE_ADMIN_001",
-    icon: React.createElement(UserOutlined),
-    label: "운동 관리",
+    icon: React.createElement(FolderOpenOutlined),
+    label: "트레이닝",
     children: [
       {
         key: "EXERCISE_ADMIN_001_01",

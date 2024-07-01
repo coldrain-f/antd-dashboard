@@ -21,8 +21,11 @@ import type {
 import {
   Badge,
   Button,
+  Card,
   Col,
   Dropdown,
+  Flex,
+  Form,
   Input,
   Row,
   Space,
@@ -234,7 +237,7 @@ const GuideDefaultEditGrid: React.FC = () => {
       title: "휴식",
       dataIndex: "restTime1",
       key: "restTime1",
-      // width: 120,
+      width: 120,
       ellipsis: true,
     },
     {

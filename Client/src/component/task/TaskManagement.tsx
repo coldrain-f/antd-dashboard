@@ -1,145 +1,235 @@
-import React, { useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import {
-  ClearOutlined,
+  CheckSquareOutlined,
   DeleteOutlined,
-  EditOutlined,
+  FileOutlined,
+  FolderOpenOutlined,
+  HolderOutlined,
+  InboxOutlined,
+  MenuOutlined,
+  NumberOutlined,
   PlusOutlined,
-  ReloadOutlined,
   SettingOutlined,
-  StarOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
-import type {
-  DropdownProps,
-  MenuProps,
-  TableColumnsType,
-  TableProps,
-} from "antd";
+import type { TableColumnsType } from "antd";
 import {
   Badge,
   Button,
   Col,
-  DatePicker,
-  Dropdown,
+  Flex,
+  Menu,
   Progress,
   Row,
-  Select,
   Space,
   Table,
+  Tag,
   Tooltip,
   Typography,
 } from "antd";
 
 import { SizeType } from "antd/es/config-provider/SizeContext";
+import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
+import {
+  SortableContext,
+  arrayMove,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { DndContext, DragEndEvent } from "@dnd-kit/core";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+import { useRecoilState } from "recoil";
+import { antdRecoilState } from "../../recoil/antdRecoilState";
+import { Link } from "react-router-dom";
 
 type DataIndex = keyof DataType;
 
 interface DataType {
-  key: React.Key;
+  key: string;
   title: string;
-  deadline: React.ReactNode;
+  deadline: string;
   status: React.ReactNode;
-  bookmark: React.ReactNode;
   priority: React.ReactNode;
   progress: React.ReactNode;
+  createdAt: string;
+  createdDate: string;
 }
 
 const data: DataType[] = [
   {
-    key: 1,
-    title: "일본어 회화 공부하기",
-    deadline: <DatePicker style={{ width: "100%" }} />,
-    bookmark: <Button icon={<StarOutlined />} />,
+    key: "1",
+    title: "일본어 회화 공부하기 1",
+    deadline: "2024.06.28 금요일",
     status: (
-      <Select
-        style={{ width: "100%" }}
-        defaultValue="1"
-        options={[
-          { value: "1", label: "시작 안 함" },
-          { value: "2", label: "진행중" },
-          { value: "3", label: "지연" },
-          { value: "4", label: "다른 작업 대기중" },
-          { value: "5", label: "완료" },
-        ]}
-      />
+      <Tag
+        color="#108ee9"
+        style={{
+          cursor: "default",
+        }}
+      >
+        진행 중
+      </Tag>
     ),
+
     priority: (
-      <Select
-        style={{ width: "100%" }}
-        defaultValue="2"
-        options={[
-          { value: "1", label: "높음" },
-          { value: "2", label: "중간" },
-          { value: "3", label: "낮음" },
-        ]}
-      />
+      <Tag
+        color="#f50"
+        style={{
+          cursor: "default",
+        }}
+      >
+        높음
+      </Tag>
     ),
     progress: <Progress percent={50} size="small" status="active" />,
+    createdAt: "관리자",
+    createdDate: "2024-06-29(토)",
+  },
+  {
+    key: "2",
+    title: "일본어 회화 공부하기 2",
+    deadline: "2024.06.28 금요일",
+    status: (
+      <Tag
+        color="#108ee9"
+        style={{
+          cursor: "default",
+        }}
+      >
+        진행 중
+      </Tag>
+    ),
+
+    priority: (
+      <Tag
+        color="#f50"
+        style={{
+          cursor: "default",
+        }}
+      >
+        높음
+      </Tag>
+    ),
+    progress: <Progress percent={50} size="small" status="active" />,
+    createdAt: "관리자",
+    createdDate: "2024-06-29(토)",
   },
 ];
 
+const columns: TableColumnsType<DataType> = [
+  {
+    key: "sort",
+    align: "center",
+    width: 80,
+    render: () => <DragHandle />,
+    fixed: "left",
+  },
+  {
+    title: "할 일 제목",
+    dataIndex: "title",
+    key: "title",
+    render(value, record, index) {
+      return <Link to="/dashboard">{value}</Link>;
+    },
+    fixed: "left",
+  },
+  {
+    title: "기한",
+    dataIndex: "deadline",
+    key: "deadline",
+  },
+  {
+    title: "상태",
+    dataIndex: "status",
+    key: "status",
+  },
+  {
+    title: "우선순위",
+    dataIndex: "priority",
+    key: "priority",
+  },
+  {
+    title: "완료율",
+    dataIndex: "progress",
+    key: "progress",
+    width: 200,
+  },
+  {
+    title: "등록자",
+    dataIndex: "createdAt",
+    key: "createdAt",
+    width: 200,
+  },
+  {
+    title: "등록일",
+    dataIndex: "createdDate",
+    key: "createdDate",
+    width: 200,
+  },
+];
+
+interface RowContextProps {
+  setActivatorNodeRef?: (element: HTMLElement | null) => void;
+  listeners?: SyntheticListenerMap;
+}
+
+const RowContext = React.createContext<RowContextProps>({});
+
+const DragHandle: React.FC = () => {
+  const { setActivatorNodeRef, listeners } = useContext(RowContext);
+  return (
+    <Button
+      type="text"
+      size="small"
+      icon={<HolderOutlined />}
+      style={{ cursor: "move" }}
+      ref={setActivatorNodeRef}
+      {...listeners}
+    />
+  );
+};
+
+interface RowProps extends React.HTMLAttributes<HTMLTableRowElement> {
+  "data-row-key": string;
+}
+
+const TableRow: React.FC<RowProps> = (props) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    setActivatorNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: props["data-row-key"] });
+
+  const style: React.CSSProperties = {
+    ...props.style,
+    transform: CSS.Translate.toString(transform),
+    transition,
+    ...(isDragging ? { position: "relative", zIndex: 9999 } : {}),
+  };
+
+  const contextValue = useMemo<RowContextProps>(
+    () => ({ setActivatorNodeRef, listeners }),
+    [setActivatorNodeRef, listeners]
+  );
+
+  return (
+    <RowContext.Provider value={contextValue}>
+      <tr {...props} ref={setNodeRef} style={style} {...attributes} />
+    </RowContext.Provider>
+  );
+};
+
 const TaskManagement: React.FC = () => {
-  const columns: TableColumnsType<DataType> = [
-    {
-      title: "#",
-      dataIndex: "key",
-      rowScope: "row",
-      fixed: "left",
-      ellipsis: false,
-      width: "33px",
-    },
-    {
-      title: "할 일 제목",
-      dataIndex: "title",
-      key: "title",
-      width: "220px",
-    },
-    {
-      title: "기한",
-      dataIndex: "deadline",
-      key: "deadline",
-      width: "180px",
-    },
-    {
-      title: "상태",
-      dataIndex: "status",
-      key: "status",
-      width: "180px",
-    },
-    {
-      title: "우선순위",
-      dataIndex: "priority",
-      key: "priority",
-      width: "180px",
-    },
-    {
-      title: "북마크",
-      dataIndex: "bookmark",
-      key: "bookmark",
-      width: "60px",
-    },
-    {
-      title: "완료율",
-      dataIndex: "progress",
-      key: "progress",
-      width: "180px",
-    },
-
-    {
-      title: "Action",
-      key: "operation",
-      fixed: "right",
-      width: 100,
-      render: () => <Button icon={<EditOutlined />}>편집</Button>,
-      ellipsis: true,
-    },
-  ];
-
-  const [open, setOpen] = useState(false);
-  const [bordered, setBordered] = useState(true);
+  const [bordered, setBordered] = useState(false);
   const [size, setSize] = useState<SizeType>("middle");
   const [dataSource, setDataSource] = useState<DataType[]>(data);
-  const [filteredDataSource, setFilteredDataSource] = useState<DataType[]>([]);
+  const [recoilState] = useRecoilState(antdRecoilState);
+
   const [scroll, setScroll] = useState<{
     x?: number | string;
     y?: number | string;
@@ -149,129 +239,19 @@ const TaskManagement: React.FC = () => {
       : { x: 0, y: "calc(60vh - 50px)" }
   );
 
-  const handleMenuClick: MenuProps["onClick"] = (e) => {
-    if (e.key === "1") {
-      if (bordered) {
-        setBordered(false);
-      } else {
-        setBordered(true);
-      }
-    } else if (e.key === "2") {
-      setSize("small");
-    } else if (e.key === "3") {
-      setSize("middle");
-    } else if (e.key === "4") {
-      setSize("large");
+  const onDragEnd = ({ active, over }: DragEndEvent) => {
+    if (active.id !== over?.id) {
+      setDataSource((prevState) => {
+        const activeIndex = prevState.findIndex(
+          (record) => record.key === active?.id
+        );
+        const overIndex = prevState.findIndex(
+          (record) => record.key === over?.id
+        );
+        return arrayMove(prevState, activeIndex, overIndex);
+      });
     }
   };
-
-  const handleOpenChange: DropdownProps["onOpenChange"] = (nextOpen, info) => {
-    if (info.source === "trigger" || nextOpen) {
-      setOpen(nextOpen);
-    }
-  };
-
-  const onChange: TableProps<DataType>["onChange"] = (
-    pagination,
-    filters,
-    sorter,
-    extra
-  ) => {
-    console.log("params", pagination, filters, sorter, extra);
-    if (extra.currentDataSource.length <= 0) {
-      // 필터 후 데이터가 없으면 x: 0(헤더 꺠짐 방지)
-      setScroll({ x: 0, y: "calc(60vh - 50px)" });
-    } else {
-      setScroll({ x: "max-content", y: "calc(60vh - 50px)" });
-    }
-    setFilteredDataSource(extra.currentDataSource);
-  };
-
-  const calcTableHeight = (height: string) => {
-    if (dataSource.length <= 0) {
-      return "auto";
-    }
-    if (filteredDataSource.length <= 0) {
-      return "auto";
-    }
-
-    return height;
-  };
-
-  const items: MenuProps["items"] = [
-    {
-      key: "1",
-      label: (
-        <Badge
-          status={bordered ? "success" : "default"}
-          text={"테이블 테두리"}
-        />
-      ),
-    },
-    { type: "divider" },
-    {
-      key: "2",
-      label: (
-        <Badge
-          status={size === "small" ? "success" : "default"}
-          text={"테이블 사이즈(Small)"}
-        />
-      ),
-    },
-    {
-      key: "3",
-      label: (
-        <Badge
-          status={size === "middle" ? "success" : "default"}
-          text={"테이블 사이즈(Middle)"}
-        />
-      ),
-    },
-    {
-      key: "4",
-      label: (
-        <Space>
-          <Badge
-            status={size === "large" ? "success" : "default"}
-            text={"테이블 사이즈(Large)"}
-          />
-        </Space>
-      ),
-    },
-    { type: "divider" },
-    {
-      key: "5",
-      label: (
-        <Tooltip
-          placement="left"
-          title={"적용된 모든 필터를 초기화합니다."}
-          arrow
-        >
-          <Space>
-            <ClearOutlined />
-            <Typography.Text>테이블 필터 초기화</Typography.Text>
-          </Space>
-        </Tooltip>
-      ),
-    },
-    {
-      key: "6",
-      label: (
-        <Tooltip
-          placement="left"
-          title={
-            "필터는 유지된 상태로 적용된 테이블의 모든 설정을 기본값으로 설정합니다."
-          }
-          arrow
-        >
-          <Space>
-            <ReloadOutlined />
-            <Typography.Text>테이블 기본 설정</Typography.Text>
-          </Space>
-        </Tooltip>
-      ),
-    },
-  ];
 
   return (
     <>
@@ -290,36 +270,81 @@ const TaskManagement: React.FC = () => {
             <Badge count={5} color="green">
               <Button icon={<DeleteOutlined />}>선택 삭제</Button>
             </Badge>
-            <Dropdown
-              menu={{
-                items,
-                onClick: handleMenuClick,
-              }}
-              onOpenChange={handleOpenChange}
-              open={open}
-              arrow={{ pointAtCenter: true }}
-              placement="bottomRight"
-              trigger={["click"]}
-            >
-              <Tooltip placement="top" title={"테이블 옵션"} arrow>
-                <Button icon={<SettingOutlined />} />
-              </Tooltip>
-            </Dropdown>
+            <Tooltip placement="top" title={"테이블 옵션"} arrow>
+              <Button icon={<SettingOutlined />} />
+            </Tooltip>
           </Space>
         </Col>
       </Row>
-      <Table
-        style={{ height: calcTableHeight("60vh") }}
-        bordered={bordered}
-        columns={columns}
-        dataSource={dataSource}
-        rowSelection={{
-          type: "checkbox",
-        }}
-        onChange={onChange}
-        scroll={scroll}
-        size={size}
-      />
+
+      <Flex gap={8} style={{ height: "600px" }}>
+        <Menu
+          defaultOpenKeys={["TODO_ADMIN_001", "TODO_ADMIN_002"]}
+          defaultSelectedKeys={["TODO_ADMIN_001_01"]}
+          style={{
+            width: "300px",
+            height: "100%",
+            // border: recoilState.isDarkMode
+            //   ? "1px solid #363636"
+            //   : "1px solid #e0e0e0",
+            // borderRadius: 10,
+          }}
+          mode="inline"
+          items={[
+            {
+              key: "TODO_ADMIN_001",
+              label: "나의 할 일",
+              icon: <InboxOutlined />,
+              children: [
+                {
+                  key: "TODO_ADMIN_001_01",
+                  label: "진행 중",
+                },
+                {
+                  key: "TODO_ADMIN_001_02",
+                  label: "오늘까지",
+                },
+                {
+                  key: "TODO_ADMIN_001_03",
+                  label: "완료한 일",
+                },
+              ],
+            },
+            {
+              key: "TODO_ADMIN_002",
+              label: "카테고리",
+              icon: <InboxOutlined />,
+              children: [
+                {
+                  key: "group",
+                  label: "일상",
+                },
+              ],
+            },
+          ]}
+        />
+
+        <DndContext modifiers={[restrictToVerticalAxis]} onDragEnd={onDragEnd}>
+          <SortableContext
+            items={dataSource.map((i) => i.key)}
+            strategy={verticalListSortingStrategy}
+          >
+            <Table
+              style={{ width: "1300px" }}
+              rowKey="key"
+              components={{ body: { row: TableRow } }}
+              bordered={bordered}
+              columns={columns}
+              dataSource={dataSource}
+              rowSelection={{
+                type: "checkbox",
+              }}
+              scroll={scroll}
+              size={size}
+            />
+          </SortableContext>
+        </DndContext>
+      </Flex>
     </>
   );
 };

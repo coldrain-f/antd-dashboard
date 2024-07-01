@@ -2,15 +2,21 @@ import React, { useState } from "react";
 import {
   Button,
   Card,
+  Collapse,
+  ConfigProvider,
   Divider,
   Drawer,
   Flex,
+  List,
+  Space,
   Tooltip,
   Typography,
   theme,
 } from "antd";
 import {
+  BarsOutlined,
   CalendarOutlined,
+  CaretRightOutlined,
   CheckSquareOutlined,
   CommentOutlined,
   FormOutlined,
@@ -85,7 +91,8 @@ const DashboardSiderEnd: React.FC = () => {
         >
           <Tooltip title={"할 일"} placement={"left"}>
             <Button
-              type={siderState.collapsed ? "link" : "text"}
+              disabled
+              type="text"
               icon={<CheckSquareOutlined />}
               block
               size="large"
@@ -98,6 +105,7 @@ const DashboardSiderEnd: React.FC = () => {
           </Tooltip>
           <Tooltip title={"메모"} placement={"left"}>
             <Button
+              disabled
               type="text"
               icon={<FormOutlined />}
               block
@@ -111,6 +119,7 @@ const DashboardSiderEnd: React.FC = () => {
           </Tooltip>
           <Tooltip title={"일정"} placement={"left"}>
             <Button
+              disabled
               type="text"
               icon={<CalendarOutlined />}
               block
@@ -132,6 +141,7 @@ const DashboardSiderEnd: React.FC = () => {
 
           <Tooltip title={"채팅"} placement={"left"}>
             <Button
+              disabled
               type="text"
               icon={<CommentOutlined />}
               block
@@ -145,7 +155,7 @@ const DashboardSiderEnd: React.FC = () => {
           </Tooltip>
           <Tooltip title={"퀵 링크"} placement={"left"}>
             <Button
-              type="text"
+              type={siderState.collapsed ? "link" : "text"}
               icon={<LinkOutlined />}
               block
               size="large"
@@ -167,7 +177,7 @@ const DashboardSiderEnd: React.FC = () => {
             title={
               <Typography>
                 <Typography.Title level={5} style={{ margin: 0 }}>
-                  할 일
+                  퀵 링크
                 </Typography.Title>
               </Typography>
             }
@@ -183,7 +193,69 @@ const DashboardSiderEnd: React.FC = () => {
                 }}
               />
             }
-          ></Card>
+          >
+            <Typography.Title
+              level={5}
+              style={{ padding: 0, margin: 0, marginBottom: 12 }}
+            >
+              <Space>
+                <BarsOutlined />
+                생산성 관리
+              </Space>
+            </Typography.Title>
+
+            <Space direction="vertical">
+              <Typography.Link
+                href="https://calendar.google.com/calendar"
+                target="_blank"
+              >
+                ⦁ Google Calendar
+              </Typography.Link>
+              <Typography.Link
+                href="https://calendar.google.com/calendar/u/0/r/tasks"
+                target="_blank"
+              >
+                ⦁ Google Tasks
+              </Typography.Link>
+              <Typography.Link
+                href="https://keep.google.com/u/0/"
+                target="_blank"
+              >
+                ⦁ Google Keep
+              </Typography.Link>
+            </Space>
+
+            <Divider />
+            <Typography.Title
+              level={5}
+              style={{ padding: 0, margin: 0, marginBottom: 12 }}
+            >
+              <Space>
+                <BarsOutlined />
+                개발 도우미
+              </Space>
+            </Typography.Title>
+            <Space direction="vertical">
+              <Typography.Link
+                href="https://gemini.google.com/app"
+                target="_blank"
+              >
+                ⦁ Google Gemini
+              </Typography.Link>
+              <Typography.Link
+                href="https://ant.design/components/overview/"
+                target="_blank"
+              >
+                ⦁ Antd Design
+              </Typography.Link>
+              <Typography.Link href="https://apexcharts.com/" target="_blank">
+                ⦁ Apex Charts
+              </Typography.Link>
+              <Typography.Link href="https://apexcharts.com/" target="_blank">
+                ⦁ Icon Font
+              </Typography.Link>
+            </Space>
+          </Card>
         )}
       </Flex>
     </Sider>
